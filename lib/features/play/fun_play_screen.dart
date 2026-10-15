@@ -176,19 +176,24 @@ class _FunPlayScreenState extends ConsumerState<FunPlayScreen> {
     final i = ref.watch(i18nProvider);
     // Như web (PWA, thanh trạng thái 'default'): game không vẽ dưới thanh trạng thái / tai thỏ,
     // nếu không HUD ở góc trên (hạng, điểm, máu...) bị đồng hồ và Dynamic Island che.
-    final top = MediaQuery.paddingOf(context).top;
+    // Đáy cũng vậy: thanh điều hướng Android (edge-to-edge) và vạch Home của iPhone không được che nút điều khiển.
+    final pad = MediaQuery.paddingOf(context);
+    final top = pad.top;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(fit: StackFit.expand, children: [
         if (ready && ctx != null)
           Positioned(
             top: top,
-            left: 0,
-            right: 0,
-            bottom: 0,
+            left: pad.left,
+            right: pad.right,
+            bottom: pad.bottom,
             child: MediaQuery.removePadding(
               context: context,
               removeTop: true,
+              removeBottom: true,
+              removeLeft: true,
+              removeRight: true,
               child: KeyedSubtree(key: ValueKey('fun-$run'), child: Builder(builder: (c) => module!.build(c, ctx!))),
             ),
           ),

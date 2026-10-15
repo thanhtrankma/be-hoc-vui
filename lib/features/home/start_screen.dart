@@ -59,10 +59,14 @@ class StartScreen extends ConsumerWidget {
             // Đoàn linh vật nhảy lần lượt
             Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 18),
-              child: Row(mainAxisSize: MainAxisSize.min, spacing: (w * .02).clamp(8.0, 24.0), children: [
-                for (final (k, n) in const ['Man superhero', 'Robot', 'T-rex', 'Princess'].indexed)
-                  Hop(delay: Duration(milliseconds: 1600 - k * 200), child: EmojiImage(n, size: mascot, photo: false)),
-              ]),
+              // Máy hẹp (vd. Android 360dp): thu nhỏ cả hàng cho vừa thay vì tràn.
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Row(mainAxisSize: MainAxisSize.min, spacing: (w * .02).clamp(8.0, 24.0), children: [
+                  for (final (k, n) in const ['Man superhero', 'Robot', 'T-rex', 'Princess'].indexed)
+                    Hop(delay: Duration(milliseconds: 1600 - k * 200), child: EmojiImage(n, size: mascot, photo: false)),
+                ]),
+              ),
             ),
             Text.rich(
               key: const Key('logo'),
@@ -101,7 +105,7 @@ class StartScreen extends ConsumerWidget {
             const SizedBox(height: 18),
             DefaultTextStyle.merge(
               style: const TextStyle(color: AppColors.inkSoft, fontWeight: FontWeight.w600, decoration: TextDecoration.underline, decorationColor: AppColors.inkSoft),
-              child: Row(mainAxisSize: MainAxisSize.min, children: [
+              child: Wrap(alignment: WrapAlignment.center, children: [
                 GestureDetector(onTap: () => _link(context, ref, '/be-vui-hoc'), child: const Text('Giới thiệu')),
                 const Text(' · ', style: TextStyle(decoration: TextDecoration.none)),
                 GestureDetector(onTap: () => _link(context, ref, '/be-vui-hoc/ghi-cong'), child: const Text('Ghi công')),

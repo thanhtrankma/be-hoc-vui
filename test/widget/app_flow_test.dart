@@ -51,6 +51,14 @@ void main() {
     await tester.pump(const Duration(seconds: 5));
   }
 
+  testWidgets('màn Bắt đầu không tràn trên máy Android hẹp (320, 360dp)', (tester) async {
+    for (final size in const [Size(320, 640), Size(360, 780)]) {
+      await pumpApp(tester, size: size);
+      expect(tester.takeException(), isNull, reason: '$size');
+      await unmount(tester);
+    }
+  });
+
   testWidgets('màn Bắt đầu như web', (tester) async {
     await pumpApp(tester);
     expect(find.byKey(const Key('logo')), findsOneWidget);
@@ -196,9 +204,10 @@ void main() {
     await tester.pumpAndSettle();
     final game = tester.getRect(find.byKey(const ValueKey('fun-0')));
     expect(game.top, 62);
-    expect(game.bottom, 844);
+    expect(game.bottom, 844 - 34); // chừa vạch Home / thanh điều hướng Android
     // Trong game, MediaQuery không còn lề trên (SafeArea của game không cộng thêm lần nữa).
     expect(MediaQuery.paddingOf(tester.element(find.text('Thắng (thử)'))).top, 0);
+    expect(MediaQuery.paddingOf(tester.element(find.text('Thắng (thử)'))).bottom, 0);
     expect(tester.getRect(find.byKey(const Key('fun-quit'))).top, 62 + 70);
     await unmount(tester);
   });
