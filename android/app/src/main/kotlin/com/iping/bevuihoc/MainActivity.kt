@@ -1,4 +1,4 @@
-package com.datpilot.be_vui_hoc
+package com.iping.bevuihoc
 
 import io.flutter.embedding.android.FlutterActivity
 
