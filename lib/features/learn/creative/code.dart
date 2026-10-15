@@ -683,7 +683,10 @@ class _CodeViewState extends State<CodeView> {
             ),
           ),
       ]),
-      Row(mainAxisSize: MainAxisSize.min, spacing: 12, children: [
+      // Máy 320dp: hai nút (đệm theo cỡ chữ 26) rộng hơn cột → thu nhỏ cả hàng.
+      FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Row(mainAxisSize: MainAxisSize.min, spacing: 12, children: [
         if (!fix)
           AppButton(
             key: const Key('cd-clear'),
@@ -694,7 +697,8 @@ class _CodeViewState extends State<CodeView> {
             onTap: _clear,
           ),
         AppButton(key: const Key('cd-run'), label: '▶', variant: BtnVariant.green, minWidth: 84, fontSize: 26, enabled: !busy, onTap: busy ? null : _run),
-      ]),
+        ]),
+      ),
     ]);
   }
 

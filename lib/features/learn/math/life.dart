@@ -458,7 +458,9 @@ class _ShopViewState extends _RoundsState<ShopView> {
       final landscape = box.maxWidth > box.maxHeight * 1.2;
       // Ô kệ: theo bề ngang, nhưng không để tràn chiều cao.
       final shelfItem = math.min((w - 28 - 36) / 4, landscape ? (box.maxHeight - 250) : (box.maxHeight - 330) / 1.0).clamp(56.0, 170.0);
-      final custImg = vwClamp(context, 80, 12, 120).clamp(64.0, box.maxHeight * .2);
+      // Điện thoại xoay ngang: 20% chiều cao có thể < 64 → lấy cận dưới nhỏ hơn (clamp lỗi khi min > max).
+      final custMax = box.maxHeight * .2;
+      final custImg = vwClamp(context, 80, 12, 120).clamp(math.min(64.0, custMax), custMax).toDouble();
       final shelfW = shelfItem * 4 + 36 + 28;
       final customer = Row(mainAxisSize: MainAxisSize.min, spacing: 14, children: [
         GestureDetector(key: const Key('shop-customer'), onTap: _speakOrder, child: EmojiImage(asStr(who!['img']), size: custImg, photo: false)),
@@ -532,7 +534,8 @@ class _ShopViewState extends _RoundsState<ShopView> {
       return Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          child: Column(mainAxisSize: MainAxisSize.min, spacing: 14, children: [customer, shelfEl, basketRow]),
+          // Đơn hàng dài (3 món) trên máy hẹp: thu nhỏ hàng khách + bong bóng thay vì tràn ngang.
+          child: Column(mainAxisSize: MainAxisSize.min, spacing: 14, children: [FittedBox(fit: BoxFit.scaleDown, child: customer), shelfEl, basketRow]),
         ),
       );
     });
@@ -770,9 +773,10 @@ class _WeekViewState extends _RoundsState<WeekView> {
     final days = g.content.list('weekdays');
     return LayoutBuilder(builder: (context, box) {
       final w = math.min(900.0, box.maxWidth - 24);
-      final cw = ((w - 6 * 8) / 7).clamp(36.0, 140.0);
+      // 7 ô phải vừa một hàng: máy 320dp chỉ còn ~31px mỗi ô (không ép tối thiểu 36 → tràn).
+      final cw = math.min((w - 6 * 8) / 7, 140.0);
       final ch = math.min(cw / .8, box.maxHeight - 120);
-      final fs = vwClamp(context, 20, 3.4, 34).clamp(14.0, cw * .5);
+      final fs = vwClamp(context, 20, 3.4, 34).clamp(math.min(14.0, cw * .5), cw * .5).toDouble();
       return Center(
         child: Column(mainAxisSize: MainAxisSize.min, spacing: 20, children: [
           PromptButton(label: '${g.i18n.t(tomorrow ? 'tomorrow' : 'yesterday')}?', onTap: () => g.audio.say(q)),

@@ -109,7 +109,7 @@ class _LogicQuizState extends State<_LogicQuiz> {
         return QuizQuestion(
           say: g.audio.phrase('shadowQ'),
           stage: (context) {
-            final s = vwClamp(context, 120, 24, 230).clamp(80.0, MediaQuery.sizeOf(context).height * .28);
+            final s = vwClamp(context, 120, 24, 230).clamp(math.min(80.0, MediaQuery.sizeOf(context).height * .28), MediaQuery.sizeOf(context).height * .28).toDouble();
             return EmojiImage(q.answer, size: s, photo: false, color: Colors.black.withValues(alpha: .78), colorBlendMode: BlendMode.srcIn);
           },
           choices: [for (final x in q.choices) QuizChoice(id: x, node: (_) => _img(x, photo: false))],
@@ -446,7 +446,8 @@ class _SudokuViewState extends State<SudokuView> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, c) {
       final wide = c.maxWidth > c.maxHeight * 1.2;
-      final palBtn = wide ? math.min(100.0, (c.maxHeight - 40) / 4.6) : (c.maxWidth * .14).clamp(64.0, 100.0);
+      // Dọc: 4 nút bảng chọn + 3 khe 12 phải vừa bề ngang (máy 320dp).
+      final palBtn = wide ? math.min(100.0, (c.maxHeight - 40) / 4.6) : math.min((c.maxWidth * .14).clamp(64.0, 100.0), (c.maxWidth - 36) / 4);
       final gridSide = wide ? math.min(c.maxHeight - 8, math.min(460.0, c.maxWidth - palBtn * 2.6)) : math.min(math.min(c.maxWidth * .92, 460.0), c.maxHeight - palBtn - 40);
       final grid = Container(
         width: gridSide,
@@ -593,14 +594,17 @@ class _JigsawViewState extends State<JigsawView> {
     final aspect = (400 / widget.cols) / (300 / widget.rows);
     return LayoutBuilder(builder: (context, c) {
       final wide = c.maxWidth > c.maxHeight * 1.25;
-      final pw = math.min(150.0, 560 / widget.cols);
+      var pw = math.min(150.0, 560 / widget.cols);
       double bw, bh;
       if (wide) {
         bw = math.min(math.min(620.0, c.maxWidth * .6), (c.maxHeight - 8) * 4 / 3);
       } else {
-        final rowsInTray = (n / math.max(1, ((c.maxWidth + 10) / (pw + 10)).floor())).ceil();
-        final trayH = rowsInTray * (pw / aspect + 10);
-        bw = math.min(math.min(620.0, c.maxWidth), math.max(160.0, (c.maxHeight - trayH - 20)) * 4 / 3);
+        // Màn thấp/hẹp: thu nhỏ mảnh ghép tới khi bảng (≥ 160) + khay vừa chiều cao, không tràn xuống dưới.
+        double trayH() => (n / math.max(1, ((c.maxWidth + 10) / (pw + 10)).floor())).ceil() * (pw / aspect + 10);
+        while (pw > 36 && c.maxHeight - trayH() - 14 < math.min(160.0, c.maxWidth) * 3 / 4) {
+          pw *= .9;
+        }
+        bw = math.min(math.min(620.0, c.maxWidth), math.max(120.0, (c.maxHeight - trayH() - 14)) * 4 / 3);
       }
       bh = bw * 3 / 4;
       final board = SizedBox(

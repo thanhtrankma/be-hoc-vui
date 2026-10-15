@@ -127,15 +127,22 @@ class _ExploreViewState extends State<ExploreView> {
       final card = it == null
           ? const SizedBox()
           : _SortCard(key: ValueKey('card-$idx'), img: asStr(it['img']), name: asStr(it['name']), size: cardImg, flying: flying, shake: shake);
+      // Tên dài (2 dòng) hoặc màn thấp: thẻ thu nhỏ cho vừa ô, không tràn.
       final slot = Center(
         child: it == null
             ? const SizedBox()
-            : Draggable<String>(
+            : FittedBox(
+                fit: BoxFit.scaleDown,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: box.maxWidth - 24),
+                  child: Draggable<String>(
                 data: 'card',
                 maxSimultaneousDrags: busy ? 0 : 1,
                 feedback: Material(color: Colors.transparent, child: Transform.rotate(angle: .05, child: _SortCard(img: asStr(it['img']), name: asStr(it['name']), size: cardImg, lifted: true))),
                 childWhenDragging: Opacity(opacity: .25, child: card),
                 child: GestureDetector(key: const Key('sort-card'), onTap: () => g.audio.say(nameOf(asStr(it['name']))), child: card),
+                  ),
+                ),
               ),
       );
       Widget basket(String side, Json d) => Expanded(

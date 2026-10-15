@@ -175,7 +175,11 @@ class _AdoptState extends ConsumerState<_Adopt> with SayOnOpen {
                 child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Expanded(child: Center(child: _MiniPet(kind: k.id, phase: i * 1.3))),
                   const SizedBox(height: 6),
-                  Text(i18n.L(k), style: TextStyle(fontWeight: FontWeight.w800, fontSize: baseFontSize(context) * 1.2, color: AppColors.ink2)),
+                  // Ô có tỉ lệ cố định: tên dài/chữ to thì thu nhỏ trên một dòng.
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(i18n.L(k), maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800, fontSize: baseFontSize(context) * 1.2, color: AppColors.ink2)),
+                  ),
                 ]),
               ),
           ],
@@ -367,7 +371,10 @@ class _PetRoomState extends ConsumerState<_PetRoom> with SingleTickerProviderSta
     final kind = sim.kind;
     final pet = sim.pet;
     final fs = baseFontSize(context);
+    // Màn thấp (điện thoại xoay ngang): không đủ chỗ cho phòng ≥ 260 + khay + nút → cuộn cả trang như web.
+    final short = MediaQuery.sizeOf(context).height < 600;
     return AppScreen(
+      scroll: short,
       padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
       child: Column(spacing: 10, children: [
         TopBar(
@@ -385,8 +392,9 @@ class _PetRoomState extends ConsumerState<_PetRoom> with SingleTickerProviderSta
           ),
         ),
         _bars(context, kind),
-        Expanded(
-          child: Container(
+        _fill(
+          short,
+          Container(
             constraints: const BoxConstraints(minHeight: 260),
             decoration: BoxDecoration(color: const Color(0xFFFFF0F6), borderRadius: BorderRadius.circular(30), boxShadow: kCardShadow),
             clipBehavior: Clip.antiAlias,
@@ -409,6 +417,9 @@ class _PetRoomState extends ConsumerState<_PetRoom> with SingleTickerProviderSta
       ]),
     );
   }
+
+  /// Phòng chiếm phần còn lại của màn; màn thấp (đang cuộn) thì cao cố định 260 (min-height của web).
+  Widget _fill(bool short, Widget child) => short ? SizedBox(height: 260, child: child) : Expanded(child: child);
 
   Widget _bars(BuildContext context, PetKind kind) {
     Widget bar(String icon, double v, {bool xp = false, Key? key}) {

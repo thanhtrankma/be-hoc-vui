@@ -14,9 +14,9 @@ import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initFirebase(options: DefaultFirebaseOptions.currentPlatform);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark));
-  final results = await Future.wait([SharedPreferences.getInstance(), loadContentBundle()]);
+  // Firebase khởi động song song với việc nạp dữ liệu (không bắt màn đầu chờ).
+  final results = await Future.wait([SharedPreferences.getInstance(), loadContentBundle(), initFirebase(options: DefaultFirebaseOptions.currentPlatform)]);
   final prefs = results[0] as SharedPreferences;
   final bundle = results[1] as ContentBundle;
   final store = AppStore(prefs);

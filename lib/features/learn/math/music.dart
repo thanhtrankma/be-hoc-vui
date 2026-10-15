@@ -107,18 +107,22 @@ class _Key extends StatelessWidget {
           if (next) const BoxShadow(color: AppColors.sun, blurRadius: 18, spreadRadius: 2),
         ],
       ),
-      child: Column(children: [
-        const SizedBox(height: 12),
-        _dot(),
-        const Spacer(),
-        _dot(),
-        const SizedBox(height: 10),
-        Text(label,
-            maxLines: 1,
-            overflow: TextOverflow.clip,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: fs, shadows: const [Shadow(color: Color(0x40000000), offset: Offset(0, 2))])),
-        const SizedBox(height: 10),
-      ]),
+      // Phím thấp (điện thoại xoay ngang): khoảng cách co lại, bỏ hai chấm đinh nếu vẫn không đủ chỗ.
+      child: LayoutBuilder(builder: (context, c) {
+        final dots = c.maxHeight >= 24 + fs * 1.4 + 20;
+        return Column(children: [
+          const Flexible(child: SizedBox(height: 12)),
+          if (dots) _dot(),
+          const Spacer(),
+          if (dots) _dot(),
+          const Flexible(child: SizedBox(height: 10)),
+          Text(label,
+              maxLines: 1,
+              overflow: TextOverflow.clip,
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: fs, shadows: const [Shadow(color: Color(0x40000000), offset: Offset(0, 2))])),
+          const Flexible(child: SizedBox(height: 10)),
+        ]);
+      }),
     );
     // Phím cần gõ nhấp nhô (keyframes glow).
     if (next) {

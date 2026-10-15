@@ -537,11 +537,15 @@ class _DictationViewState extends State<DictationView> {
             child: const Text('🔊', style: TextStyle(fontSize: 26)),
           ),
         ),
-        Row(mainAxisAlignment: MainAxisAlignment.center, spacing: 10, children: [
-          _slot('c', pc, slot),
-          _slot('v', pv == null ? null : (pt != null ? placeTone(pv!, pt!) : pv), slot),
-          _slot('t', pt, slot, tone: true),
-        ]),
+        // Ba ô 90 + khe vừa sát 320dp → thu nhỏ nhẹ thay vì tràn 2px.
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Row(mainAxisSize: MainAxisSize.min, spacing: 10, children: [
+            _slot('c', pc, slot),
+            _slot('v', pv == null ? null : (pt != null ? placeTone(pv!, pt!) : pv), slot),
+            _slot('t', pt, slot, tone: true),
+          ]),
+        ),
         SizedBox(
           height: vwClamp(context, 48, 8, 80) * 1.15,
           child: Text(_shown, key: const Key('dict-word'), style: TextStyle(fontSize: vwClamp(context, 48, 8, 80), fontWeight: FontWeight.w800, height: 1.1, color: AppColors.ink)),

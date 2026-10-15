@@ -124,8 +124,14 @@ class ReportModel {
           .map((e) => toneName(splitKey(e.key).$2))
           .toList();
       final nW = content.list('vnwords').length;
-      add('spell', nameOf('spell'), 'Đọc đúng ${w.m}/$nW tiếng', nW == 0 ? null : w.m / nW, accTxt(S('spell')),
-          t.n > 0 ? 'Dấu thanh: ${pct(t.r, t.w)}% đúng${weakTone.isNotEmpty ? ' · còn nhầm ${weakTone.join(', ')}' : ''}' : null);
+      add(
+        'spell',
+        nameOf('spell'),
+        'Đọc đúng ${w.m}/$nW tiếng',
+        nW == 0 ? null : w.m / nW,
+        accTxt(S('spell')),
+        t.n > 0 ? 'Dấu thanh: ${pct(t.r, t.w)}% đúng${weakTone.isNotEmpty ? ' · còn nhầm ${weakTone.join(', ')}' : ''}' : null,
+      );
     }
     final r2 = sum((k) => k.startsWith('twoWords:')), rs = sum((k) => k.startsWith('sentences:'));
     if (r2.n > 0 || rs.n > 0 || S('read')[0] + S('read')[1] > 0) {
@@ -139,8 +145,14 @@ class ReportModel {
     });
     final f = sum(LearnTracker.isFact);
     if (f.n > 0 || S('math')[0] + S('math')[1] > 0) {
-      add('math', nameOf('math'), mathLines.isNotEmpty ? mathLines.first : 'Làm đúng ${f.m} phép tính', null, accTxt(S('math')),
-          mathLines.length > 1 ? mathLines.skip(1).join(' · ') : null);
+      add(
+        'math',
+        nameOf('math'),
+        mathLines.isNotEmpty ? mathLines.first : 'Làm đúng ${f.m} phép tính',
+        null,
+        accTxt(S('math')),
+        mathLines.length > 1 ? mathLines.skip(1).join(' · ') : null,
+      );
     }
     final e = sum(LearnTracker.isEn);
     final enSets = content.list('englishLevels').map((x) => x['set']).whereType<String>().toSet();
@@ -153,8 +165,13 @@ class ReportModel {
       if (const ['letters', 'spell', 'read', 'math', 'english'].contains(i.id)) continue;
       final s = S(i.id);
       if (s[0] + s[1] > 0) {
-        add(i.id, i.textOf(lang), '${pct(s[0], s[1])}% đúng ngay', pct(s[0], s[1])! / 100,
-            '${s[0] + s[1]} câu · ~${max(1, (s[2] / (s[0] + s[1]) / 1000).round())} giây/câu');
+        add(
+          i.id,
+          i.textOf(lang),
+          '${pct(s[0], s[1])}% đúng ngay',
+          pct(s[0], s[1])! / 100,
+          '${s[0] + s[1]} câu · ~${max(1, (s[2] / (s[0] + s[1]) / 1000).round())} giây/câu',
+        );
       }
     }
     return rows;
@@ -189,10 +206,10 @@ class ReportModel {
       final key = x.ns == 'letters'
           ? 'letters:${x.a}'
           : x.ns == 'tone'
-              ? 'tone:${x.a}'
-              : x.ns.startsWith('en_')
-                  ? '${x.ns}:${x.a}'
-                  : null;
+          ? 'tone:${x.a}'
+          : x.ns.startsWith('en_')
+          ? '${x.ns}:${x.a}'
+          : null;
       return WeakItem(text: '${confLabel(x.ns, x.a)} ↔ ${confLabel(x.ns, x.b)}', n: x.n, key: key, conf: true);
     }).toList();
     final inConf = conf.map((x) => x.key).toSet();
@@ -294,134 +311,219 @@ class ReportScreen extends ConsumerWidget {
 
     return AppScreen(
       scroll: true,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, spacing: 16, children: [
-        TopBar(
-          leading: IconBtn(icon: AppIcon.back, label: 'Back', onTap: () {
-            ref.read(audioProvider).sfx('tap');
-            context.go('/parent');
-          }),
-          title: '📊 Báo cáo của ${p.name}',
-        ),
-        // ----- Tổng quan -----
-        CardBox(
-          key: const Key('rp-hero'),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, spacing: 12, children: [
-            Row(spacing: 14, children: [
-              Dressed(profile: p, size: 84),
-              Expanded(
-                child: Column(crossAxisAlignment: CrossAxisAlignment.start, spacing: 4, children: [
-                  Text(summary, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 18)),
-                  Text('${tierOf(p.tier).textOf(i.lang)} · ⭐ ${p.stars} sao · 🔥 ${p.streakCount} ngày liên tiếp', style: const TextStyle(color: AppColors.inkSoft)),
-                  if (goal != null) Text('🎯 $goal', style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.primaryDark)),
-                ]),
-              ),
-            ]),
-            Wrap(spacing: 12, runSpacing: 12, children: [
-              _TileGroup(title: 'Hôm nay', tiles: [('⏱️', td.min, 'phút'), ('📚', td.les, 'bài'), ('⭐', td.stars, 'sao')]),
-              _TileGroup(title: '7 ngày qua', tiles: [('⏱️', wk.min, 'phút'), ('📚', wk.les, 'bài'), ('⭐', wk.stars, 'sao')]),
-            ]),
-          ]),
-        ),
-        // ----- 7 ngày -----
-        _Section(title: '📅 7 ngày qua', children: [
-          SizedBox(
-            height: 170,
-            child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-              for (final d in days)
-                Expanded(
-                  child: Column(children: [
-                    Text(d.min > 0 ? '${d.min}′' : '', style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.inkSoft)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: 16,
+        children: [
+          TopBar(
+            leading: IconBtn(
+              icon: AppIcon.back,
+              label: 'Back',
+              onTap: () {
+                ref.read(audioProvider).sfx('tap');
+                context.go('/parent');
+              },
+            ),
+            title: '📊 Báo cáo của ${p.name}',
+          ),
+          // ----- Tổng quan -----
+          CardBox(
+            key: const Key('rp-hero'),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 12,
+              children: [
+                Row(
+                  spacing: 14,
+                  children: [
+                    Dressed(profile: p, size: 84),
                     Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                        child: Container(
-                          alignment: Alignment.bottomCenter,
-                          decoration: BoxDecoration(color: AppColors.segBg, borderRadius: BorderRadius.circular(10)),
-                          child: FractionallySizedBox(
-                            heightFactor: d.min / maxMin,
-                            widthFactor: 1,
-                            child: Container(
-                              decoration: BoxDecoration(color: identical(d, td) ? AppColors.primary : AppColors.blue, borderRadius: BorderRadius.circular(10)),
-                            ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: 4,
+                        children: [
+                          Text(summary, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 18)),
+                          Text(
+                            '${tierOf(p.tier).textOf(i.lang)} · ⭐ ${p.stars} sao · 🔥 ${p.streakCount} ngày liên tiếp',
+                            style: const TextStyle(color: AppColors.inkSoft),
                           ),
-                        ),
+                          if (goal != null)
+                            Text(
+                              '🎯 $goal',
+                              style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.primaryDark),
+                            ),
+                        ],
                       ),
                     ),
-                    Text(d.wd, style: TextStyle(fontWeight: FontWeight.w800, color: identical(d, td) ? AppColors.primaryDark : AppColors.ink)),
-                    Text(d.les > 0 ? '${d.les} bài' : '·', style: const TextStyle(fontSize: 12, color: AppColors.inkSoft)),
-                  ]),
+                  ],
                 ),
-            ]),
+                Wrap(
+                  spacing: 12,
+                  runSpacing: 12,
+                  children: [
+                    _TileGroup(title: 'Hôm nay', tiles: [('⏱️', td.min, 'phút'), ('📚', td.les, 'bài'), ('⭐', td.stars, 'sao')]),
+                    _TileGroup(title: '7 ngày qua', tiles: [('⏱️', wk.min, 'phút'), ('📚', wk.les, 'bài'), ('⭐', wk.stars, 'sao')]),
+                  ],
+                ),
+              ],
+            ),
           ),
-          const NoteText('Cột: số phút học mỗi ngày. Dưới cột: số bài đã làm.', textAlign: TextAlign.start),
-        ]),
-        // ----- Kỹ năng -----
-        _Section(title: '🧠 Con đã học được gì', children: [
-          if (rows.isEmpty) const NoteText('Chưa có số liệu. Cho bé chơi vài bài, báo cáo sẽ hiện ở đây.', textAlign: TextAlign.start),
-          for (final r in rows) _SkillTile(row: r),
-          NoteText('"Đúng ngay" = chọn đúng ở lần chạm đầu. Số liệu theo dõi từ ${fmtDate(l['since'] as String? ?? store.today())}.', textAlign: TextAlign.start),
-        ]),
-        // ----- Hay nhầm -----
-        _Section(title: '🔎 Con hay nhầm', children: [
-          if (weak.isEmpty) const NoteText('Chưa thấy chỗ nào con nhầm nhiều lần. Tuyệt!', textAlign: TextAlign.start),
-          if (weak.isNotEmpty) ...[
-            Wrap(spacing: 8, runSpacing: 8, children: [
-              for (final x in weak)
-                Chunky(
-                  key: ValueKey('weak-${x.text}'),
-                  depth: 3,
-                  radius: 16,
-                  color: x.conf ? const Color(0xFFFFF0E8) : Colors.white,
-                  border: Border.all(color: AppColors.line, width: 2),
-                  padding: const EdgeInsets.fromLTRB(10, 6, 12, 6),
-                  semanticLabel: 'Luyện riêng mục này',
-                  onTap: x.key == null ? null : () => practice('/review/x/${Uri.encodeComponent(x.key!)}'),
-                  child: Row(mainAxisSize: MainAxisSize.min, spacing: 6, children: [
-                    if (x.img != null) EmojiImage(x.img!, size: 30, photo: false),
-                    Text(x.text, style: const TextStyle(fontWeight: FontWeight.w800)),
-                    Text('sai ${x.n} lần', style: const TextStyle(fontSize: 12, color: AppColors.inkSoft)),
-                  ]),
+          // ----- 7 ngày -----
+          _Section(
+            title: '📅 7 ngày qua',
+            children: [
+              SizedBox(
+                height: 170,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    for (final d in days)
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Text(
+                              d.min > 0 ? '${d.min}′' : '',
+                              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.inkSoft),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                                child: Container(
+                                  alignment: Alignment.bottomCenter,
+                                  decoration: BoxDecoration(color: AppColors.segBg, borderRadius: BorderRadius.circular(10)),
+                                  child: FractionallySizedBox(
+                                    heightFactor: d.min / maxMin,
+                                    widthFactor: 1,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: identical(d, td) ? AppColors.primary : AppColors.blue,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              d.wd,
+                              style: TextStyle(fontWeight: FontWeight.w800, color: identical(d, td) ? AppColors.primaryDark : AppColors.ink),
+                            ),
+                            Text(d.les > 0 ? '${d.les} bài' : '·', style: const TextStyle(fontSize: 12, color: AppColors.inkSoft)),
+                          ],
+                        ),
+                      ),
+                  ],
                 ),
-            ]),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 12),
-                child: AppButton(key: const Key('rp-practice'), icon: '▶', label: 'Luyện lại cho ${p.name}', variant: BtnVariant.green, onTap: () => practice('/review/all')),
               ),
-            ),
-            const NoteText(
-                'Bấm "Luyện lại" rồi đưa máy cho bé: bé làm một bài ôn ngắn đúng những chỗ này. Các chỗ sai cũng tự hỏi lại sau 1, 3, 7 ngày (nút 🔁 trên bản đồ).',
-                textAlign: TextAlign.start),
-          ],
-        ]),
-        // ----- Mốc tiến bộ -----
-        _Section(title: '🏅 Mốc tiến bộ & bằng khen', children: [
-          if (ms.isEmpty) const NoteText('Chưa có mốc nào. Mốc đầu tiên: đọc đúng 10 tiếng, nhận ra 10 chữ cái hoặc làm đúng 20 phép tính.', textAlign: TextAlign.start),
-          for (final id in ms)
-            Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: Chunky(
-                key: ValueKey('ms-$id'),
-                depth: 3,
-                radius: 18,
-                border: Border.all(color: AppColors.line, width: 2),
-                padding: const EdgeInsets.fromLTRB(10, 8, 14, 8),
-                onTap: () => showCertificate(context, ref, p, id, parent: true),
-                child: Row(spacing: 10, children: [
-                  EmojiImage(tracker.msInfo(id, i.lang).img, size: 44, photo: false),
-                  Expanded(
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      Text(tracker.msInfo(id, i.lang).text, style: const TextStyle(fontWeight: FontWeight.w800)),
-                      Text(fmtDate(asMap(l['msAt'])[id] as String?), style: const TextStyle(fontStyle: FontStyle.italic, color: AppColors.inkSoft, fontSize: 13)),
-                    ]),
+              const NoteText('Cột: số phút học mỗi ngày. Dưới cột: số bài đã làm.', textAlign: TextAlign.start),
+            ],
+          ),
+          // ----- Kỹ năng -----
+          _Section(
+            title: '🧠 Con đã học được gì',
+            children: [
+              if (rows.isEmpty) const NoteText('Chưa có số liệu. Cho bé chơi vài bài, báo cáo sẽ hiện ở đây.', textAlign: TextAlign.start),
+              for (final r in rows) _SkillTile(row: r),
+              NoteText(
+                '"Đúng ngay" = chọn đúng ở lần chạm đầu. Số liệu theo dõi từ ${fmtDate(l['since'] as String? ?? store.today())}.',
+                textAlign: TextAlign.start,
+              ),
+            ],
+          ),
+          // ----- Hay nhầm -----
+          _Section(
+            title: '🔎 Con hay nhầm',
+            children: [
+              if (weak.isEmpty) const NoteText('Chưa thấy chỗ nào con nhầm nhiều lần. Tuyệt!', textAlign: TextAlign.start),
+              if (weak.isNotEmpty) ...[
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    for (final x in weak)
+                      Chunky(
+                        key: ValueKey('weak-${x.text}'),
+                        depth: 3,
+                        radius: 16,
+                        color: x.conf ? const Color(0xFFFFF0E8) : Colors.white,
+                        border: Border.all(color: AppColors.line, width: 2),
+                        padding: const EdgeInsets.fromLTRB(10, 6, 12, 6),
+                        semanticLabel: 'Luyện riêng mục này',
+                        onTap: x.key == null ? null : () => practice('/review/x/${Uri.encodeComponent(x.key!)}'),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          spacing: 6,
+                          children: [
+                            if (x.img != null) EmojiImage(x.img!, size: 30, photo: false),
+                            // Câu dài (xếp câu, đọc câu) xuống dòng trong thẻ thay vì tràn ngang.
+                            Flexible(child: Text(x.text, style: const TextStyle(fontWeight: FontWeight.w800))),
+                            Text('sai ${x.n} lần', style: const TextStyle(fontSize: 12, color: AppColors.inkSoft)),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: AppButton(
+                      key: const Key('rp-practice'),
+                      icon: '▶',
+                      label: 'Luyện lại cho ${p.name}',
+                      variant: BtnVariant.green,
+                      onTap: () => practice('/review/all'),
+                    ),
                   ),
-                  const Text('🏅', style: TextStyle(fontSize: 26)),
-                ]),
-              ),
-            ),
-        ]),
-      ]),
+                ),
+                const NoteText(
+                  'Bấm "Luyện lại" rồi đưa máy cho bé: bé làm một bài ôn ngắn đúng những chỗ này. Các chỗ sai cũng tự hỏi lại sau 1, 3, 7 ngày (nút 🔁 trên bản đồ).',
+                  textAlign: TextAlign.start,
+                ),
+              ],
+            ],
+          ),
+          // ----- Mốc tiến bộ -----
+          _Section(
+            title: '🏅 Mốc tiến bộ & bằng khen',
+            children: [
+              if (ms.isEmpty)
+                const NoteText('Chưa có mốc nào. Mốc đầu tiên: đọc đúng 10 tiếng, nhận ra 10 chữ cái hoặc làm đúng 20 phép tính.', textAlign: TextAlign.start),
+              for (final id in ms)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Chunky(
+                    key: ValueKey('ms-$id'),
+                    depth: 3,
+                    radius: 18,
+                    border: Border.all(color: AppColors.line, width: 2),
+                    padding: const EdgeInsets.fromLTRB(10, 8, 14, 8),
+                    onTap: () => showCertificate(context, ref, p, id, parent: true),
+                    child: Row(
+                      spacing: 10,
+                      children: [
+                        EmojiImage(tracker.msInfo(id, i.lang).img, size: 44, photo: false),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(tracker.msInfo(id, i.lang).text, style: const TextStyle(fontWeight: FontWeight.w800)),
+                              Text(
+                                fmtDate(asMap(l['msAt'])[id] as String?),
+                                style: const TextStyle(fontStyle: FontStyle.italic, color: AppColors.inkSoft, fontSize: 13),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Text('🏅', style: TextStyle(fontSize: 26)),
+                      ],
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -432,12 +534,18 @@ class _Section extends StatelessWidget {
   final List<Widget> children;
   @override
   Widget build(BuildContext context) => CardBox(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Text(title, style: TextStyle(fontSize: baseFontSize(context) * 1.25, fontWeight: FontWeight.w800, color: AppColors.ink2)),
-          const SizedBox(height: 10),
-          ...children,
-        ]),
-      );
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          title,
+          style: TextStyle(fontSize: baseFontSize(context) * 1.25, fontWeight: FontWeight.w800, color: AppColors.ink2),
+        ),
+        const SizedBox(height: 10),
+        ...children,
+      ],
+    ),
+  );
 }
 
 class _TileGroup extends StatelessWidget {
@@ -446,25 +554,40 @@ class _TileGroup extends StatelessWidget {
   final List<(String, int, String)> tiles;
   @override
   Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(color: AppColors.segBg, borderRadius: BorderRadius.circular(18)),
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.w800, color: AppColors.inkSoft)),
-          Row(mainAxisSize: MainAxisSize.min, spacing: 8, children: [
-            for (final (ic, n, label) in tiles)
-              Container(
-                width: 74,
-                padding: const EdgeInsets.symmetric(vertical: 6),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(14)),
-                child: Column(children: [
-                  Text(ic),
-                  Text('$n', style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w800, height: 1.1)),
-                  Text(label, style: const TextStyle(fontSize: 12, color: AppColors.inkSoft)),
-                ]),
-              ),
-          ]),
-        ]),
-      );
+    padding: const EdgeInsets.all(10),
+    decoration: BoxDecoration(color: AppColors.segBg, borderRadius: BorderRadius.circular(18)),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.w800, color: AppColors.inkSoft),
+        ),
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            spacing: 8,
+            children: [
+              for (final (ic, n, label) in tiles)
+                Container(
+                  width: 74,
+                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(14)),
+                  child: Column(
+                    children: [
+                      Text(ic),
+                      Text('$n', style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w800, height: 1.1)),
+                      Text(label, style: const TextStyle(fontSize: 12, color: AppColors.inkSoft)),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
 }
 
 class _SkillTile extends StatelessWidget {
@@ -472,35 +595,42 @@ class _SkillTile extends StatelessWidget {
   final SkillRow row;
   @override
   Widget build(BuildContext context) => Container(
-        margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: row.color.withValues(alpha: .08),
-          borderRadius: BorderRadius.circular(18),
-          border: Border(left: BorderSide(color: row.color, width: 5)),
-        ),
-        child: Row(crossAxisAlignment: CrossAxisAlignment.start, spacing: 10, children: [
-          EmojiImage(row.img, size: 44, photo: false),
-          Expanded(
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, spacing: 3, children: [
-              Wrap(spacing: 8, crossAxisAlignment: WrapCrossAlignment.center, children: [
-                Text(row.name, style: const TextStyle(fontWeight: FontWeight.w800)),
-                if (row.acc != null && row.acc!.isNotEmpty) Text(row.acc!, style: const TextStyle(fontSize: 12, color: AppColors.inkSoft)),
-              ]),
+    margin: const EdgeInsets.only(bottom: 10),
+    padding: const EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: row.color.withValues(alpha: .08),
+      borderRadius: BorderRadius.circular(18),
+      border: Border(left: BorderSide(color: row.color, width: 5)),
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 10,
+      children: [
+        EmojiImage(row.img, size: 44, photo: false),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 3,
+            children: [
+              Wrap(
+                spacing: 8,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  Text(row.name, style: const TextStyle(fontWeight: FontWeight.w800)),
+                  if (row.acc != null && row.acc!.isNotEmpty) Text(row.acc!, style: const TextStyle(fontSize: 12, color: AppColors.inkSoft)),
+                ],
+              ),
               Text(row.main),
               if (row.frac != null)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(6),
-                  child: LinearProgressIndicator(
-                    value: (row.frac!.clamp(.02, 1.0)).toDouble(),
-                    minHeight: 10,
-                    color: row.color,
-                    backgroundColor: Colors.white,
-                  ),
+                  child: LinearProgressIndicator(value: (row.frac!.clamp(.02, 1.0)).toDouble(), minHeight: 10, color: row.color, backgroundColor: Colors.white),
                 ),
               if (row.extra != null) Text(row.extra!, style: const TextStyle(fontSize: 13, color: AppColors.inkSoft)),
-            ]),
+            ],
           ),
-        ]),
-      );
+        ),
+      ],
+    ),
+  );
 }

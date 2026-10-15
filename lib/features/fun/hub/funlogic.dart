@@ -1054,11 +1054,21 @@ class SchultePuzzleState extends State<SchultePuzzle> {
   Widget build(BuildContext context) {
     final mq = MediaQuery.sizeOf(context);
     final fs = baseFontSize(context);
-    final size = math.min(math.min(mq.width * .92, mq.height * .66), 560.0);
-    final cell = (size - (n - 1) * 8) / n;
     final en = widget.ctx.i18n.isEn;
+    // Bảng vuông theo màn như web (92vw, 66vh, ≤ 560) nhưng không vượt chỗ thật còn lại (điện thoại xoay ngang).
+    return LayoutBuilder(builder: (context, c) {
+      final room = c.maxHeight.isFinite ? c.maxHeight - 14 - MediaQuery.textScalerOf(context).scale(fs * 1.4) * 1.9 : double.infinity;
+      final size = math.max(120.0, [mq.width * .92, mq.height * .66, 560.0, c.maxWidth, room].reduce(math.min));
+      return _board(fs, en, size);
+    });
+  }
+
+  Widget _board(double fs, bool en, double size) {
+    final cell = (size - (n - 1) * 8) / n;
     return Column(mainAxisSize: MainAxisSize.min, spacing: 14, children: [
-      Row(mainAxisSize: MainAxisSize.min, spacing: 20, children: [
+      FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Row(mainAxisSize: MainAxisSize.min, spacing: 20, children: [
         Text.rich(
           TextSpan(children: [
             TextSpan(text: down ? (en ? 'Count down! Find ' : 'Đếm ngược! Tìm số ') : (en ? 'Find ' : 'Tìm số ')),
@@ -1081,7 +1091,8 @@ class SchultePuzzleState extends State<SchultePuzzle> {
           style: TextStyle(fontSize: fs * 1.4, fontWeight: FontWeight.w800, color: AppColors.ink),
         ),
         Text('${(tenths / 10).toStringAsFixed(1)}s', style: TextStyle(fontSize: fs * 1.4, fontWeight: FontWeight.w800, color: AppColors.inkSoft, fontFeatures: const [FontFeature.tabularFigures()])),
-      ]),
+        ]),
+      ),
       SizedBox.square(
         dimension: size,
         child: Wrap(spacing: 8, runSpacing: 8, children: [

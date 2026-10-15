@@ -179,7 +179,7 @@ class _MathBuilder {
             final n = asInt(hh['n']);
             return QuizQuestion(
               say: g.audio.phrase('clockQ', 'vi'),
-              stage: (ctx) => ClockFace(hour: n, size: vwClamp(ctx, 180, 30, 260).clamp(120, MediaQuery.sizeOf(ctx).height * .34)),
+              stage: (ctx) => ClockFace(hour: n, size: vwClamp(ctx, 180, 30, 260).clamp(math.min(120, MediaQuery.sizeOf(ctx).height * .34), MediaQuery.sizeOf(ctx).height * .34)),
               choices: [for (final k in near(n, 3, 1, 12)) mChoice(k, (_) => Text(mt(g, 'hour', {'n': k})))],
               cls: 'nums',
               answer: n,

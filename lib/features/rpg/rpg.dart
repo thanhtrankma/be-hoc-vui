@@ -537,7 +537,7 @@ Future<void> rpgShop(BuildContext context, WidgetRef ref) {
                 ]),
               ),
               if (using)
-                const Text('Đang dùng', style: TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF2B8A3E)))
+                const Flexible(child: Text('Đang dùng', textAlign: TextAlign.end, style: TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF2B8A3E))))
               else if (owned)
                 _SmallBtn(
                     key: Key('rpg-use-$key'),
@@ -585,7 +585,7 @@ Future<void> rpgShop(BuildContext context, WidgetRef ref) {
                   ]),
                 ),
                 if (R.pot >= kMaxPot)
-                  const Text('Đầy túi', style: TextStyle(fontWeight: FontWeight.w700))
+                  const Flexible(child: Text('Đầy túi', textAlign: TextAlign.end, style: TextStyle(fontWeight: FontWeight.w700)))
                 else
                   _SmallBtn(key: const Key('rpg-buy-pot'), coin: true, label: '$kPotionCost', poor: R.gold < kPotionCost, onTap: () => buy(kPotionCost, () => R.pot = R.pot + 1)),
               ]),
@@ -596,7 +596,7 @@ Future<void> rpgShop(BuildContext context, WidgetRef ref) {
         const PanelTitle('🛒 Cửa hàng'),
         Row(mainAxisAlignment: MainAxisAlignment.center, spacing: 6, children: [
           const EmojiImage('Coin', size: 28, photo: false),
-          Text('Bé có ${R.gold} vàng', key: const Key('rpg-gold'), style: const TextStyle(fontWeight: FontWeight.w700)),
+          Flexible(child: Text('Bé có ${R.gold} vàng', key: const Key('rpg-gold'), style: const TextStyle(fontWeight: FontWeight.w700))),
         ]),
         const SizedBox(height: 10),
         Seg<String>(
@@ -664,7 +664,7 @@ Future<void> rpgPetPicker(BuildContext context, WidgetRef ref) {
                 ]),
               ),
               if (using)
-                const Text('Đang đi cùng', style: TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF2B8A3E)))
+                const Flexible(child: Text('Đang đi cùng', textAlign: TextAlign.end, style: TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF2B8A3E))))
               else if (ok)
                 _SmallBtn(
                     key: Key('rpg-pet-${pt.id}'),

@@ -200,30 +200,64 @@ class _DuelScreenState extends ConsumerState<DuelScreen> {
     final pa = score[0], kid = score[1];
     audio.sfx('win');
     confetti(context: context);
-    audio.sayPhrase(kid > pa ? 'duelKid' : pa > kid ? 'duelParent' : 'duelTie');
+    audio.sayPhrase(
+      kid > pa
+          ? 'duelKid'
+          : pa > kid
+          ? 'duelParent'
+          : 'duelTie',
+    );
     final r = await showPanel<String>(
       context: context,
       builder: (ctx) {
         final fs = baseFontSize(ctx);
-        return Column(mainAxisSize: MainAxisSize.min, children: [
-          PanelTitle(kid > pa ? '🏆 ${p.name}' : pa > kid ? '🏆 ${i18n.t('parent')}' : '🤝'),
-          DefaultTextStyle.merge(
-            style: TextStyle(fontSize: fs * 2.6, fontWeight: FontWeight.w800, color: AppColors.ink2),
-            child: Row(key: const Key('duel-final'), mainAxisAlignment: MainAxisAlignment.center, spacing: 16, children: [
-              Row(mainAxisSize: MainAxisSize.min, spacing: 6, children: [
-                const EmojiImage('Woman', size: 54, photo: false),
-                const EmojiImage('Man', size: 54, photo: false),
-                Text('$pa'),
-              ]),
-              const Text(':'),
-              Row(mainAxisSize: MainAxisSize.min, spacing: 6, children: [Text('$kid'), EmojiImage(kidImg, size: 54, photo: false)]),
-            ]),
-          ),
-          PanelRow(children: [
-            AppButton(key: const Key('duel-map'), icon: '🗺️', label: i18n.t('map'), variant: BtnVariant.ghostPanel, onTap: () => Navigator.pop(ctx, 'map')),
-            AppButton(key: const Key('duel-rematch'), icon: '🔄', label: i18n.t('rematch'), variant: BtnVariant.blue, onTap: () => Navigator.pop(ctx, 'again')),
-          ]),
-        ]);
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            PanelTitle(
+              kid > pa
+                  ? '🏆 ${p.name}'
+                  : pa > kid
+                  ? '🏆 ${i18n.t('parent')}'
+                  : '🤝',
+            ),
+            DefaultTextStyle.merge(
+              style: TextStyle(fontSize: fs * 2.6, fontWeight: FontWeight.w800, color: AppColors.ink2),
+              child: Row(
+                key: const Key('duel-final'),
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 16,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 6,
+                    children: [const EmojiImage('Woman', size: 54, photo: false), const EmojiImage('Man', size: 54, photo: false), Text('$pa')],
+                  ),
+                  const Text(':'),
+                  Row(mainAxisSize: MainAxisSize.min, spacing: 6, children: [Text('$kid'), EmojiImage(kidImg, size: 54, photo: false)]),
+                ],
+              ),
+            ),
+            PanelRow(
+              children: [
+                AppButton(
+                  key: const Key('duel-map'),
+                  icon: '🗺️',
+                  label: i18n.t('map'),
+                  variant: BtnVariant.ghostPanel,
+                  onTap: () => Navigator.pop(ctx, 'map'),
+                ),
+                AppButton(
+                  key: const Key('duel-rematch'),
+                  icon: '🔄',
+                  label: i18n.t('rematch'),
+                  variant: BtnVariant.blue,
+                  onTap: () => Navigator.pop(ctx, 'again'),
+                ),
+              ],
+            ),
+          ],
+        );
       },
     );
     if (!mounted) return;
@@ -248,60 +282,94 @@ class _DuelScreenState extends ConsumerState<DuelScreen> {
     final topics = [('count', 'Abacus', i18n.t('duelCount')), ('letters', 'Books', i18n.t('duelLetters')), ('math', 'Plus', i18n.t('duelMath'))];
     return AppScreen(
       scroll: true,
-      child: Column(children: [
-        TopBar(
-          leading: IconBtn(
+      child: Column(
+        children: [
+          TopBar(
+            leading: IconBtn(
               icon: AppIcon.back,
               label: 'Back',
               onTap: () {
                 audio.sfx('tap');
                 context.go('/map');
-              }),
-          title: i18n.t('duelTitle'),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 6, 0, 16),
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, spacing: 24, children: [
-            Row(mainAxisSize: MainAxisSize.min, children: [EmojiImage('Woman', size: imgW, photo: false), EmojiImage('Man', size: imgW, photo: false)]),
-            Text('VS', style: TextStyle(fontSize: fs * 2.4, fontWeight: FontWeight.w800, color: AppColors.primary)),
-            EmojiImage(kidImg, size: imgW, photo: false),
-          ]),
-        ),
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 820),
-          child: LayoutBuilder(builder: (context, c) {
-            final cols = c.maxWidth >= 520 ? 3 : 2;
-            final gap = 14.0;
-            final w = (c.maxWidth - gap * (cols - 1)) / cols;
-            return Wrap(spacing: gap, runSpacing: gap, alignment: WrapAlignment.center, children: [
-              for (final (id, pic, label) in topics)
-                SizedBox(
-                  width: w,
-                  child: Chunky(
-                    key: Key('duel-topic-$id'),
-                    radius: 28,
-                    shadowColor: _kDuelColor.withValues(alpha: .45),
-                    padding: const EdgeInsets.fromLTRB(10, 16, 10, 14),
-                    onTap: () {
-                      audio.sfx('tap');
-                      play(id);
-                    },
-                    child: Column(spacing: 8, children: [
-                      Container(
-                        width: 84,
-                        height: 84,
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(color: _kDuelColor.withValues(alpha: .15), borderRadius: BorderRadius.circular(24)),
-                        child: EmojiImage(pic, photo: false),
-                      ),
-                      Text(label, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.w800, fontSize: fs * 1.1, color: AppColors.ink2)),
-                    ]),
+              },
+            ),
+            title: i18n.t('duelTitle'),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 6, 0, 16),
+            // Máy hẹp (320dp): thu nhỏ cả hàng thay vì tràn.
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                spacing: 24,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      EmojiImage('Woman', size: imgW, photo: false),
+                      EmojiImage('Man', size: imgW, photo: false),
+                    ],
                   ),
-                ),
-            ]);
-          }),
-        ),
-      ]),
+                  Text(
+                    'VS',
+                    style: TextStyle(fontSize: fs * 2.4, fontWeight: FontWeight.w800, color: AppColors.primary),
+                  ),
+                  EmojiImage(kidImg, size: imgW, photo: false),
+                ],
+              ),
+            ),
+          ),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 820),
+            child: LayoutBuilder(
+              builder: (context, c) {
+                final cols = c.maxWidth >= 520 ? 3 : 2;
+                final gap = 14.0;
+                final w = (c.maxWidth - gap * (cols - 1)) / cols;
+                return Wrap(
+                  spacing: gap,
+                  runSpacing: gap,
+                  alignment: WrapAlignment.center,
+                  children: [
+                    for (final (id, pic, label) in topics)
+                      SizedBox(
+                        width: w,
+                        child: Chunky(
+                          key: Key('duel-topic-$id'),
+                          radius: 28,
+                          shadowColor: _kDuelColor.withValues(alpha: .45),
+                          padding: const EdgeInsets.fromLTRB(10, 16, 10, 14),
+                          onTap: () {
+                            audio.sfx('tap');
+                            play(id);
+                          },
+                          child: Column(
+                            spacing: 8,
+                            children: [
+                              Container(
+                                width: 84,
+                                height: 84,
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(color: _kDuelColor.withValues(alpha: .15), borderRadius: BorderRadius.circular(24)),
+                                child: EmojiImage(pic, photo: false),
+                              ),
+                              Text(
+                                label,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontWeight: FontWeight.w800, fontSize: fs * 1.1, color: AppColors.ink2),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -320,13 +388,17 @@ class _DuelScreenState extends ConsumerState<DuelScreen> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: SafeArea(
-        child: Stack(children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Flex(direction: portrait ? Axis.vertical : Axis.horizontal, spacing: 10, children: [side(0), side(1)]),
-          ),
-          Center(child: IconBtn(key: const Key('duel-quit'), icon: AppIcon.close, size: 48, onTap: quit)),
-        ]),
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Flex(direction: portrait ? Axis.vertical : Axis.horizontal, spacing: 10, children: [side(0), side(1)]),
+            ),
+            Center(
+              child: IconBtn(key: const Key('duel-quit'), icon: AppIcon.close, size: 48, onTap: quit),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -338,8 +410,8 @@ class _DuelScreenState extends ConsumerState<DuelScreen> {
     final bg = winSide == k
         ? const Color(0x4722C55E)
         : k == 0
-            ? const Color(0x24845EF7)
-            : const Color(0x29FF8A5B);
+        ? const Color(0x24845EF7)
+        : const Color(0x29FF8A5B);
     return AnimatedOpacity(
       duration: const Duration(milliseconds: 200),
       opacity: s.locked ? .45 : 1,
@@ -347,31 +419,51 @@ class _DuelScreenState extends ConsumerState<DuelScreen> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(color: Color.alphaBlend(bg, const Color(0x8CFFFFFF)), borderRadius: BorderRadius.circular(30)),
-        child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, spacing: 10, children: [
-          // Đầu: hình, tên, điểm
-          Row(mainAxisAlignment: MainAxisAlignment.center, spacing: 10, children: [
-            if (k == 0) ...[
-              const EmojiImage('Woman', size: 48, photo: false),
-              const EmojiImage('Man', size: 48, photo: false),
-            ] else
-              EmojiImage(kidImg, size: 48, photo: false),
-            Flexible(child: Text(name, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.w800, fontSize: fs * 1.2, color: AppColors.ink2))),
-            Container(
-              key: Key('dscore-$k'),
-              constraints: const BoxConstraints(minWidth: 56),
-              height: 56,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(18), boxShadow: const [BoxShadow(color: AppColors.line, offset: Offset(0, 4))]),
-              child: Text('${score[k]}', style: TextStyle(fontSize: fs * 1.6, fontWeight: FontWeight.w800, color: AppColors.ink2)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          spacing: 10,
+          children: [
+            // Đầu: hình, tên, điểm
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 10,
+              children: [
+                if (k == 0) ...[
+                  const EmojiImage('Woman', size: 48, photo: false),
+                  const EmojiImage('Man', size: 48, photo: false),
+                ] else
+                  EmojiImage(kidImg, size: 48, photo: false),
+                Flexible(
+                  child: Text(
+                    name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: fs * 1.2, color: AppColors.ink2),
+                  ),
+                ),
+                Container(
+                  key: Key('dscore-$k'),
+                  constraints: const BoxConstraints(minWidth: 56),
+                  height: 56,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(18),
+                    boxShadow: const [BoxShadow(color: AppColors.line, offset: Offset(0, 4))],
+                  ),
+                  child: Text(
+                    '${score[k]}',
+                    style: TextStyle(fontSize: fs * 1.6, fontWeight: FontWeight.w800, color: AppColors.ink2),
+                  ),
+                ),
+              ],
             ),
-          ]),
-          // Hình câu hỏi
-          Expanded(child: Center(child: cq == null ? const SizedBox() : _visual(context, k, cq))),
-          // Lựa chọn
-          Row(spacing: 10, children: [
-            for (final c in s.choices) Expanded(child: _choice(context, k, c, s)),
-          ]),
-        ]),
+            // Hình câu hỏi
+            Expanded(child: Center(child: cq == null ? const SizedBox() : _visual(context, k, cq))),
+            // Lựa chọn
+            Row(spacing: 10, children: [for (final c in s.choices) Expanded(child: _choice(context, k, c, s))]),
+          ],
+        ),
       ),
     );
   }
@@ -383,17 +475,28 @@ class _DuelScreenState extends ConsumerState<DuelScreen> {
         return ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 320),
           child: SingleChildScrollView(
-            child: Wrap(key: Key('dgroup-$k'), alignment: WrapAlignment.center, spacing: 4, runSpacing: 4, children: [
-              for (var i = 0; i < cq.n; i++) EmojiImage(cq.pic, size: w, photo: false),
-            ]),
+            child: Wrap(
+              key: Key('dgroup-$k'),
+              alignment: WrapAlignment.center,
+              spacing: 4,
+              runSpacing: 4,
+              children: [for (var i = 0; i < cq.n; i++) EmojiImage(cq.pic, size: w, photo: false)],
+            ),
           ),
         );
       case 'letters':
-        return GestureDetector(onTap: () => audio.say(cq.say), child: const Text('🔊', style: TextStyle(fontSize: 64)));
+        return GestureDetector(
+          onTap: () => audio.say(cq.say),
+          child: const Text('🔊', style: TextStyle(fontSize: 64)),
+        );
       default:
         return FittedBox(
           fit: BoxFit.scaleDown,
-          child: Text(cq.eq, key: Key('deq-$k'), style: TextStyle(fontSize: vwClamp(context, 48, 8, 80), fontWeight: FontWeight.w800, color: AppColors.ink)),
+          child: Text(
+            cq.eq,
+            key: Key('deq-$k'),
+            style: TextStyle(fontSize: vwClamp(context, 48, 8, 80), fontWeight: FontWeight.w800, color: AppColors.ink),
+          ),
         );
     }
   }
@@ -407,13 +510,20 @@ class _DuelScreenState extends ConsumerState<DuelScreen> {
         constraints: BoxConstraints(minHeight: (MediaQuery.sizeOf(context).height * .12).clamp(70.0, 110.0)),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: right ? AppColors.good : wrong ? const Color(0xFFFFD6D6) : Colors.white,
+          color: right
+              ? AppColors.good
+              : wrong
+              ? const Color(0xFFFFD6D6)
+              : Colors.white,
           borderRadius: BorderRadius.circular(22),
           boxShadow: const [BoxShadow(color: AppColors.line, offset: Offset(0, 6))],
         ),
         child: FittedBox(
           fit: BoxFit.scaleDown,
-          child: Text(c, style: TextStyle(fontSize: vwClamp(context, 36, 6, 60), fontWeight: FontWeight.w800, color: right ? Colors.white : AppColors.ink)),
+          child: Text(
+            c,
+            style: TextStyle(fontSize: vwClamp(context, 36, 6, 60), fontWeight: FontWeight.w800, color: right ? Colors.white : AppColors.ink),
+          ),
         ),
       ),
     );

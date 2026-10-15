@@ -194,7 +194,7 @@ class _CertificatePanelState extends ConsumerState<CertificatePanel> {
         onTap: () => setState(() => showName = !showName),
         child: Row(mainAxisSize: MainAxisSize.min, children: [
           Checkbox(value: showName, onChanged: (v) => setState(() => showName = v ?? true)),
-          const Text('Hiện tên bé trên ảnh', style: TextStyle(color: AppColors.inkSoft)),
+          const Flexible(child: Text('Hiện tên bé trên ảnh', style: TextStyle(color: AppColors.inkSoft))),
         ]),
       ),
       PanelRow(children: [
@@ -244,10 +244,13 @@ class CertificateCard extends StatelessWidget {
           Text(data.showName ? 'Bé Vui Học trân trọng tặng bé' : 'Bé Vui Học trân trọng tặng bé yêu',
               style: const TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF495057))),
           if (data.showName) Text(data.name, style: const TextStyle(fontSize: 36, fontWeight: FontWeight.w800, color: Color(0xFF1C7ED6), height: 1.1)),
-          Row(mainAxisAlignment: MainAxisAlignment.center, spacing: 12, children: [
-            Dressed(profile: profile, size: 80),
-            EmojiImage(data.img, size: 90, photo: false),
-          ]),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Row(mainAxisSize: MainAxisSize.min, spacing: 12, children: [
+              Dressed(profile: profile, size: 80),
+              EmojiImage(data.img, size: 90, photo: false),
+            ]),
+          ),
           Text(data.text, textAlign: TextAlign.center, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w800)),
           Text('📅 ${data.when} · ⭐ ${data.stars} sao', style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.inkSoft)),
         ]),
