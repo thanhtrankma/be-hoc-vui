@@ -1,6 +1,8 @@
 // Bảng tra: id game (island.game của app.json) → GameModule, và id game Khu vui chơi → FunGameModule.
 // File của Foundation — agent khác KHÔNG sửa. Mỗi agent chỉ thay giá trị biến trong file của mình
 // (vd. `final GameModule pickModule = ...` trong lib/features/learn/language/pick.dart).
+import 'package:flutter/foundation.dart';
+
 import 'package:be_vui_hoc/features/fun/action/funracer.dart';
 import 'package:be_vui_hoc/features/fun/action/funshooter.dart';
 import 'package:be_vui_hoc/features/fun/action/funtank.dart';
@@ -53,7 +55,13 @@ Map<String, GameModule> get gameModules => {
       'arcade': arcadeModule,
     };
 
-GameModule? gameModuleFor(String? gameId) => gameId == null ? null : gameModules[gameId];
+/// Chỉ dùng trong test: thay game thật bằng game giả để thử luồng của khung app.
+@visibleForTesting
+final Map<String, GameModule> debugGameOverrides = {};
+@visibleForTesting
+final Map<String, FunGameModule> debugFunOverrides = {};
+
+GameModule? gameModuleFor(String? gameId) => gameId == null ? null : debugGameOverrides[gameId] ?? gameModules[gameId];
 
 /// Game Khu vui chơi theo id (khớp kFunGames). Chủ: E (fun/hub), F (fun/more), G (fun/action).
 Map<String, FunGameModule> get funGameModules => {
@@ -74,4 +82,4 @@ Map<String, FunGameModule> get funGameModules => {
       ...funvs2Games,
     };
 
-FunGameModule? funGameModuleFor(String id) => funGameModules[id];
+FunGameModule? funGameModuleFor(String id) => debugFunOverrides[id] ?? funGameModules[id];

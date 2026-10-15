@@ -3,8 +3,11 @@ import 'package:be_vui_hoc/app.dart';
 import 'package:be_vui_hoc/app_router.dart';
 import 'package:be_vui_hoc/core/audio/audio_service.dart';
 import 'package:be_vui_hoc/core/content/content.dart';
+import 'package:be_vui_hoc/core/game/placeholder.dart';
+import 'package:be_vui_hoc/core/game/registry.dart';
 import 'package:be_vui_hoc/core/store/store.dart';
 import 'package:be_vui_hoc/core/ui/motion.dart';
+import 'package:be_vui_hoc/features/room/room.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,6 +20,10 @@ void main() {
   setUpAll(() async {
     Motion.enabled = false;
     bundle = await loadContentBundle(rootBundle);
+    // Khung app được thử với game giả; game thật có test riêng trong test/features/.
+    debugGameOverrides['count'] = const PlaceholderGame('count', owner: 'test', webFile: 'count.js');
+    debugGameOverrides['pick'] = const PlaceholderGame('pick', owner: 'test', webFile: 'pick.js');
+    debugFunOverrides['racer'] = const PlaceholderFunGame('racer', owner: 'test', webFile: 'funracer.js');
   });
 
   Future<(AppStore, SilentAudio)> pumpApp(WidgetTester tester, {Map<String, Object> prefs = const {}, Size size = const Size(390, 844)}) async {
@@ -133,10 +140,10 @@ void main() {
     await tester.tap(find.text('Huỷ'));
     await tester.pumpAndSettle();
     expect(find.text('Dành cho bố mẹ'), findsNothing);
-    // Đảo đặc biệt → màn của agent khác (giữ chỗ)
+    // Đảo đặc biệt → Phòng của bé
     await tester.tap(find.byKey(const Key('island-room')));
     await tester.pumpAndSettle();
-    expect(find.byKey(const Key('under-construction')), findsOneWidget);
+    expect(find.byType(RoomScreen), findsOneWidget);
     await unmount(tester);
   });
 
