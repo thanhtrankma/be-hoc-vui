@@ -1,0 +1,1382 @@
+{
+"Airplane": {
+"f": "photo/airplane.webp",
+"by": "BhuyanBhaskar",
+"lic": "CC BY 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Flying_Airplane_in_the_Sky.jpg"
+},
+"Alarm clock": {
+"f": "photo/alarm-clock.webp",
+"by": "Santeri Viinamäki",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Classic_alarm_clock_20180513.jpg"
+},
+"Ambulance": {
+"f": "photo/ambulance.webp",
+"by": "Helitak430",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:NSW_Ambulance_361.jpg"
+},
+"Amphora": {
+"f": "photo/amphora.webp",
+"by": "",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Acomita_polychrome_water_jar_MET_DP-15303-003.jpg"
+},
+"Ant": {
+"f": "photo/ant.webp",
+"by": "Nahushraj",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Ant_on_leaf_macro_shot.jpg"
+},
+"Artist palette": {
+"f": "photo/artist-palette.webp",
+"by": "Stonda",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Palette.jpg"
+},
+"Avocado": {
+"f": "photo/avocado.webp",
+"by": "Ivar Leidus",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Avocado_Hass_-_single_and_halved.jpg"
+},
+"Baby chick": {
+"f": "photo/baby-chick.webp",
+"by": "Petr Kratochvil",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Yellow_Chick.jpg"
+},
+"Backpack": {
+"f": "photo/backpack.webp",
+"by": "Gamingforfun365",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:School_bag_backpack.jpg"
+},
+"Balance scale": {
+"f": "photo/balance-scale.webp",
+"by": "Photographie personnelle User:Poussin jean",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Balance_%C3%A0_tabac_1850.JPG"
+},
+"Balloon": {
+"f": "photo/balloon.webp",
+"by": "Photographer: Warren Denning. Creative Director: Stan Weir. Marketing Director: ",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Congrats_bqt.jpg"
+},
+"Banana": {
+"f": "photo/banana.webp",
+"by": "Filo gèn'",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Banana_on_whitebackground.jpg"
+},
+"Basket": {
+"f": "photo/basket.webp",
+"by": "Ladislav Luppa",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Wicker_basket_-_Slovakia_(2).jpg"
+},
+"Bat": {
+"f": "photo/bat.webp",
+"by": "Mike's Birds from Riverside, CA, US",
+"lic": "CC BY-SA 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Fruit_Bat_(flying_fox)_(35908751483).jpg"
+},
+"Bathtub": {
+"f": "photo/bathtub.webp",
+"by": "L.M.Arias",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:1rm60rt0t_rtbcwh.jpg"
+},
+"Battery": {
+"f": "photo/battery.webp",
+"by": "Asim18",
+"lic": "CC BY 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:02_-_Single_Energizer_Battery.jpg"
+},
+"Bear": {
+"f": "photo/bear.webp",
+"by": "Malene Thyssen",
+"lic": "CC BY 2.5",
+"src": "https://commons.wikimedia.org/wiki/File:Brown_bear_(Ursus_arctos_arctos)_running.jpg"
+},
+"Bed": {
+"f": "photo/bed.webp",
+"by": "IFERREIRO",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Bedroom_large_double_bed.jpg"
+},
+"Bell": {
+"f": "photo/bell.webp",
+"by": "Dalebooth",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Brass_Gremlin_Bell.png"
+},
+"Bicycle": {
+"f": "photo/bicycle.webp",
+"by": "W. Bulach",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:00_8327_Historisches_Fahrrad.jpg"
+},
+"Billed cap": {
+"f": "photo/billed-cap.webp",
+"by": "Original photograph by TexasRebelDerivative version by ReneeWrites",
+"lic": "CC BY 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Baseball_cap.png"
+},
+"Cow": {
+"f": "photo/cow.webp",
+"by": "4028mdk09",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Nordrhein-Westfalen_weidende_Milchk%C3%BChe.JPG"
+},
+"Birthday cake": {
+"f": "photo/birthday-cake.webp",
+"by": "Francesca Cesa Bianchi, Milano",
+"lic": "CC BY-SA 3.0 it",
+"src": "https://commons.wikimedia.org/wiki/File:Italy_-_birthday_cake_with_candles_1.jpg"
+},
+"Books": {
+"f": "photo/books.webp",
+"by": "Ch. Maderthoner",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Old_Books_01.JPG"
+},
+"Bouquet": {
+"f": "photo/bouquet.webp",
+"by": "Pittigrilli",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Bouquet_of_roses_in_front_of_painting.jpg"
+},
+"Bowl with spoon": {
+"f": "photo/bowl-with-spoon.webp",
+"by": "Sleepytimecat",
+"lic": "CC BY 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:A_bowl_of_bean_soup_soup_made_using_a_tiktok_recipe.jpg"
+},
+"Bread": {
+"f": "photo/bread.webp",
+"by": "Tarasna0922",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:A_loaf_of_wheat_and_rye_bread.jpg"
+},
+"Broccoli": {
+"f": "photo/broccoli.webp",
+"by": "David",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Basket_of_broccoli_in_Singapore_market.jpg"
+},
+"Bubble tea": {
+"f": "photo/bubble-tea.webp",
+"by": "Oqmilteashop",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Classic_bubble_tea.jpg"
+},
+"Bus": {
+"f": "photo/bus.webp",
+"by": "Zalasem1",
+"lic": "CC BY 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:City_bus_in_Vlora_(PV917).jpg"
+},
+"Cactus": {
+"f": "photo/cactus.webp",
+"by": "Zh.yangping",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:A_brown_potted_cactus.JPG"
+},
+"Candle": {
+"f": "photo/candle.webp",
+"by": "domdomegg",
+"lic": "CC BY 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Candle_flame_closeup.jpg"
+},
+"Candy": {
+"f": "photo/candy.webp",
+"by": "ANBARASU THIRAVIYAM",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Candy_5.jpg"
+},
+"Canoe": {
+"f": "photo/canoe.webp",
+"by": "Christiaan Briggs",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Boat_on_Euphrates.jpg"
+},
+"Carrot": {
+"f": "photo/carrot.webp",
+"by": "domdomegg",
+"lic": "CC BY 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Carrots_at_Ljubljana_Central_Market.JPG"
+},
+"Castle": {
+"f": "photo/castle.webp",
+"by": "Marco Ober",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Scaligero_Castle_of_Sirmione,_town_centre.jpg"
+},
+"Cat": {
+"f": "photo/cat.webp",
+"by": "Alvesgaspar",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Cat_August_2010-3.jpg"
+},
+"Chair": {
+"f": "photo/chair.webp",
+"by": "Fallaner",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Chair_2020_P03.jpg"
+},
+"Cherries": {
+"f": "photo/cherries.webp",
+"by": "Benjamint444, edited by Fir0002",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Cherry_Stella444.jpg"
+},
+"Cherry blossom": {
+"f": "photo/cherry-blossom.webp",
+"by": "Satdeep Gill",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Cherry_Blossom_in_El_Retiro_Park,_Madrid,_Spain.jpg"
+},
+"Chestnut": {
+"f": "photo/chestnut.webp",
+"by": "Galjundi7",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Casta%C3%B1a_gigante_de_Betizac.jpg"
+},
+"Chicken": {
+"f": "photo/chicken.webp",
+"by": "Drcbrothephotographer",
+"lic": "CC BY 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Korean_native_hen_from_Guri_Insectarium.jpg"
+},
+"Cloud": {
+"f": "photo/cloud.webp",
+"by": "Lance Vanlewen",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:White_Cumulus_Clouds_against_Blue_Sky_(3).jpg"
+},
+"Coat": {
+"f": "photo/coat.webp",
+"by": "Menswear Market",
+"lic": "CC BY 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Polo_Ralph_Lauren_winter_coat_jacket.jpg"
+},
+"Cooked rice": {
+"f": "photo/cooked-rice.webp",
+"by": "PoHuHaiXin ZhongHuangjiaxi",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:HK_%E4%B8%AD%E7%92%B0_Central_%E7%A7%9F%E5%BA%87%E5%88%A9%E8%A1%97_Jubilee_Street_%E5%96%9C%E8%A8%8A%E5%A4%A7%E5%BB%88_Haleson_Building_%E5%AF%B6%E6%B9%96%E9%85%92%E5%AE%B6_Treasure_Lake_Restaurant_%E6%99%9A%E9%A4%90_food_%E7%99%BD%E9%A3%AF_white_cooked_rice_bowl_May_2023_Px3_01.jpg"
+},
+"Cooking": {
+"f": "photo/cooking.webp",
+"by": "Balise42",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Two_fried_eggs.jpg"
+},
+"Couch and lamp": {
+"f": "photo/couch-and-lamp.webp",
+"by": "Shixart1985",
+"lic": "CC BY 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Cozy_living_room_setup_with_a_warm_sofa,_coffee_cup,_and_an_open_book_in_a_softly_lit_environment.jpg"
+},
+"Cow face": {
+"f": "photo/cow-face.webp",
+"by": "Holger Schué",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Cow_head_1.jpg"
+},
+"Crab": {
+"f": "photo/crab.webp",
+"by": "Lycaon",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Carcinus_maenas_white_background.jpg"
+},
+"Crayon": {
+"f": "photo/crayon.webp",
+"by": "Ks.mini",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Crayons_with_colors.JPG"
+},
+"Crescent moon": {
+"f": "photo/crescent-moon.webp",
+"by": "Jessie Eastland",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Crescent_Moon_close_to_Setting.jpg"
+},
+"Cricket": {
+"f": "photo/cricket.webp",
+"by": "Polychronis Rempoulakis",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Cricket_after_rain.jpg"
+},
+"Crocodile": {
+"f": "photo/crocodile.webp",
+"by": "AngMoKio",
+"lic": "CC BY-SA 2.5",
+"src": "https://commons.wikimedia.org/wiki/File:Crocodile_Crocodylus-porosus_amk.jpg"
+},
+"Cup with straw": {
+"f": "photo/cup-with-straw.webp",
+"by": "Personal Creations",
+"lic": "CC BY 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Personalized_cup_with_flower_design_with_straw_and_lid_and_happy_birthday_card_(19437692823).jpg"
+},
+"Cupcake": {
+"f": "photo/cupcake.webp",
+"by": "Katjaskupcakes katja Seaton",
+"lic": "CC BY 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Cheshire_cupcakes.jpg"
+},
+"Deciduous tree": {
+"f": "photo/deciduous-tree.webp",
+"by": "Johann Siemens johannsiemens",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Tree_in_green_wheat_field_(Unsplash).jpg"
+},
+"Dog": {
+"f": "photo/dog.webp",
+"by": "no name provided",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Puppy_filtered.jpg"
+},
+"Dolphin": {
+"f": "photo/dolphin.webp",
+"by": "U.S. Navy photo by Photographer's Mate 1st Class Brien Aho.",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:NMMP_dolphin_with_locator.jpeg"
+},
+"Door": {
+"f": "photo/door.webp",
+"by": "Shams948",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Wooden_door_02.jpg"
+},
+"Dove": {
+"f": "photo/dove.webp",
+"by": "Alekc2m",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:White_Dove_2.jpg"
+},
+"Dress": {
+"f": "photo/dress.webp",
+"by": "KarthigadeviRavichandran",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Children_frock_design_with_fabric_rose.jpg"
+},
+"Droplet": {
+"f": "photo/droplet.webp",
+"by": "José Manuel Suárez from Spain",
+"lic": "CC BY 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Water_drop_001.jpg"
+},
+"Drum": {
+"f": "photo/drum.webp",
+"by": "Elizfred",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Drum_for_cultural_dance.jpg"
+},
+"Duck": {
+"f": "photo/duck.webp",
+"by": "PxHere",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Sleeping_duck_on_the_grass.jpg"
+},
+"Ear": {
+"f": "photo/ear.webp",
+"by": "Anselm Schüler",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Left_ear_of_human_male_wearing_glasses.jpg"
+},
+"Ear of corn": {
+"f": "photo/ear-of-corn.webp",
+"by": "Geoff Peters from Vancouver, BC, Canada",
+"lic": "CC BY 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Corn_on_the_cob_(5178296206).jpg"
+},
+"Egg": {
+"f": "photo/egg.webp",
+"by": "Evan-Amos",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:6-Pack-Chicken-Eggs.jpg"
+},
+"Eggplant": {
+"f": "photo/eggplant.webp",
+"by": "Azreey",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:An_aubergine-eggplant-brinjal_plant_with_a_hanging_fruit..jpg"
+},
+"Electric plug": {
+"f": "photo/electric-plug.webp",
+"by": "Bran",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Steckdose.jpg"
+},
+"Elephant": {
+"f": "photo/elephant.webp",
+"by": "Bjarki781",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Elephant_and_a_smaller_elephant_walking.jpg"
+},
+"Ewe": {
+"f": "photo/ewe.webp",
+"by": "User:Diliff",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Swaledale_Sheep,_Lake_District,_England_-_June_2009.jpg"
+},
+"Eye": {
+"f": "photo/eye.webp",
+"by": "Rapidreflex",
+"lic": "CC BY 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Human_eye_with_large_pupil.jpg"
+},
+"Feather": {
+"f": "photo/feather.webp",
+"by": "MichaelMaggs",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Feather_of_male_Pavo_cristatus_(Indian_peafowl).jpg"
+},
+"Ferry": {
+"f": "photo/ferry.webp",
+"by": "Transpoman",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:NYC_Ferry_Vessel_White_Sands.jpg"
+},
+"Fire": {
+"f": "photo/fire.webp",
+"by": "Marc-Lautenbacher",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Campfire_flames_at_night.jpg"
+},
+"Fire engine": {
+"f": "photo/fire-engine.webp",
+"by": "",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:ChicoCAEngine4.jpg"
+},
+"Fish": {
+"f": "photo/fish.webp",
+"by": "James St. John",
+"lic": "CC BY 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Carassius_auratus_auratus_(goldfish)_1.jpg"
+},
+"Flashlight": {
+"f": "photo/flashlight.webp",
+"by": "KMJ at German Wikipedia",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Flashlight.jpg"
+},
+"Fork and knife with plate": {
+"f": "photo/fork-and-knife-with-plate.webp",
+"by": "Stock Catalog",
+"lic": "CC BY 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Empty_table_setting_plate_fork_knife_(42585288225).jpg"
+},
+"Fox": {
+"f": "photo/fox.webp",
+"by": "ClaudiaTen",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Portrait_of_a_red_fox_in_Rautas_fj%C3%A4llurskog.jpg"
+},
+"Frog": {
+"f": "photo/frog.webp",
+"by": "Contrabaroness",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Male_Green_Frog_-_Hunterdon_County,_NJ.jpg"
+},
+"Giraffe": {
+"f": "photo/giraffe.webp",
+"by": "Axel Tschentscher",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Giraffe_2019-07-28.jpg"
+},
+"Glasses": {
+"f": "photo/glasses.webp",
+"by": "Jacek Halicki",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:2023_Okulary_korekcyjne.jpg"
+},
+"Gloves": {
+"f": "photo/gloves.webp",
+"by": "",
+"lic": "CC BY 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Gloves,_wool_(AM_1979.59-4).jpg"
+},
+"Goat": {
+"f": "photo/goat.webp",
+"by": "Wilfredor",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Capra_aegagrus_hircus_in_isla_Margarita.jpg"
+},
+"Grapes": {
+"f": "photo/grapes.webp",
+"by": "Martin Kozák",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Green_Grape_3.jpg"
+},
+"Guitar": {
+"f": "photo/guitar.webp",
+"by": "Unknown authorUnknown author",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Fender_California_Series_Acoustic_Guitar_(serial_no._CSC10001615)_(2018-04-26_13.21.46_Piqsels.com_id_olkmb).jpg"
+},
+"Hamburger": {
+"f": "photo/hamburger.webp",
+"by": "Len Rizzi (photographer)",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:NCI_Visuals_Food_Hamburger.jpg"
+},
+"Handbag": {
+"f": "photo/handbag.webp",
+"by": "",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Handbags_(ST660_5_03)_-_Kostuum_Accessoire_-_MoMu_Antwerp.jpg"
+},
+"Hedgehog": {
+"f": "photo/hedgehog.webp",
+"by": "byapryl",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Hedgehog_on_grass_in_the_morning.jpg"
+},
+"Helicopter": {
+"f": "photo/helicopter.webp",
+"by": "Mfield - Matthew Field, http://www.photography.mattfield.com",
+"lic": "CC BY 2.5",
+"src": "https://commons.wikimedia.org/wiki/File:LAPD_Bell_206_Jetranger.jpg"
+},
+"Herb": {
+"f": "photo/herb.webp",
+"by": "Petar43",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Ocimum_basilicum_111.JPG"
+},
+"Hibiscus": {
+"f": "photo/hibiscus.webp",
+"by": "Vengolis",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Hibiscus_00526.JPG"
+},
+"Honeybee": {
+"f": "photo/honeybee.webp",
+"by": "Md.Kawsar Hossain Jowel",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Bee_and_honey-bee.jpg"
+},
+"Horse": {
+"f": "photo/horse.webp",
+"by": "Emőke Dénes",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Equus_caballus_-_009.jpg"
+},
+"Hot beverage": {
+"f": "photo/hot-beverage.webp",
+"by": "Shixart1985",
+"lic": "CC BY 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Hot_tea._8_minutes_fruit_infusion.jpg"
+},
+"Hot pepper": {
+"f": "photo/hot-pepper.webp",
+"by": "Spicy Anonymous",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Red_Chili_Pepper_PNG.png"
+},
+"House": {
+"f": "photo/house.webp",
+"by": "BrendelSignature at en.wikipedia",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Ranch_style_home_in_Salinas,_California.JPG"
+},
+"Ice": {
+"f": "photo/ice.webp",
+"by": "Darren Hester",
+"lic": "CC BY-SA 2.5",
+"src": "https://commons.wikimedia.org/wiki/File:Ice_cubes_openphoto.jpg"
+},
+"Jeans": {
+"f": "photo/jeans.webp",
+"by": "1Veertje",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Women%27s_Levi%27s_jeans_inside_out.jpg"
+},
+"Kangaroo": {
+"f": "photo/kangaroo.webp",
+"by": "Mark Wagner, based on image by User:Lilly M",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Kangaroo_Australia_01_11_2008_-_retouch.JPG"
+},
+"Key": {
+"f": "photo/key.webp",
+"by": "Billjones94",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:A_key_of_vintage_wooden_wall_clock_of_Smiths_(from_circa_1930s).jpg"
+},
+"Kick scooter": {
+"f": "photo/kick-scooter.webp",
+"by": "Шилин КА",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Kick_scooter_4.jpg"
+},
+"Kitchen knife": {
+"f": "photo/kitchen-knife.webp",
+"by": "Steve Hodgson from Edinburgh, Scotland",
+"lic": "CC BY-SA 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Kyotop_Kitchen_Knife_(46899633822).jpg"
+},
+"Koala": {
+"f": "photo/koala.webp",
+"by": "Benjamint444",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Koala_and_joey.jpg"
+},
+"Lady beetle": {
+"f": "photo/lady-beetle.webp",
+"by": "Balakrishnan Valappil",
+"lic": "CC BY-SA 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Lady_Bug_(2642368566).jpg"
+},
+"Laptop": {
+"f": "photo/laptop.webp",
+"by": "Ó29c",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Acer_laptop_keyboard.jpg"
+},
+"Leaf fluttering in wind": {
+"f": "photo/leaf-fluttering-in-wind.webp",
+"by": "Jon Sullivan",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Leaf_1_web.jpg"
+},
+"Leafy green": {
+"f": "photo/leafy-green.webp",
+"by": "Rainer Zenz",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Romaine_lettuce.jpg"
+},
+"Lemon": {
+"f": "photo/lemon.webp",
+"by": "André Karwath aka Aka",
+"lic": "CC BY-SA 2.5",
+"src": "https://commons.wikimedia.org/wiki/File:Lemon.jpg"
+},
+"Light bulb": {
+"f": "photo/light-bulb.webp",
+"by": "Lidija296",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Light_bulb_in_grandfather%27s_lamp.jpg"
+},
+"Lion": {
+"f": "photo/lion.webp",
+"by": "Clément Bardot",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Lion_d%27Afrique.jpg"
+},
+"Locomotive": {
+"f": "photo/locomotive.webp",
+"by": "Nils Öberg",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Steam_locomotive_FHH_no_112_in_Huancayo,_Peru_2010.jpg"
+},
+"Lotus": {
+"f": "photo/lotus.webp",
+"by": "Peripitus",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Nelumno_nucifera_open_flower_-_botanic_garden_adelaide2.jpg"
+},
+"Mango": {
+"f": "photo/mango.webp",
+"by": "Rhododendrites",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Mango_on_white.jpg"
+},
+"Microphone": {
+"f": "photo/microphone.webp",
+"by": "Lucasbosch",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:AKG_C214_Condenser_microphone.jpg"
+},
+"Mirror": {
+"f": "photo/mirror.webp",
+"by": "",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Mirror_MET_DP106620.jpg"
+},
+"Mobile phone": {
+"f": "photo/mobile-phone.webp",
+"by": "The Tech Cheat",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Smartphone_di_varie_marche.png"
+},
+"Monkey": {
+"f": "photo/monkey.webp",
+"by": "Thomas Schoch",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Macaque_India_3.jpg"
+},
+"Mosquito": {
+"f": "photo/mosquito.webp",
+"by": "Alvesgaspar",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Mosquito_2007-2.jpg"
+},
+"Motor scooter": {
+"f": "photo/motor-scooter.webp",
+"by": "Spurzem - Lothar Spurzem",
+"lic": "CC BY-SA 2.0 de",
+"src": "https://commons.wikimedia.org/wiki/File:Z%C3%BCndapp_Bella_R_154_(2008-05-21)_Seitenansicht_ret.jpg"
+},
+"Mountain": {
+"f": "photo/mountain.webp",
+"by": "Vyacheslav Argenberg",
+"lic": "CC BY 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Mountain_landscape,_Ergaki,_Sayan_Mountains,_Siberia.jpg"
+},
+"Mushroom": {
+"f": "photo/mushroom.webp",
+"by": "Tony Wills",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Fly_Agaric_mushroom_04.jpg"
+},
+"Musical keyboard": {
+"f": "photo/musical-keyboard.webp",
+"by": "JM http://www.logodesignweb.com/stockphoto",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Piano-keyboard.jpg"
+},
+"Nest with eggs": {
+"f": "photo/nest-with-eggs.webp",
+"by": "Braddal22",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Tree_Pipit_nest_and_eggs.jpg"
+},
+"Nesting dolls": {
+"f": "photo/nesting-dolls.webp",
+"by": "Wilfredor",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Matryoshka_from_Hungary.jpg"
+},
+"Notebook": {
+"f": "photo/notebook.webp",
+"by": "Phil Slattery",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Notebook_with_pen,_August,_2019.jpg"
+},
+"Octopus": {
+"f": "photo/octopus.webp",
+"by": "National Oceanic and Atmospheric Administration Office of Ocean Exploration and ",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Octopus_on_seabed_in_Hudson_Canyon.png"
+},
+"Owl": {
+"f": "photo/owl.webp",
+"by": "Wagner Machado Carlos Lemes from Goiânia, Brazil",
+"lic": "CC BY 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Athene_cunicularia_1_edited.JPG"
+},
+"Package": {
+"f": "photo/package.webp",
+"by": "Eli Duke",
+"lic": "CC BY-SA 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Antarctica_-_South_Pole_Cardboard_Box_%22Disc_Golf_-_Gym%22.jpg"
+},
+"Paintbrush": {
+"f": "photo/paintbrush.webp",
+"by": "Hans Bernhard (Schnobby)",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Brushes_2.jpg"
+},
+"Palm tree": {
+"f": "photo/palm-tree.webp",
+"by": "Anoopan at Malayalam Wikipedia",
+"lic": "CC BY 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Coconut_Tree.JPG"
+},
+"Pancakes": {
+"f": "photo/pancakes.webp",
+"by": "Nightcrafter",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Pancakes_with_fruit.jpg"
+},
+"Panda": {
+"f": "photo/panda.webp",
+"by": "Jeff Kubina",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Giant_Panda_2004-03-2.jpg"
+},
+"Parrot": {
+"f": "photo/parrot.webp",
+"by": "Philip Nalangan",
+"lic": "CC BY 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Amazon_parrot_and_gray_parrot_in_Indonesia.jpg"
+},
+"Passenger ship": {
+"f": "photo/passenger-ship.webp",
+"by": "pete",
+"lic": "CC BY 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Passenger_Cruise_Ship_Neptune_at_Hong_Kong.jpg"
+},
+"Pear": {
+"f": "photo/pear.webp",
+"by": "Rhododendrites",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:D%27anjou_pear.jpg"
+},
+"Pencil": {
+"f": "photo/pencil.webp",
+"by": "Ole Palnatoke Andersen",
+"lic": "CC BY-SA 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:2014-01-16-Hittegods_(12009261426).jpg"
+},
+"Penguin": {
+"f": "photo/penguin.webp",
+"by": "Sander Spek",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Sander-pinguins.jpg"
+},
+"Pig": {
+"f": "photo/pig.webp",
+"by": "Anneli Salo",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Pigs_Sus_scrofa_domesticus_390_Possuja_C.JPG"
+},
+"Pill": {
+"f": "photo/pill.webp",
+"by": "Mx. Granger",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Dexamethasone_tablets.jpg"
+},
+"Pizza": {
+"f": "photo/pizza.webp",
+"by": "Valerio Capello at English Wikipedia",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Eq_it-na_pizza-margherita_sep2005_sml.jpg"
+},
+"Police car": {
+"f": "photo/police-car.webp",
+"by": "Dickelbers",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Estonian_police_car,_September_2003.jpg"
+},
+"Pot of food": {
+"f": "photo/pot-of-food.webp",
+"by": "Fallaner",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Vegetable_soup_2022_P01.jpg"
+},
+"Potato": {
+"f": "photo/potato.webp",
+"by": "",
+"lic": "CC BY-SA 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Potato_sprout,_January_23,_2006.jpg"
+},
+"Potted plant": {
+"f": "photo/potted-plant.webp",
+"by": "Inkwina",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Potted_plant_on_windowsil.jpg"
+},
+"Purse": {
+"f": "photo/purse.webp",
+"by": "www.kartenetui.info",
+"lic": "CC BY 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Flap_Boy_Slim_Wallet_from_JAIMIE_JACOBS_03.jpg"
+},
+"Rabbit": {
+"f": "photo/rabbit.webp",
+"by": "Fabien1309",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Lapin_blanc.jpg"
+},
+"Racing car": {
+"f": "photo/racing-car.webp",
+"by": "SCPCFM",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Formula_Masters_China_racing_car.JPG"
+},
+"Radio": {
+"f": "photo/radio.webp",
+"by": "池田正樹 - Masaki Ikeda (talk)",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Toshiba_Vacuum_tube_Radio.jpg"
+},
+"Rhinoceros": {
+"f": "photo/rhinoceros.webp",
+"by": "Komencanto, modified by ArtMechanic",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Rhinoceros_in_South_Africa_adjusted.jpg"
+},
+"Ribbon": {
+"f": "photo/ribbon.webp",
+"by": "Stilfehler",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Pink_Bow.jpg"
+},
+"Robot": {
+"f": "photo/robot.webp",
+"by": "D J Shin",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Ha_Ha_Toys,_Planet_Robot,_Blue,_Main_Street_Toys_Exclusive,_Double_Dose.jpg"
+},
+"Rock": {
+"f": "photo/rock.webp",
+"by": "Ellin Beltz",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Beach_Pebbles_Stone_Lagoon.jpg"
+},
+"Roll of paper": {
+"f": "photo/roll-of-paper.webp",
+"by": "MrBeastRapper",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Toilet_Paper_roll.jpg"
+},
+"Rooster": {
+"f": "photo/rooster.webp",
+"by": "Wakhid hidayat 89",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Bekisar_chicken_rooster_2017.jpg"
+},
+"Rose": {
+"f": "photo/rose.webp",
+"by": "Юрий Д.К.",
+"lic": "CC BY 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Efremov_-_2025_-_Red_Rose,_Streletsky_Descent1.jpg"
+},
+"Running shoe": {
+"f": "photo/running-shoe.webp",
+"by": "Brooke Fishwick",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Black_Converse_sneakers.JPG"
+},
+"Sailboat": {
+"f": "photo/sailboat.webp",
+"by": "Hilarmont",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Segelboot_Bodensee_Mainau_(Foto_Hilarmont).JPG"
+},
+"Scarf": {
+"f": "photo/scarf.webp",
+"by": "https://www.kaschmirprodukte.de",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:100%25_Kaschmir_Wolle_vonk_kaschmirprodukte.de.jpg"
+},
+"School": {
+"f": "photo/school.webp",
+"by": "JasmineGoforth",
+"lic": "CC BY 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Gabaldon_School_Building_of_Arorogan_Elementary_School.jpg"
+},
+"Scissors": {
+"f": "photo/scissors.webp",
+"by": "ZooFari",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Small_pair_of_blue_scissors.jpg"
+},
+"Shark": {
+"f": "photo/shark.webp",
+"by": "Jakub Hałun",
+"lic": "CC BY 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Shark_Seas,_S.E.A._Aquarium,_Singapore,_20240206_1408_6551.jpg"
+},
+"Shaved ice": {
+"f": "photo/shaved-ice.webp",
+"by": "KQuhen",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Mango_shaved_ice_Taipei.jpg"
+},
+"Ship": {
+"f": "photo/ship.webp",
+"by": "Ank Kumar",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:2014-_EUROCARGO_GENOVA_Cargo_Ship,_Port_of_Barcelona,_Spain_(_Ank_Kumar_)_05.jpg"
+},
+"Shopping cart": {
+"f": "photo/shopping-cart.webp",
+"by": "Dmitry G",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Shopping_cart_of_Prisma_shop.JPG"
+},
+"Shower": {
+"f": "photo/shower.webp",
+"by": "",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Showerhead.JPG"
+},
+"Snail": {
+"f": "photo/snail.webp",
+"by": "Grauvision",
+"lic": "CC BY 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Snail_on_the_moss.jpg"
+},
+"Snake": {
+"f": "photo/snake.webp",
+"by": "Brian Gratwicke Brian Gratwicke",
+"lic": "CC BY 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Leptophis_ahaetulla_Snake_Eating_a_Frog_(Craugastor_gollmeri).jpg"
+},
+"Snowflake": {
+"f": "photo/snowflake.webp",
+"by": "Alexey Kljatov",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Snowflake_macro_photography_1_(cropped).jpg"
+},
+"Snowman": {
+"f": "photo/snowman.webp",
+"by": "Sphiiix",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Bonhomme_de_neige_2.jpg"
+},
+"Soap": {
+"f": "photo/soap.webp",
+"by": "TheLewisRepublic",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Soap_in_blue_dish.JPG"
+},
+"Soccer ball": {
+"f": "photo/soccer-ball.webp",
+"by": "Empire-ants",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Adidas_MLS_Tango_12_soccer_ball.jpg"
+},
+"Socks": {
+"f": "photo/socks.webp",
+"by": "Venemaa; Petseri rajoon, Põrste küla; valmistaja: Helü, Linda; fotograaf: Tuul, ",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Villased_sokid,_STM_1998.jpg"
+},
+"Soft ice cream": {
+"f": "photo/soft-ice-cream.webp",
+"by": "Thegreatmutata",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Ice_cream_cone_with_spoon.jpg"
+},
+"Spaghetti": {
+"f": "photo/spaghetti.webp",
+"by": "Choo Yut Shing",
+"lic": "CC BY 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Spaghetti_(53257476437)_(cropped).png"
+},
+"Speedboat": {
+"f": "photo/speedboat.webp",
+"by": "Noah Wulf",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Speedboat_Near_Newport_Beach.jpg"
+},
+"Spiral shell": {
+"f": "photo/spiral-shell.webp",
+"by": "علي العالم",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Seashell2022.jpg"
+},
+"Sponge": {
+"f": "photo/sponge.webp",
+"by": "Jonatan Svensson Glad",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Pink_Sponge_isolated_on_White_Background.jpg"
+},
+"Spoon": {
+"f": "photo/spoon.webp",
+"by": "Akwugo",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Ngaji.jpg"
+},
+"Spouting whale": {
+"f": "photo/spouting-whale.webp",
+"by": "Giles Laurent",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:001_Humpback_whale_breaching_in_Ballena_Marine_National_Park_Photo_by_Giles_Laurent.jpg"
+},
+"Steaming bowl": {
+"f": "photo/steaming-bowl.webp",
+"by": "Mobius6",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Udon_noodle_Bowl_(Nongshim)_20210701_002.jpg"
+},
+"Strawberry": {
+"f": "photo/strawberry.webp",
+"by": "Ivar Leidus",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Garden_strawberry_(Fragaria_%C3%97_ananassa)_single2.jpg"
+},
+"Sun": {
+"f": "photo/sun.webp",
+"by": "Sabina Bajracharya",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:The_Sun,_Clouds_And_The_Sky._20.jpg"
+},
+"Sunflower": {
+"f": "photo/sunflower.webp",
+"by": "George Chernilevsky",
+"lic": "CC BY 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Sunflower_head_2026_G1.jpg"
+},
+"Sunglasses": {
+"f": "photo/sunglasses.webp",
+"by": "Ossa Kolo",
+"lic": "CC BY 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Women%27s_sunglasses_VERSACE_Violet_Gradient_(Creative_Commons).jpg"
+},
+"Sunrise": {
+"f": "photo/sunrise.webp",
+"by": "Heino Ruiso",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Laanemaa_j%C3%A4rv_Orkj%C3%A4rve_looduskaitsealal.jpg"
+},
+"Sunset": {
+"f": "photo/sunset.webp",
+"by": "Jerry Segraves (en:User:Jsegraves99)",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Blackbird-sunset-03.jpg"
+},
+"T-shirt": {
+"f": "photo/t-shirt.webp",
+"by": "Kuttos2",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Sports_T-Shirt.png"
+},
+"Tangerine": {
+"f": "photo/tangerine.webp",
+"by": "Ivar Leidus",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Oranges_-_whole-halved-segment.jpg"
+},
+"Teacup without handle": {
+"f": "photo/teacup-without-handle.webp",
+"by": "Gaurav Dhwaj Khadka",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Milk_Tea_5.jpg"
+},
+"Teapot": {
+"f": "photo/teapot.webp",
+"by": "George Chernilevsky",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Teapot_2010_G1.jpg"
+},
+"Tear-off calendar": {
+"f": "photo/tear-off-calendar.webp",
+"by": "Anna Frodesiak",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Calendar_2018_03.png"
+},
+"Teddy bear": {
+"f": "photo/teddy-bear.webp",
+"by": "Jacek Halicki",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:2023_Pluszowy_mi%C5%9B.jpg"
+},
+"Television": {
+"f": "photo/television.webp",
+"by": "LG전자",
+"lic": "CC BY 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:%EC%84%B8%EA%B3%84_%EB%AA%85%ED%99%94%EA%B0%80_LG_%EC%8A%A4%EB%A7%88%ED%8A%B8_TV_%EC%86%8D%EC%9C%BC%EB%A1%9C.jpg"
+},
+"Tiger": {
+"f": "photo/tiger.webp",
+"by": "Monika Betley",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Panthera_tigris_sumatran_subspecies.jpg"
+},
+"Tiger face": {
+"f": "photo/tiger-face.webp",
+"by": "Charles Barilleaux from Cincinnati, Ohio, United States of America",
+"lic": "CC BY 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Tiger_Face_(8506427080).jpg"
+},
+"Toilet": {
+"f": "photo/toilet.webp",
+"by": "dirtyboxface from amsterdam",
+"lic": "CC BY-SA 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Toilet_(8844223790).jpg"
+},
+"Tomato": {
+"f": "photo/tomato.webp",
+"by": "Softeis",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Tomato_je.jpg"
+},
+"Toothbrush": {
+"f": "photo/toothbrush.webp",
+"by": "Steve Buissinne, South Africa",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Toothbrush,_Toothpaste,_Dental_Care_(571741).jpg"
+},
+"Tractor": {
+"f": "photo/tractor.webp",
+"by": "George Chernilevsky",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:T-40A_tractor_2016_G1.jpg"
+},
+"Triangular flag": {
+"f": "photo/triangular-flag.webp",
+"by": "Nihadmkh",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Flag_nihad_red.png"
+},
+"Triangular ruler": {
+"f": "photo/triangular-ruler.webp",
+"by": "Luigi Chiesa",
+"lic": "CC BY 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Squadra_30_60.jpg"
+},
+"Tropical fish": {
+"f": "photo/tropical-fish.webp",
+"by": "Bruxton",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Orange_Storm_Clownfish_left.jpg"
+},
+"Trumpet": {
+"f": "photo/trumpet.webp",
+"by": "Yamaha Corporation",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Yamaha_Trumpet_YTR-8335LA_crop.jpg"
+},
+"Tulip": {
+"f": "photo/tulip.webp",
+"by": "John O'Neill",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Tulipa_suaveolens_floriade_to_Canberra.jpg"
+},
+"Turtle": {
+"f": "photo/turtle.webp",
+"by": "Tokugawapants at English Wikipedia + PiccoloNamek (Modifie version)",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:GreenSeaTurtle-2.jpg"
+},
+"Umbrella": {
+"f": "photo/umbrella.webp",
+"by": "DLG Images",
+"lic": "CC BY 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Red_Umbrella_1.jpg"
+},
+"Vertical traffic light": {
+"f": "photo/vertical-traffic-light.webp",
+"by": "Secretlondon",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Cyclist_traffic_light_at_the_oval.jpg"
+},
+"Video game": {
+"f": "photo/video-game.webp",
+"by": "Evan-Amos",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Nintendo-Switch-Pro-Controller-FL.jpg"
+},
+"Violin": {
+"f": "photo/violin.webp",
+"by": "Areafin tawfiq",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Violin_%26_bow.jpg"
+},
+"Water buffalo": {
+"f": "photo/water-buffalo.webp",
+"by": "Zeynel Cebeci",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Bubalus_bubalis_-_Water_buffalo_01.jpg"
+},
+"Water wave": {
+"f": "photo/water-wave.webp",
+"by": "Brocken Inaglory",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Big_wave_breaking_in_Santa_Cruz.jpg"
+},
+"Watermelon": {
+"f": "photo/watermelon.webp",
+"by": "Don miraj",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Watermelon001.jpg"
+},
+"Wood": {
+"f": "photo/wood.webp",
+"by": "Onwuka Glory",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Logs_of_wood_for_firewood.jpg"
+},
+"Wrapped gift": {
+"f": "photo/wrapped-gift.webp",
+"by": "Shixart1985",
+"lic": "CC BY 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Brown_gift_box_with_red_ribbon_and_bow.jpg"
+},
+"Yarn": {
+"f": "photo/yarn.webp",
+"by": "WillowW",
+"lic": "CC BY 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Yarn_hank_and_ball.png"
+},
+"Yo-yo": {
+"f": "photo/yo-yo.webp",
+"by": "Evan-Amos",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Yo-Yo-Plastic-Toy-Green.jpg"
+},
+"Zebra": {
+"f": "photo/zebra.webp",
+"by": "Yathin S Krishnappa",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Equus_zebra_hartmannae_-_Etosha_2015.jpg"
+},
+"Butterfly": {
+"f": "photo/butterfly.webp",
+"by": "Laura Perlick, U.S. Fish and Wildlife Service",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:Monarch_butterfly_insect_on_butterflyweed_flower.jpg"
+},
+"Cheese wedge": {
+"f": "photo/cheese-wedge.webp",
+"by": "J.P.Lon",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Somerset-Cheddar.jpg"
+},
+"Cityscape": {
+"f": "photo/cityscape.webp",
+"by": "Mariordo (Mario Roberto Durán Ortiz)",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Panama_City_skyline_08_2013_panorama_7058.JPG"
+},
+"Cucumber": {
+"f": "photo/cucumber.webp",
+"by": "Genmewcaugsa",
+"lic": "CC BY-SA 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:HK_SYP_Best_of_Best_Vegetable_green_Cucumbers_Aug-2012.JPG"
+},
+"Evergreen tree": {
+"f": "photo/evergreen-tree.webp",
+"by": "Valery Kraynov",
+"lic": "CC BY 3.0",
+"src": "https://commons.wikimedia.org/wiki/File:Winter_Forest_(129068527).jpeg"
+},
+"Glass of milk": {
+"f": "photo/glass-of-milk.webp",
+"by": "NIAID",
+"lic": "CC BY 2.0",
+"src": "https://commons.wikimedia.org/wiki/File:Glass_of_Milk_(33657535532).jpg"
+},
+"Hammer": {
+"f": "photo/hammer.webp",
+"by": "Santeri Viinamäki",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:Magnum_25116_claw_hammer.jpg"
+},
+"Onion": {
+"f": "photo/onion.webp",
+"by": "Webvilla on Unsplash",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Onion_and_a_group_of_vegetables_on_a_cutting_board.jpg"
+},
+"Rainbow": {
+"f": "photo/rainbow.webp",
+"by": "Forest Service Alaska Region, USDA",
+"lic": "Public domain",
+"src": "https://commons.wikimedia.org/wiki/File:20230922-FS-BR-rainbow-mendenhall-glacier-0001_(54090100867).jpg"
+},
+"Bird": {
+"f": "photo/bird.webp",
+"by": "Fetafete",
+"lic": "CC BY-SA 4.0",
+"src": "https://commons.wikimedia.org/wiki/File:White-throated_sparrow_perched_on_a_branch.jpg"
+},
+"Red apple": {
+"f": "photo/red-apple.webp",
+"by": "Fructibus",
+"lic": "CC0",
+"src": "https://commons.wikimedia.org/wiki/File:Red_apple_on_a_plate_2017_A.jpg"
+}
+}

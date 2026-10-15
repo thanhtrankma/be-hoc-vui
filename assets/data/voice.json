@@ -1,0 +1,1375 @@
+{
+ "phrases": {
+  "welcome": {
+   "vi": "Chào mừng bé đến với Bé Vui Học!",
+   "en": "Welcome! Let's learn and play!"
+  },
+  "whoPlays": {
+   "vi": "Ai đang chơi đấy nhỉ?",
+   "en": "Who is playing today?"
+  },
+  "pickMascot": {
+   "vi": "Bé chọn một người bạn đồng hành nhé!",
+   "en": "Choose your buddy!"
+  },
+  "pickIsland": {
+   "vi": "Chào bạn nhỏ! Hôm nay mình học gì nhỉ?",
+   "en": "Hi there! What shall we learn today?"
+  },
+  "praise1": {
+   "vi": "Giỏi quá!",
+   "en": "Great job!"
+  },
+  "praise2": {
+   "vi": "Đúng rồi!",
+   "en": "That's right!"
+  },
+  "praise3": {
+   "vi": "Tuyệt vời!",
+   "en": "Awesome!"
+  },
+  "praise4": {
+   "vi": "Bé thông minh quá!",
+   "en": "So smart!"
+  },
+  "praise5": {
+   "vi": "Hoan hô!",
+   "en": "Hooray!"
+  },
+  "praise6": {
+   "vi": "Chính xác!",
+   "en": "Correct!"
+  },
+  "retry1": {
+   "vi": "Chưa đúng rồi, bé thử lại nhé!",
+   "en": "Oops! Try again!"
+  },
+  "retry2": {
+   "vi": "Gần đúng rồi, cố lên nào!",
+   "en": "Almost! Keep going!"
+  },
+  "retry3": {
+   "vi": "Bé nghe lại nhé!",
+   "en": "Listen again!"
+  },
+  "roundDone": {
+   "vi": "Bé hoàn thành rồi! Giỏi lắm!",
+   "en": "You did it! Well done!"
+  },
+  "newSticker": {
+   "vi": "Bé nhận được một hình dán mới!",
+   "en": "You got a new sticker!"
+  },
+  "newMascot": {
+   "vi": "Bé mở khoá được một người bạn mới!",
+   "en": "You unlocked a new buddy!"
+  },
+  "rest": {
+   "vi": "Mình nghỉ mắt một chút nhé! Bé đi uống nước và vận động đi nào.",
+   "en": "Time to rest your eyes! Drink some water and move around."
+  },
+  "locked": {
+   "vi": "Bé chơi xong bài trước để mở bài này nhé!",
+   "en": "Finish the previous level first!"
+  },
+  "soon": {
+   "vi": "Sắp có rồi, bé chờ nhé!",
+   "en": "Coming soon!"
+  },
+  "lettersIntro": {
+   "vi": "Bé nghe và chọn đúng chữ nhé!",
+   "en": "Listen and pick the right letter!"
+  },
+  "countIntro": {
+   "vi": "Bé chạm vào từng hình để đếm, rồi chọn số đúng nhé!",
+   "en": "Tap each picture to count, then pick the number!"
+  },
+  "englishIntro": {
+   "vi": "Mình cùng học tiếng Anh nào!",
+   "en": "Let's learn English!"
+  },
+  "memoryIntro": {
+   "vi": "Lật thẻ và tìm hai thẻ giống nhau nhé!",
+   "en": "Flip the cards and find the pairs!"
+  },
+  "needStars": {
+   "vi": "Bé cần thêm ngôi sao để mở bạn này nhé!",
+   "en": "Collect more stars to unlock this buddy!"
+  },
+  "album": {
+   "vi": "Đây là bộ sưu tập hình dán của bé!",
+   "en": "Here is your sticker collection!"
+  },
+  "spellIntro": {
+   "vi": "Mình cùng ghép vần nào!",
+   "en": "Let's build words!"
+  },
+  "toneQ": {
+   "vi": "Bé nghe và chọn đúng dấu thanh nhé!",
+   "en": "Listen and pick the right tone mark!"
+  },
+  "onsetQ": {
+   "vi": "Bé chọn âm đầu cho đúng nhé!",
+   "en": "Pick the first sound!"
+  },
+  "rimeQ": {
+   "vi": "Bé chọn vần cho đúng nhé!",
+   "en": "Pick the right ending!"
+  },
+  "listenQ": {
+   "vi": "Bé nghe đánh vần rồi chọn hình đúng nhé!",
+   "en": "Listen to the spelling and pick the picture!"
+  },
+  "traceIntro": {
+   "vi": "Bé đặt ngón tay vào chấm xanh rồi tô theo nét nhé!",
+   "en": "Put your finger on the green dot and trace!"
+  },
+  "traceGood": {
+   "vi": "Bé viết đẹp quá!",
+   "en": "Beautiful writing!"
+  },
+  "mathIntro": {
+   "vi": "Mình cùng làm toán nào!",
+   "en": "Let's do some math!"
+  },
+  "cmpQ": {
+   "vi": "Bé chọn dấu lớn hơn, bé hơn hay bằng nhé!",
+   "en": "Pick greater than, less than, or equal!"
+  },
+  "tensQ": {
+   "vi": "Có tất cả bao nhiêu chấm tròn?",
+   "en": "How many dots are there?"
+  },
+  "clockQ": {
+   "vi": "Đồng hồ chỉ mấy giờ?",
+   "en": "What time is it?"
+  },
+  "logicIntro": {
+   "vi": "Mình cùng suy nghĩ thật giỏi nào!",
+   "en": "Let's think hard!"
+  },
+  "shadowQ": {
+   "vi": "Hình nào giống với cái bóng?",
+   "en": "Which picture matches the shadow?"
+  },
+  "patternQ": {
+   "vi": "Hình nào tiếp theo?",
+   "en": "What comes next?"
+  },
+  "oddQ": {
+   "vi": "Hình nào khác nhóm?",
+   "en": "Which one doesn't belong?"
+  },
+  "mazeQ": {
+   "vi": "Bé giúp bạn đi tới ngôi sao nhé!",
+   "en": "Help your buddy reach the star!"
+  },
+  "sudokuQ": {
+   "vi": "Mỗi hàng và mỗi cột chỉ có một hình giống nhau. Bé điền hình còn thiếu nhé!",
+   "en": "Each row and column has each picture once. Fill in the missing ones!"
+  },
+  "musicIntro": {
+   "vi": "Mình cùng chơi đàn nào!",
+   "en": "Let's play music!"
+  },
+  "songQ": {
+   "vi": "Bé bấm vào phím đang sáng nhé!",
+   "en": "Tap the key that lights up!"
+  },
+  "simonQ": {
+   "vi": "Bé nghe rồi bấm lại giống như vậy nhé!",
+   "en": "Listen, then play it back!"
+  },
+  "simonMore": {
+   "vi": "Giỏi lắm! Giờ dài hơn nhé!",
+   "en": "Great! Now a longer one!"
+  },
+  "freeQ": {
+   "vi": "Bé chơi đàn tự do nhé, xong thì bấm nút xanh!",
+   "en": "Play freely, tap the green button when done!"
+  },
+  "artIntro": {
+   "vi": "Bé chọn màu rồi tô thật đẹp nhé!",
+   "en": "Pick a color and paint!"
+  },
+  "drawQ": {
+   "vi": "Bé vẽ gì cũng được, thêm hình dán cho vui nhé!",
+   "en": "Draw anything and add stickers!"
+  },
+  "artDone": {
+   "vi": "Bức tranh đẹp quá!",
+   "en": "What a beautiful picture!"
+  },
+  "colorMore": {
+   "vi": "Bé tô thêm vài chỗ nữa nhé!",
+   "en": "Color a few more parts!"
+  },
+  "exploreIntro": {
+   "vi": "Bé xếp mỗi hình vào đúng nhóm nhé!",
+   "en": "Put each picture in the right group!"
+  },
+  "duelIntro": {
+   "vi": "Bố mẹ và bé, ai nhanh hơn nào?",
+   "en": "Parent and child, who is faster?"
+  },
+  "duelPick": {
+   "vi": "Chọn trò thi đấu nhé!",
+   "en": "Choose a game!"
+  },
+  "duelKid": {
+   "vi": "Bé thắng rồi! Hoan hô!",
+   "en": "The kid wins! Hooray!"
+  },
+  "duelParent": {
+   "vi": "Bố mẹ thắng rồi! Bé cố lên lần sau nhé!",
+   "en": "Parent wins! Try again next time!"
+  },
+  "duelTie": {
+   "vi": "Hoà rồi! Cả nhà đều giỏi!",
+   "en": "It's a tie! Everyone is great!"
+  },
+  "ready": {
+   "vi": "Sẵn sàng! Ba, hai, một, bắt đầu!",
+   "en": "Ready! Three, two, one, go!"
+  },
+  "arcadeIntro": {
+   "vi": "Mình cùng chơi trò chơi nhanh nào!",
+   "en": "Let's play quick games!"
+  },
+  "balloonQ": {
+   "vi": "Bé bắn đúng quả bóng nhé!",
+   "en": "Pop the right balloon!"
+  },
+  "raceIntro": {
+   "vi": "Trả lời đúng để xe chạy nhanh hơn nhé!",
+   "en": "Answer right to make your car go faster!"
+  },
+  "raceWin": {
+   "vi": "Bé về đích đầu tiên! Vô địch!",
+   "en": "You finished first! Champion!"
+  },
+  "raceLose": {
+   "vi": "Suýt nữa thôi! Lần sau bé sẽ thắng!",
+   "en": "So close! You'll win next time!"
+  },
+  "readIntro": {
+   "vi": "Mình cùng đọc truyện nào!",
+   "en": "Let's read a story!"
+  },
+  "storyQ": {
+   "vi": "Bé trả lời câu hỏi nhé!",
+   "en": "Answer the questions!"
+  },
+  "dictIntro": {
+   "vi": "Bé nghe rồi ghép chữ cho đúng nhé!",
+   "en": "Listen and build the word!"
+  },
+  "dictC": {
+   "vi": "Chọn âm đầu.",
+   "en": "Pick the first sound."
+  },
+  "dictV": {
+   "vi": "Chọn vần.",
+   "en": "Pick the vowel."
+  },
+  "dictT": {
+   "vi": "Chọn dấu thanh.",
+   "en": "Pick the tone mark."
+  },
+  "aloudIntro": {
+   "vi": "Bé bấm vào micro rồi đọc to từ này nhé!",
+   "en": "Tap the mic and read the word out loud!"
+  },
+  "aloudTry": {
+   "vi": "Bé đọc lại to hơn nhé!",
+   "en": "Read it again, louder!"
+  },
+  "aloudParent": {
+   "vi": "Bố mẹ nghe bé đọc rồi chấm giúp bé nhé!",
+   "en": "Parents, listen and tap a button!"
+  },
+  "lifeIntro": {
+   "vi": "Mình cùng làm toán đời sống nào!",
+   "en": "Let's do everyday math!"
+  },
+  "shopIntro": {
+   "vi": "Khách tới rồi! Bé lấy đúng hàng cho khách nhé!",
+   "en": "A customer! Get the right items!"
+  },
+  "shopThanks": {
+   "vi": "Cảm ơn bé nhé!",
+   "en": "Thank you!"
+  },
+  "shopWrong": {
+   "vi": "Chưa đúng rồi, bé đếm lại nhé!",
+   "en": "Not quite, count again!"
+  },
+  "longest": {
+   "vi": "Bút chì nào dài nhất?",
+   "en": "Which pencil is the longest?"
+  },
+  "shortest": {
+   "vi": "Bút chì nào ngắn nhất?",
+   "en": "Which pencil is the shortest?"
+  },
+  "tallest": {
+   "vi": "Cái tháp nào cao nhất?",
+   "en": "Which tower is the tallest?"
+  },
+  "lowest": {
+   "vi": "Cái tháp nào thấp nhất?",
+   "en": "Which tower is the shortest?"
+  },
+  "heavyQ": {
+   "vi": "Bên nào nặng hơn?",
+   "en": "Which side is heavier?"
+  },
+  "clipsQ": {
+   "vi": "Bút chì dài bằng mấy cái kẹp giấy?",
+   "en": "How many paper clips long is the pencil?"
+  },
+  "rulerQ": {
+   "vi": "Bút chì dài mấy xăng-ti-mét?",
+   "en": "How many centimeters long is the pencil?"
+  },
+  "calendarIntro": {
+   "vi": "Mình cùng xem lịch nào!",
+   "en": "Let's read the calendar!"
+  },
+  "seqQ": {
+   "vi": "Bé xếp các hình theo đúng thứ tự nhé!",
+   "en": "Put the pictures in order!"
+  },
+  "seqWrong": {
+   "vi": "Chưa đúng thứ tự rồi, bé thử lại nhé!",
+   "en": "Not in order yet, try again!"
+  },
+  "jigsawQ": {
+   "vi": "Bé ghép các mảnh vào đúng chỗ nhé!",
+   "en": "Put the pieces in the right place!"
+  },
+  "spotQ": {
+   "vi": "Hai bức tranh có vài chỗ khác nhau. Bé tìm nhé!",
+   "en": "Find the differences between the pictures!"
+  },
+  "roomIntro": {
+   "vi": "Đây là phòng của bé! Dùng ngôi sao để mua đồ cho bạn đồng hành nhé!",
+   "en": "This is your room! Use stars to dress up your buddy!"
+  },
+  "buyOk": {
+   "vi": "Bé mua được rồi!",
+   "en": "You bought it!"
+  },
+  "needMore": {
+   "vi": "Bé cần thêm ngôi sao nữa nhé!",
+   "en": "You need more stars!"
+  },
+  "dailyDone": {
+   "vi": "Bé hoàn thành thử thách hôm nay rồi! Giỏi quá!",
+   "en": "You finished today's challenge! Great job!"
+  },
+  "badge": {
+   "vi": "Bé nhận được huy hiệu mới!",
+   "en": "You earned a new badge!"
+  },
+  "funIntro": {
+   "vi": "Khu vui chơi đây! Mỗi bài học xong bé được một vé chơi game nhé!",
+   "en": "Welcome to the game zone! Every finished lesson gives you a ticket!"
+  },
+  "noTicket": {
+   "vi": "Bé hết vé rồi! Học thêm một bài để có vé chơi nhé!",
+   "en": "No tickets left! Finish a lesson to earn one!"
+  },
+  "newRecord": {
+   "vi": "Kỷ lục mới! Bé giỏi quá!",
+   "en": "New record! Amazing!"
+  },
+  "youWin": {
+   "vi": "Bé chiến thắng rồi! Hoan hô!",
+   "en": "You win! Hooray!"
+  },
+  "gameOver": {
+   "vi": "Hết lượt rồi! Bé chơi giỏi lắm!",
+   "en": "Game over! Great playing!"
+  },
+  "codingQ": {
+   "vi": "Bé xếp các mũi tên để đưa bạn robot tới ngôi sao, rồi bấm nút chạy nhé!",
+   "en": "Arrange the arrows to guide your buddy to the star, then press run!"
+  },
+  "flowQ": {
+   "vi": "Nối các chấm cùng màu với nhau. Các đường nối không được cắt nhau nhé!",
+   "en": "Connect the dots of the same color. Lines can't cross!"
+  },
+  "pipesQ": {
+   "vi": "Chạm vào ống để xoay, dẫn nước tới cái cây nhé!",
+   "en": "Tap the pipes to turn them and bring water to the plant!"
+  },
+  "schulteQ": {
+   "vi": "Bé chạm các số từ nhỏ đến lớn thật nhanh nhé!",
+   "en": "Tap the numbers in order, as fast as you can!"
+  },
+  "petPick": {
+   "vi": "Bé muốn nuôi bạn nào?",
+   "en": "Which pet would you like?"
+  },
+  "petYum": {
+   "vi": "Ngon quá!",
+   "en": "Yummy!"
+  },
+  "petDrink": {
+   "vi": "Mát quá!",
+   "en": "So refreshing!"
+  },
+  "petClean": {
+   "vi": "Thơm tho sạch sẽ rồi!",
+   "en": "All clean and fresh!"
+  },
+  "petScrub": {
+   "vi": "Bé chà xà phòng lên người bạn nhé!",
+   "en": "Scrub with the soap!"
+  },
+  "petWash": {
+   "vi": "Chơi với thú cưng xong, bé nhớ rửa tay nhé!",
+   "en": "Remember to wash your hands after playing with pets!"
+  },
+  "petNewItem": {
+   "vi": "Bé mở khoá được đồ mới cho thú cưng!",
+   "en": "You unlocked a new item for your pet!"
+  },
+  "blocksQ": {
+   "vi": "Có tất cả bao nhiêu khối?",
+   "en": "How many blocks are there?"
+  },
+  "biggerQ": {
+   "vi": "Số nào lớn hơn?",
+   "en": "Which number is bigger?"
+  },
+  "smallerQ": {
+   "vi": "Số nào bé hơn?",
+   "en": "Which number is smaller?"
+  },
+  "tensHint": {
+   "vi": "Mỗi thanh dài là một chục, mười khối nhỏ.",
+   "en": "Each long bar is a ten, ten small cubes."
+  },
+  "missQ": {
+   "vi": "Số nào còn thiếu?",
+   "en": "Which number is missing?"
+  },
+  "readWordQ": {
+   "vi": "Bé đọc chữ rồi chọn hình đúng nhé!",
+   "en": "Read the word and pick the picture!"
+  },
+  "sentIntro": {
+   "vi": "Bé chạm từng chữ theo đúng thứ tự để thành câu nhé!",
+   "en": "Tap the words in order to make a sentence!"
+  },
+  "wordIntro": {
+   "vi": "Bé nghe đề bài rồi chọn đáp án nhé!",
+   "en": "Listen to the problem and pick the answer!"
+  },
+  "pickTier": {
+   "vi": "Bé chọn cấp học nhé! Bé đã biết nhiều thì chọn cấp cao hơn.",
+   "en": "Pick your level!"
+  },
+  "ruleQ": {
+   "vi": "Từ nào viết đúng chính tả?",
+   "en": "Which word is spelled right?"
+  },
+  "readSentQ": {
+   "vi": "Bé đọc câu rồi chọn hình đúng nhé!",
+   "en": "Read the sentence and pick the picture!"
+  },
+  "clozeQ": {
+   "vi": "Bé chọn từ còn thiếu trong câu nhé!",
+   "en": "Pick the missing word!"
+  },
+  "biggestQ": {
+   "vi": "Số nào lớn nhất?",
+   "en": "Which number is the biggest?"
+  },
+  "smallestQ": {
+   "vi": "Số nào bé nhất?",
+   "en": "Which number is the smallest?"
+  },
+  "cmpExprQ": {
+   "vi": "Bé điền dấu lớn hơn, bé hơn hay bằng nhé!",
+   "en": "Greater, less or equal?"
+  },
+  "nextNumQ": {
+   "vi": "Số nào tiếp theo?",
+   "en": "Which number comes next?"
+  },
+  "rpgTown": {
+   "vi": "Chào mừng đến làng phiêu lưu! Bé chọn một vùng đất trên bản đồ để đi đánh quái nhé.",
+   "en": "Welcome to the adventure village! Pick a land on the map."
+  },
+  "rpgBoss": {
+   "vi": "Trùm xuất hiện rồi! Cố lên nào!",
+   "en": "The boss is here! You can do it!"
+  },
+  "rpgLevelUp": {
+   "vi": "Lên cấp rồi! Nhân vật của bé mạnh hơn rồi đó!",
+   "en": "Level up! Your hero is stronger now!"
+  },
+  "rpgClear": {
+   "vi": "Giỏi quá! Bé đã giải cứu cả vùng đất này!",
+   "en": "Amazing! You saved this land!"
+  },
+  "rpgLose": {
+   "vi": "Hết máu rồi. Về làng mua đồ mạnh hơn rồi thử lại nhé!",
+   "en": "Out of health. Buy better gear and try again!"
+  },
+  "rpgZ0": {
+   "vi": "Rừng Xanh! Kéo bên trái để đi, bấm nút kiếm để chém quái.",
+   "en": "Green Forest! Drag on the left to move, tap the sword to attack."
+  },
+  "rpgZ1": {
+   "vi": "Biển Ngọc! Kéo để lái thuyền, đại bác sẽ tự bắn. Nhớ né đạn nhé.",
+   "en": "Jewel Sea! Drag to steer, the cannon fires by itself."
+  },
+  "rpgZ2": {
+   "vi": "Hang Mỏ! Bấm mũi tên để đi, tìm chìa khoá rồi đi tới cánh cửa.",
+   "en": "The Mine! Use the arrows, find the key, then reach the door."
+  },
+  "rpgZ3": {
+   "vi": "Xứ Tuyết! Đến lượt bé thì chọn đánh, phép hoặc đỡ. Bấm khi vạch ở ô xanh để đánh thật mạnh.",
+   "en": "Snow Land! On your turn choose attack, magic or defend."
+  },
+  "rpgZ4": {
+   "vi": "Sa Mạc! Chạm vào cát để đào. Ô màu đỏ là gần kho báu, ô màu xanh là còn xa.",
+   "en": "The Desert! Tap the sand to dig. Red means the treasure is close."
+  },
+  "rpgZ5": {
+   "vi": "Thành Mây! Kéo để bay, đại bàng sẽ tự bắn về phía trước.",
+   "en": "Cloud City! Drag to fly, the eagle shoots by itself."
+  },
+  "rpgZ6": {
+   "vi": "Rừng Kẹo! Chọn lính rồi chạm vào ô tròn để đặt, giữ cho chiếc bánh không bị kiến ăn mất.",
+   "en": "Candy Forest! Place guards to protect the cake from the ants."
+  },
+  "rpgZ7": {
+   "vi": "Núi Lửa! Chạy và nhảy qua dung nham để tới lá cờ. Cẩn thận lửa nhé.",
+   "en": "Volcano! Run and jump over the lava to reach the flag."
+  },
+  "rpgZ8": {
+   "vi": "Đầm Lầy Ma! Trời tối lắm. Nhặt các đốm sáng, bấm bóng đèn để làm ma bị choáng.",
+   "en": "Ghost Swamp! Collect the lights, tap the bulb to stun the ghosts."
+  },
+  "rpgZ9": {
+   "vi": "Lâu Đài Rồng! Ba bạn phiêu lưu sẽ đánh cùng bé. Thấy vòng đỏ thì chạy ra ngoài nhé.",
+   "en": "Dragon Castle! Three friends fight with you. Run out of the red circles!"
+  },
+  "reviewIntro": {
+   "vi": "Mình cùng ôn lại những chỗ con hay nhầm nhé!",
+   "en": "Let's practice the tricky ones!"
+  },
+  "reviewDone": {
+   "vi": "Con nhớ bài rồi đấy! Giỏi lắm!",
+   "en": "You remembered! Great job!"
+  },
+  "reviewNone": {
+   "vi": "Con không còn chỗ nào cần ôn. Giỏi quá!",
+   "en": "Nothing to practice now. Awesome!"
+  },
+  "ms_w10": {
+   "vi": "Hoan hô! Con đã đọc đúng mười tiếng rồi!",
+   "en": "Hooray! You can read ten words!"
+  },
+  "ms_w25": {
+   "vi": "Hoan hô! Con đã đọc đúng hai mươi lăm tiếng rồi!",
+   "en": "Hooray! You can read twenty-five words!"
+  },
+  "ms_w50": {
+   "vi": "Tuyệt vời! Con đã đọc đúng năm mươi tiếng rồi!",
+   "en": "Amazing! You can read fifty words!"
+  },
+  "ms_w100": {
+   "vi": "Quá giỏi! Con đã đọc đúng một trăm tiếng rồi!",
+   "en": "Wow! You can read one hundred words!"
+  },
+  "ms_l10": {
+   "vi": "Hoan hô! Con đã nhận ra mười chữ cái rồi!",
+   "en": "Hooray! You know ten letters!"
+  },
+  "ms_lall": {
+   "vi": "Tuyệt vời! Con đã thuộc cả bảng chữ cái!",
+   "en": "Amazing! You know the whole alphabet!"
+  },
+  "ms_e10": {
+   "vi": "Hoan hô! Con đã thuộc mười từ tiếng Anh!",
+   "en": "Hooray! You know ten English words!"
+  },
+  "ms_e25": {
+   "vi": "Hoan hô! Con đã thuộc hai mươi lăm từ tiếng Anh!",
+   "en": "Hooray! You know twenty-five English words!"
+  },
+  "ms_e50": {
+   "vi": "Tuyệt vời! Con đã thuộc năm mươi từ tiếng Anh!",
+   "en": "Amazing! You know fifty English words!"
+  },
+  "ms_e100": {
+   "vi": "Quá giỏi! Con đã thuộc một trăm từ tiếng Anh!",
+   "en": "Wow! You know one hundred English words!"
+  },
+  "ms_m20": {
+   "vi": "Hoan hô! Con đã làm đúng hai mươi phép tính!",
+   "en": "Hooray! Twenty sums right!"
+  },
+  "ms_m50": {
+   "vi": "Tuyệt vời! Con đã làm đúng năm mươi phép tính!",
+   "en": "Amazing! Fifty sums right!"
+  },
+  "ms_m100": {
+   "vi": "Quá giỏi! Con đã làm đúng một trăm phép tính!",
+   "en": "Wow! One hundred sums right!"
+  },
+  "ms_isl": {
+   "vi": "Tuyệt vời! Con đã học xong cả một đảo!",
+   "en": "Amazing! You finished a whole island!"
+  },
+  "cert": {
+   "vi": "Đây là bằng khen của con! Nhờ bố mẹ chụp lại gửi ông bà nhé!",
+   "en": "Here is your certificate! Ask mom or dad to take a picture!"
+  },
+  "codeIntro": {
+   "vi": "Đây là đảo Lập trình! Bé xếp thẻ lệnh để robot làm vườn đi tưới cây nhé.",
+   "en": "This is Coding Island! Arrange the cards to help the garden robot water the plants."
+  },
+  "codeGardenQ": {
+   "vi": "Bé xếp thẻ lệnh để robot tưới hết các mầm cây, rồi bấm nút chạy nhé!",
+   "en": "Arrange the cards so the robot waters every sprout, then press run!"
+  },
+  "codeRelQ": {
+   "vi": "Mũi tên xanh lá là đi tới theo hướng robot đang nhìn. Thẻ cong màu cam là quay trái, quay phải. Bé xếp thẻ rồi bấm chạy nhé!",
+   "en": "The green arrow moves the robot forward the way it faces. The orange cards turn left or right. Arrange them and press run!"
+  },
+  "codeJumpQ": {
+   "vi": "Có hàng khúc gỗ chắn đường! Thẻ nhảy giúp robot nhảy qua một ô.",
+   "en": "Logs block the way! The jump card makes the robot hop over one square."
+  },
+  "codeLoopQ": {
+   "vi": "Thẻ lặp lại giúp robot làm một việc nhiều lần. Bé chạm thẻ lặp lại, thêm lệnh vào trong, rồi chạm số để chọn số lần nhé.",
+   "en": "The repeat card makes the robot do something many times. Add a repeat card, put cards inside, then tap the number to choose how many times."
+  },
+  "codeDebugQ": {
+   "vi": "Chương trình này có một thẻ sai. Bé bấm chạy xem robot sai ở đâu, rồi chạm thẻ sai và chọn thẻ đúng nhé!",
+   "en": "One card in this program is wrong. Press run to see where the robot goes wrong, then tap that card and pick the right one!"
+  },
+  "codeDebugHint": {
+   "vi": "Thẻ sai ở chỗ đang rung đó!",
+   "en": "The wrong card is the one wiggling!"
+  },
+  "codeTraceQ": {
+   "vi": "Robot sẽ dừng ở ô nào? Bé đọc các thẻ lệnh rồi chạm vào ô đó nhé!",
+   "en": "Where will the robot stop? Read the cards and tap that square!"
+  },
+  "codeTraceWrong": {
+   "vi": "Chưa đúng rồi, robot dừng ở ô màu xanh nè!",
+   "en": "Not quite, the robot stops on the green square!"
+  },
+  "codeBump": {
+   "vi": "Ối, robot bị chặn rồi! Bé sửa lại nhé.",
+   "en": "Oops, the robot is blocked! Let's fix it."
+  },
+  "codeMissed": {
+   "vi": "Còn mầm cây chưa được tưới. Bé thử lại nhé!",
+   "en": "Some sprouts still need water. Try again!"
+  },
+  "codeFull": {
+   "vi": "Hết ô lệnh rồi! Bé thử cách ngắn hơn nhé.",
+   "en": "No more room! Try a shorter way."
+  },
+  "cmdU": {
+   "vi": "Đi lên",
+   "en": "Up"
+  },
+  "cmdD": {
+   "vi": "Đi xuống",
+   "en": "Down"
+  },
+  "cmdL": {
+   "vi": "Sang trái",
+   "en": "Left"
+  },
+  "cmdR": {
+   "vi": "Sang phải",
+   "en": "Right"
+  },
+  "cmdF": {
+   "vi": "Đi tới",
+   "en": "Forward"
+  },
+  "cmdTL": {
+   "vi": "Quay trái",
+   "en": "Turn left"
+  },
+  "cmdTR": {
+   "vi": "Quay phải",
+   "en": "Turn right"
+  },
+  "cmdJ": {
+   "vi": "Nhảy",
+   "en": "Jump"
+  },
+  "cmdW": {
+   "vi": "Tưới nước",
+   "en": "Water"
+  },
+  "cmdREP": {
+   "vi": "Lặp lại",
+   "en": "Repeat"
+  },
+  "codeRep2": {
+   "vi": "Lặp lại hai lần",
+   "en": "Repeat two times"
+  },
+  "codeRep3": {
+   "vi": "Lặp lại ba lần",
+   "en": "Repeat three times"
+  },
+  "codeRep4": {
+   "vi": "Lặp lại bốn lần",
+   "en": "Repeat four times"
+  },
+  "codeRep5": {
+   "vi": "Lặp lại năm lần",
+   "en": "Repeat five times"
+  },
+  "codeRep6": {
+   "vi": "Lặp lại sáu lần",
+   "en": "Repeat six times"
+  }
+ },
+ "templates": {
+  "findLetter": {
+   "lang": "vi",
+   "text": "Tìm chữ {say}.",
+   "for": [
+    "letters"
+   ]
+  },
+  "letterWord": {
+   "lang": "vi",
+   "text": "{say}. {word}.",
+   "for": [
+    "letters"
+   ]
+  },
+  "howMany": {
+   "lang": "vi",
+   "text": "Có bao nhiêu {name}?",
+   "for": [
+    "things"
+   ]
+  },
+  "number": {
+   "lang": "vi",
+   "text": "{num}",
+   "for": [
+    "numbers"
+   ]
+  },
+  "countAnswer": {
+   "lang": "vi",
+   "text": "{num} {name}.",
+   "product": [
+    "numbers",
+    "things"
+   ]
+  },
+  "findEnThe": {
+   "lang": "en",
+   "text": "Where is the {en}?",
+   "for": [
+    "en_animals",
+    "en_body",
+    "en_clothes",
+    "en_food",
+    "en_fruits",
+    "en_home",
+    "en_school",
+    "en_sea",
+    "en_toys",
+    "en_vehicles",
+    "en_wild",
+    "en_farm",
+    "en_bugs",
+    "en_pets",
+    "en_class",
+    "en_veg",
+    "en_town",
+    "en_party"
+   ]
+  },
+  "findEn": {
+   "lang": "en",
+   "text": "Find {en}!",
+   "for": [
+    "en_colors",
+    "en_family",
+    "en_feelings",
+    "en_numbers",
+    "en_numbers2",
+    "en_weather",
+    "en_snacks",
+    "en_sports",
+    "en_nature",
+    "en_adj",
+    "en_colors2",
+    "en_tens"
+   ]
+  },
+  "wordEn": {
+   "lang": "en",
+   "text": "{en}!",
+   "for": [
+    "en_animals",
+    "en_body",
+    "en_clothes",
+    "en_colors",
+    "en_family",
+    "en_feelings",
+    "en_food",
+    "en_fruits",
+    "en_home",
+    "en_jobs",
+    "en_numbers",
+    "en_numbers2",
+    "en_school",
+    "en_sea",
+    "en_toys",
+    "en_vehicles",
+    "en_weather",
+    "en_wild",
+    "words",
+    "en_farm",
+    "en_bugs",
+    "en_actions",
+    "memItems",
+    "en_pets",
+    "en_class",
+    "en_snacks",
+    "en_hobbies",
+    "en_commands",
+    "en_sports",
+    "en_veg",
+    "en_nature",
+    "en_town",
+    "en_party",
+    "en_adj",
+    "en_colors2",
+    "en_tens"
+   ]
+  },
+  "wordVi": {
+   "lang": "vi",
+   "text": "{vi}",
+   "for": [
+    "words",
+    "memItems"
+   ]
+  },
+  "mascotVi": {
+   "lang": "vi",
+   "text": "{vi}!",
+   "for": [
+    "mascots"
+   ]
+  },
+  "mascotEn": {
+   "lang": "en",
+   "text": "{en}!",
+   "for": [
+    "mascots"
+   ]
+  },
+  "vnWord": {
+   "lang": "vi",
+   "text": "{w}. {hint}.",
+   "for": [
+    "vnwords"
+   ],
+   "rate": "-20%"
+  },
+  "spell": {
+   "lang": "vi",
+   "text": "{spell}",
+   "for": [
+    "vnwords"
+   ],
+   "rate": "-15%",
+   "fx": {
+    "spell": "spellComma"
+   }
+  },
+  "writeLetter": {
+   "lang": "vi",
+   "text": "Viết chữ {say}.",
+   "for": [
+    "letters"
+   ]
+  },
+  "writeNum": {
+   "lang": "vi",
+   "text": "Viết số {num}.",
+   "for": [
+    "digits"
+   ]
+  },
+  "num": {
+   "lang": "vi",
+   "text": "{num}",
+   "for": [
+    "nums"
+   ]
+  },
+  "addQ": {
+   "lang": "vi",
+   "text": "{an} cộng {bn} bằng mấy?",
+   "for": [
+    "addFacts"
+   ]
+  },
+  "addA": {
+   "lang": "vi",
+   "text": "{an} cộng {bn} bằng {cn}.",
+   "for": [
+    "addFacts"
+   ]
+  },
+  "subQ": {
+   "lang": "vi",
+   "text": "{an} trừ {bn} còn mấy?",
+   "for": [
+    "subFacts"
+   ]
+  },
+  "subA": {
+   "lang": "vi",
+   "text": "{an} trừ {bn} bằng {cn}.",
+   "for": [
+    "subFacts"
+   ]
+  },
+  "cmpA": {
+   "lang": "vi",
+   "text": "{an} {rel} {bn}.",
+   "for": [
+    "cmpFacts"
+   ]
+  },
+  "clockA": {
+   "lang": "vi",
+   "text": "{num} giờ.",
+   "for": [
+    "clockHours"
+   ]
+  },
+  "shapeQ": {
+   "lang": "vi",
+   "text": "Tìm {name}.",
+   "for": [
+    "shapes"
+   ]
+  },
+  "shapeA": {
+   "lang": "vi",
+   "text": "Đây là {name}.",
+   "for": [
+    "shapes"
+   ]
+  },
+  "sortName": {
+   "lang": "vi",
+   "text": "{name}",
+   "for": [
+    "sortItems"
+   ]
+  },
+  "findNum": {
+   "lang": "vi",
+   "text": "Tìm số {num}.",
+   "for": [
+    "nums"
+   ]
+  },
+  "storyLine": {
+   "lang": "vi",
+   "text": "{t}",
+   "for": [
+    "storyLines"
+   ]
+  },
+  "storyWord": {
+   "lang": "vi",
+   "text": "{w}",
+   "for": [
+    "storyWords"
+   ]
+  },
+  "seqStep": {
+   "lang": "vi",
+   "text": "{name}",
+   "for": [
+    "seqSteps"
+   ]
+  },
+  "shopOrder": {
+   "lang": "vi",
+   "text": "Cho {who} {num} {name}.",
+   "product": [
+    "customers",
+    "shopNums",
+    "shopItems"
+   ]
+  },
+  "shopAnd": {
+   "lang": "vi",
+   "text": "và {num} {name}.",
+   "product": [
+    "shopNums",
+    "shopItems"
+   ]
+  },
+  "weightA": {
+   "lang": "vi",
+   "text": "{name} nặng hơn.",
+   "for": [
+    "weights"
+   ]
+  },
+  "weekTomorrow": {
+   "lang": "vi",
+   "text": "Hôm nay là {d}. Ngày mai là thứ mấy?",
+   "for": [
+    "weekdays"
+   ]
+  },
+  "weekYesterday": {
+   "lang": "vi",
+   "text": "Hôm nay là {d}. Hôm qua là thứ mấy?",
+   "for": [
+    "weekdays"
+   ]
+  },
+  "dayName": {
+   "lang": "vi",
+   "text": "{d}",
+   "for": [
+    "weekdays"
+   ]
+  },
+  "findDate": {
+   "lang": "vi",
+   "text": "Tìm ngày {num} trên lịch.",
+   "for": [
+    "calNums"
+   ]
+  },
+  "dateIs": {
+   "lang": "vi",
+   "text": "Ngày {num}",
+   "for": [
+    "calNums"
+   ]
+  },
+  "isDay": {
+   "lang": "vi",
+   "text": "là {d}.",
+   "for": [
+    "weekdays"
+   ]
+  },
+  "clipsA": {
+   "lang": "vi",
+   "text": "Dài bằng {num} cái kẹp.",
+   "for": [
+    "numbers"
+   ]
+  },
+  "rulerA": {
+   "lang": "vi",
+   "text": "Dài {num} xăng-ti-mét.",
+   "for": [
+    "numbers"
+   ]
+  },
+  "numBig": {
+   "lang": "vi",
+   "text": "{num}",
+   "for": [
+    "calNums"
+   ]
+  },
+  "petHello": {
+   "lang": "vi",
+   "text": "Chào bé! Mình là {p}. Bé đặt tên cho mình nhé!",
+   "for": [
+    "petsVoice"
+   ]
+  },
+  "petHungry": {
+   "lang": "vi",
+   "text": "{p} đói rồi, bé cho {p} ăn nhé!",
+   "for": [
+    "petsVoice"
+   ]
+  },
+  "petThirsty": {
+   "lang": "vi",
+   "text": "{p} khát nước rồi, bé cho {p} uống nước nhé!",
+   "for": [
+    "petsVoice"
+   ]
+  },
+  "petDirty": {
+   "lang": "vi",
+   "text": "{p} bẩn rồi, mình tắm cho {p} nhé!",
+   "for": [
+    "petsVoice"
+   ]
+  },
+  "petSleepy": {
+   "lang": "vi",
+   "text": "{p} buồn ngủ rồi, bé cho {p} đi ngủ nhé!",
+   "for": [
+    "petsVoice"
+   ]
+  },
+  "petSad": {
+   "lang": "vi",
+   "text": "{p} buồn quá, bé chơi với {p} nhé!",
+   "for": [
+    "petsVoice"
+   ]
+  },
+  "petLove": {
+   "lang": "vi",
+   "text": "{p} thương bé lắm!",
+   "for": [
+    "petsVoice"
+   ]
+  },
+  "petFull": {
+   "lang": "vi",
+   "text": "{p} no rồi, cảm ơn bé!",
+   "for": [
+    "petsVoice"
+   ]
+  },
+  "petGrow": {
+   "lang": "vi",
+   "text": "{p} lớn thêm rồi! Cảm ơn bé đã chăm sóc {p}.",
+   "for": [
+    "petsVoice"
+   ]
+  },
+  "petNight": {
+   "lang": "vi",
+   "text": "Chúc {p} ngủ ngon!",
+   "for": [
+    "petsVoice"
+   ]
+  },
+  "petLearned": {
+   "lang": "vi",
+   "text": "{p} vui vì bé học giỏi!",
+   "for": [
+    "petsVoice"
+   ]
+  },
+  "n100": {
+   "lang": "vi",
+   "text": "{num}",
+   "for": [
+    "nums100"
+   ]
+  },
+  "nextQ": {
+   "lang": "vi",
+   "text": "Số liền sau của {num} là số nào?",
+   "for": [
+    "nums100"
+   ]
+  },
+  "prevQ": {
+   "lang": "vi",
+   "text": "Số liền trước của {num} là số nào?",
+   "for": [
+    "nums100"
+   ]
+  },
+  "add100Q": {
+   "lang": "vi",
+   "text": "{an} cộng {bn} bằng mấy?",
+   "for": [
+    "add100",
+    "add2d"
+   ]
+  },
+  "add100A": {
+   "lang": "vi",
+   "text": "{an} cộng {bn} bằng {cn}.",
+   "for": [
+    "add100",
+    "add2d"
+   ]
+  },
+  "sub100Q": {
+   "lang": "vi",
+   "text": "{an} trừ {bn} còn mấy?",
+   "for": [
+    "sub100",
+    "sub2d"
+   ]
+  },
+  "sub100A": {
+   "lang": "vi",
+   "text": "{an} trừ {bn} bằng {cn}.",
+   "for": [
+    "sub100",
+    "sub2d"
+   ]
+  },
+  "wordQ": {
+   "lang": "vi",
+   "text": "{t}",
+   "for": [
+    "wordProbs",
+    "wordProbs100"
+   ]
+  },
+  "wordA": {
+   "lang": "vi",
+   "text": "Đáp số: {cn} {unit}.",
+   "for": [
+    "wordProbs",
+    "wordProbs100"
+   ]
+  },
+  "chainQ": {
+   "lang": "vi",
+   "text": "{an} {w1} {bn} {w2} {dn} bằng mấy?",
+   "for": [
+    "chainFacts"
+   ]
+  },
+  "chainA": {
+   "lang": "vi",
+   "text": "{an} {w1} {bn} {w2} {dn} bằng {cn}.",
+   "for": [
+    "chainFacts"
+   ]
+  },
+  "twoWord": {
+   "lang": "vi",
+   "text": "{w}.",
+   "for": [
+    "twoWords"
+   ],
+   "rate": "-20%"
+  },
+  "sentence": {
+   "lang": "vi",
+   "text": "{t}",
+   "for": [
+    "sentences"
+   ],
+   "rate": "-15%"
+  },
+  "findEnA": {
+   "lang": "en",
+   "text": "Find the {en}!",
+   "for": [
+    "en_jobs"
+   ]
+  },
+  "ruleSay": {
+   "lang": "vi",
+   "text": "{hint}.",
+   "for": [
+    "ruleWords"
+   ],
+   "rate": "-20%"
+  },
+  "posQ": {
+   "lang": "vi",
+   "text": "{t}",
+   "for": [
+    "posQs"
+   ]
+  },
+  "posA": {
+   "lang": "vi",
+   "text": "{a}",
+   "for": [
+    "posQs"
+   ]
+  },
+  "cmpExprA": {
+   "lang": "vi",
+   "text": "{an} {w} {bn} {reln} {nn}.",
+   "for": [
+    "cmpExpr"
+   ]
+  },
+  "showMe": {
+   "lang": "en",
+   "text": "Show me: {en}!",
+   "for": [
+    "en_actions",
+    "en_hobbies",
+    "en_commands"
+   ]
+  },
+  "letterWord2": {
+   "lang": "vi",
+   "text": "{say}. {word}.",
+   "for": [
+    "letterWords"
+   ]
+  },
+  "initialQ": {
+   "lang": "vi",
+   "text": "{key}. Chữ đầu tiên là chữ gì?",
+   "for": [
+    "letterWords"
+   ]
+  },
+  "exploreFact": {
+   "lang": "vi",
+   "text": "{fact}",
+   "for": [
+    "exploreFacts"
+   ]
+  },
+  "vnAsk": {
+   "lang": "vi",
+   "text": "{w}. {hint}. {w}.",
+   "for": [
+    "vnwords"
+   ],
+   "rate": "-15%"
+  },
+  "spellFast": {
+   "lang": "vi",
+   "text": "{spell}",
+   "fx": {
+    "spell": "spellFast"
+   },
+   "for": [
+    "vnwords"
+   ],
+   "rate": "-10%"
+  },
+  "vnSay": {
+   "lang": "vi",
+   "text": "{w}!",
+   "for": [
+    "vnwords"
+   ],
+   "rate": "-10%"
+  }
+ }
+}

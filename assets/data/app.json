@@ -1,0 +1,667 @@
+{
+ "mascots": [
+  {
+   "id": "superhero",
+   "img": "Man superhero",
+   "vi": "Siêu nhân",
+   "en": "Superhero",
+   "stars": 0
+  },
+  {
+   "id": "superheroine",
+   "img": "Woman superhero",
+   "vi": "Nữ siêu nhân",
+   "en": "Super girl",
+   "stars": 0
+  },
+  {
+   "id": "robot",
+   "img": "Robot",
+   "vi": "Rô-bốt",
+   "en": "Robot",
+   "stars": 0
+  },
+  {
+   "id": "racecar",
+   "img": "Racing car",
+   "vi": "Xe đua",
+   "en": "Race car",
+   "stars": 0
+  },
+  {
+   "id": "trex",
+   "img": "T-rex",
+   "vi": "Khủng long",
+   "en": "Dinosaur",
+   "stars": 0
+  },
+  {
+   "id": "astronaut",
+   "img": "Astronaut",
+   "vi": "Phi hành gia",
+   "en": "Astronaut",
+   "stars": 0
+  },
+  {
+   "id": "princess",
+   "img": "Princess",
+   "vi": "Công chúa",
+   "en": "Princess",
+   "stars": 0
+  },
+  {
+   "id": "unicorn",
+   "img": "Unicorn",
+   "vi": "Kỳ lân",
+   "en": "Unicorn",
+   "stars": 0
+  },
+  {
+   "id": "cat",
+   "img": "Cat face",
+   "vi": "Mèo con",
+   "en": "Kitty",
+   "stars": 0
+  },
+  {
+   "id": "rabbit",
+   "img": "Rabbit face",
+   "vi": "Thỏ con",
+   "en": "Bunny",
+   "stars": 0
+  },
+  {
+   "id": "dog",
+   "img": "Dog face",
+   "vi": "Cún con",
+   "en": "Puppy",
+   "stars": 0
+  },
+  {
+   "id": "panda",
+   "img": "Panda",
+   "vi": "Gấu trúc",
+   "en": "Panda",
+   "stars": 0
+  },
+  {
+   "id": "fireengine",
+   "img": "Fire engine",
+   "vi": "Xe cứu hoả",
+   "en": "Fire truck",
+   "stars": 10
+  },
+  {
+   "id": "fairy",
+   "img": "Woman fairy",
+   "vi": "Cô tiên",
+   "en": "Fairy",
+   "stars": 20
+  },
+  {
+   "id": "rocket",
+   "img": "Rocket",
+   "vi": "Tên lửa",
+   "en": "Rocket",
+   "stars": 30
+  },
+  {
+   "id": "policecar",
+   "img": "Police car",
+   "vi": "Xe cảnh sát",
+   "en": "Police car",
+   "stars": 40
+  },
+  {
+   "id": "sauropod",
+   "img": "Sauropod",
+   "vi": "Khủng long cổ dài",
+   "en": "Long-neck dino",
+   "stars": 50
+  },
+  {
+   "id": "locomotive",
+   "img": "Locomotive",
+   "vi": "Tàu hoả",
+   "en": "Train",
+   "stars": 60
+  },
+  {
+   "id": "ninja",
+   "img": "Ninja",
+   "vi": "Ninja",
+   "en": "Ninja",
+   "stars": 75
+  },
+  {
+   "id": "bear",
+   "img": "Bear",
+   "vi": "Gấu nâu",
+   "en": "Bear",
+   "stars": 90
+  },
+  {
+   "id": "dragon",
+   "img": "Dragon",
+   "vi": "Rồng",
+   "en": "Dragon",
+   "stars": 110
+  },
+  {
+   "id": "lion",
+   "img": "Lion",
+   "vi": "Sư tử",
+   "en": "Lion",
+   "stars": 130
+  }
+ ],
+ "stickers": [
+  "Rainbow",
+  "Soft ice cream",
+  "Balloon",
+  "Trophy",
+  "Crown",
+  "Gem stone",
+  "Lollipop",
+  "Party popper",
+  "Glowing star",
+  "Sun with face",
+  "Butterfly",
+  "Dolphin",
+  "Cupcake",
+  "Teddy bear",
+  "Kite",
+  "Doughnut",
+  "Pizza",
+  "Snowman",
+  "Four leaf clover",
+  "Shooting star",
+  "Penguin",
+  "Strawberry",
+  "Watermelon",
+  "Turtle",
+  "Owl",
+  "Frog",
+  "Honeybee",
+  "Elephant",
+  "Unicorn",
+  "Rocket"
+ ],
+ "islands": [
+  {
+   "id": "letters",
+   "game": "pick",
+   "img": "Books",
+   "color": "#ff8a5b",
+   "vi": "Chữ cái",
+   "en": "Letters"
+  },
+  {
+   "id": "spell",
+   "game": "spell",
+   "img": "Input latin lowercase",
+   "color": "#ff6f91",
+   "vi": "Ghép vần",
+   "en": "Phonics"
+  },
+  {
+   "id": "trace",
+   "game": "trace",
+   "img": "Pencil",
+   "color": "#f59f00",
+   "vi": "Tập viết",
+   "en": "Writing"
+  },
+  {
+   "id": "read",
+   "game": "read",
+   "img": "Open book",
+   "color": "#e8590c",
+   "vi": "Đọc truyện",
+   "en": "Reading"
+  },
+  {
+   "id": "count",
+   "game": "count",
+   "img": "Abacus",
+   "color": "#4fb3ff",
+   "vi": "Số đếm",
+   "en": "Counting"
+  },
+  {
+   "id": "math",
+   "game": "math",
+   "img": "Plus",
+   "color": "#3d8bfd",
+   "vi": "Toán vui",
+   "en": "Math"
+  },
+  {
+   "id": "life",
+   "game": "life",
+   "img": "Shopping cart",
+   "color": "#1098ad",
+   "vi": "Toán đời sống",
+   "en": "Life math"
+  },
+  {
+   "id": "english",
+   "game": "pick",
+   "img": "Red apple",
+   "color": "#3ccf91",
+   "vi": "Tiếng Anh",
+   "en": "English"
+  },
+  {
+   "id": "memory",
+   "game": "memory",
+   "img": "Brain",
+   "color": "#b388ff",
+   "vi": "Trí nhớ",
+   "en": "Memory"
+  },
+  {
+   "id": "logic",
+   "game": "logic",
+   "img": "Puzzle piece",
+   "color": "#f2b705",
+   "vi": "Tư duy",
+   "en": "Thinking"
+  },
+  {
+   "id": "code",
+   "game": "code",
+   "img": "Robot",
+   "color": "#12b886",
+   "vi": "Lập trình",
+   "en": "Coding"
+  },
+  {
+   "id": "arcade",
+   "game": "arcade",
+   "img": "Balloon",
+   "color": "#f03e3e",
+   "vi": "Trò chơi nhanh",
+   "en": "Quick games"
+  },
+  {
+   "id": "music",
+   "game": "music",
+   "img": "Musical notes",
+   "color": "#ff6fae",
+   "vi": "Âm nhạc",
+   "en": "Music"
+  },
+  {
+   "id": "art",
+   "game": "art",
+   "img": "Artist palette",
+   "color": "#ff922b",
+   "vi": "Tô màu",
+   "en": "Coloring"
+  },
+  {
+   "id": "explore",
+   "game": "explore",
+   "img": "Globe showing Asia-Australia",
+   "color": "#20c997",
+   "vi": "Khám phá",
+   "en": "Explore"
+  },
+  {
+   "id": "room",
+   "route": "/room",
+   "img": "Crown",
+   "color": "#fab005",
+   "vi": "Phòng của bé",
+   "en": "My room"
+  },
+  {
+   "id": "duel",
+   "route": "/duel",
+   "img": "Stopwatch",
+   "color": "#845ef7",
+   "vi": "Bố con thi tài",
+   "en": "Family duel"
+  },
+  {
+   "id": "lop1",
+   "route": "/lop1",
+   "img": "School",
+   "color": "#3d8bfd",
+   "vi": "Học cùng lớp",
+   "en": "My class"
+  }
+ ],
+ "images": [
+  "Bathtub",
+  "Bowl with spoon",
+  "Bubbles",
+  "Check mark button",
+  "Chequered flag",
+  "Cloud",
+  "Couch and lamp",
+  "Counterclockwise arrows button",
+  "Crescent moon",
+  "Cross mark",
+  "Crown",
+  "Department store",
+  "Dizzy",
+  "Downwards button",
+  "Droplet",
+  "Fire",
+  "Floppy disk",
+  "Framed picture",
+  "Glass of milk",
+  "Glowing star",
+  "Handshake",
+  "High voltage",
+  "Keyboard",
+  "Locked",
+  "Man",
+  "Open book",
+  "Party popper",
+  "Paw prints",
+  "Potted plant",
+  "Red heart",
+  "Shopping cart",
+  "Shower",
+  "Sleeping face",
+  "Soap",
+  "Sparkles",
+  "Sponge",
+  "Star",
+  "Thought balloon",
+  "Trophy",
+  "Wastebasket",
+  "Window",
+  "Woman",
+  "Zzz"
+ ],
+ "wardrobe": [
+  {
+   "id": "cap",
+   "slot": "hat",
+   "img": "Billed cap",
+   "vi": "Mũ lưỡi trai",
+   "price": 5
+  },
+  {
+   "id": "tophat",
+   "slot": "hat",
+   "img": "Top hat",
+   "vi": "Mũ ảo thuật",
+   "price": 10
+  },
+  {
+   "id": "crown",
+   "slot": "hat",
+   "img": "Crown",
+   "vi": "Vương miện",
+   "price": 15
+  },
+  {
+   "id": "grad",
+   "slot": "hat",
+   "img": "Graduation cap",
+   "vi": "Mũ tốt nghiệp",
+   "price": 25
+  },
+  {
+   "id": "glasses",
+   "slot": "eyes",
+   "img": "Glasses",
+   "vi": "Kính tròn",
+   "price": 5
+  },
+  {
+   "id": "sunglasses",
+   "slot": "eyes",
+   "img": "Sunglasses",
+   "vi": "Kính râm",
+   "price": 10
+  },
+  {
+   "id": "goggles",
+   "slot": "eyes",
+   "img": "Goggles",
+   "vi": "Kính bơi",
+   "price": 15
+  },
+  {
+   "id": "balloon",
+   "slot": "hand",
+   "img": "Balloon",
+   "vi": "Bóng bay",
+   "price": 5
+  },
+  {
+   "id": "teddy",
+   "slot": "hand",
+   "img": "Teddy bear",
+   "vi": "Gấu bông",
+   "price": 10
+  },
+  {
+   "id": "bouquet",
+   "slot": "hand",
+   "img": "Bouquet",
+   "vi": "Bó hoa",
+   "price": 10
+  },
+  {
+   "id": "wand",
+   "slot": "hand",
+   "img": "Magic wand",
+   "vi": "Đũa phép",
+   "price": 15
+  },
+  {
+   "id": "medal",
+   "slot": "hand",
+   "img": "1st place medal",
+   "vi": "Huy chương",
+   "price": 20
+  },
+  {
+   "id": "bg-rainbow",
+   "slot": "bg",
+   "img": "Rainbow",
+   "vi": "Cầu vồng",
+   "price": 10,
+   "bg": "linear-gradient(180deg,#ffd6e7,#fff3bf 50%,#d3f9d8)"
+  },
+  {
+   "id": "bg-sea",
+   "slot": "bg",
+   "img": "Water wave",
+   "vi": "Biển xanh",
+   "price": 15,
+   "bg": "linear-gradient(180deg,#d0ebff,#74c0fc 60%,#ffe8a1 60%)"
+  },
+  {
+   "id": "bg-space",
+   "slot": "bg",
+   "img": "Glowing star",
+   "vi": "Vũ trụ",
+   "price": 20,
+   "bg": "radial-gradient(circle at 30% 20%,#5f3dc4,#1a1b4b 70%)"
+  },
+  {
+   "id": "bg-garden",
+   "slot": "bg",
+   "img": "Cherry blossom",
+   "vi": "Vườn hoa",
+   "price": 15,
+   "bg": "linear-gradient(180deg,#e7f5ff,#d3f9d8 55%,#8ce99a 55%)"
+  }
+ ],
+ "pets": [
+  {
+   "id": "dog",
+   "vi": "Cún con",
+   "en": "Puppy",
+   "p": "cún con",
+   "img": "Dog face",
+   "foods": [
+    "Bone",
+    "Meat on bone",
+    "Poultry leg"
+   ],
+   "toy": "Softball",
+   "sound": "bark",
+   "names": [
+    "Bông",
+    "Mực",
+    "Lu Lu",
+    "Vàng",
+    "Đốm"
+   ]
+  },
+  {
+   "id": "cat",
+   "vi": "Mèo con",
+   "en": "Kitten",
+   "p": "mèo con",
+   "img": "Cat face",
+   "foods": [
+    "Fish",
+    "Shrimp",
+    "Glass of milk"
+   ],
+   "toy": "Yarn",
+   "sound": "meow",
+   "names": [
+    "Mướp",
+    "Miu",
+    "Bơ",
+    "Mun",
+    "Gừng"
+   ],
+   "moods": {
+    "love": "Smiling cat with heart-eyes",
+    "happy": "Grinning cat with smiling eyes",
+    "sad": "Crying cat",
+    "tired": "Weary cat",
+    "grumpy": "Pouting cat"
+   }
+  },
+  {
+   "id": "rabbit",
+   "vi": "Thỏ con",
+   "en": "Bunny",
+   "p": "thỏ con",
+   "img": "Rabbit face",
+   "foods": [
+    "Carrot",
+    "Leafy green",
+    "Red apple"
+   ],
+   "toy": "Softball",
+   "sound": "squeak",
+   "names": [
+    "Tai Dài",
+    "Bông Gòn",
+    "Cà Rốt",
+    "Sữa"
+   ]
+  },
+  {
+   "id": "hamster",
+   "vi": "Chuột hamster",
+   "en": "Hamster",
+   "p": "bạn hamster",
+   "img": "Hamster",
+   "foods": [
+    "Peanuts",
+    "Chestnut",
+    "Sunflower"
+   ],
+   "toy": "Softball",
+   "sound": "squeak",
+   "names": [
+    "Hạt Dẻ",
+    "Bánh Bao",
+    "Tròn",
+    "Mochi"
+   ]
+  },
+  {
+   "id": "panda",
+   "vi": "Gấu trúc",
+   "en": "Panda",
+   "p": "gấu trúc con",
+   "img": "Panda",
+   "foods": [
+    "Leafy green",
+    "Red apple",
+    "Banana"
+   ],
+   "toy": "Softball",
+   "sound": "squeak",
+   "names": [
+    "Tròn Tròn",
+    "Mập Mạp",
+    "Đen Trắng",
+    "Bánh Bao"
+   ]
+  },
+  {
+   "id": "fox",
+   "vi": "Cáo con",
+   "en": "Fox cub",
+   "p": "cáo con",
+   "img": "Fox",
+   "foods": [
+    "Poultry leg",
+    "Fish",
+    "Red apple"
+   ],
+   "toy": "Softball",
+   "sound": "bark",
+   "names": [
+    "Lửa",
+    "Cam Cam",
+    "Đuôi Xù",
+    "Tí Hon"
+   ]
+  }
+ ],
+ "petItems": [
+  {
+   "lv": 2,
+   "img": "Ribbon",
+   "slot": "neck"
+  },
+  {
+   "lv": 3,
+   "img": "Bell",
+   "slot": "neck"
+  },
+  {
+   "lv": 4,
+   "img": "Billed cap",
+   "slot": "hat"
+  },
+  {
+   "lv": 5,
+   "img": "Sunglasses",
+   "slot": "eyes"
+  },
+  {
+   "lv": 6,
+   "img": "Top hat",
+   "slot": "hat"
+  },
+  {
+   "lv": 8,
+   "img": "Crown",
+   "slot": "hat"
+  },
+  {
+   "lv": 10,
+   "img": "Graduation cap",
+   "slot": "hat"
+  }
+ ]
+}

@@ -1,0 +1,21 @@
+kenney-platformer: New Platformer Pack — Kenney (kenney.nl) — CC0 — https://kenney.nl/assets/new-platformer-pack
+kenney-pirate: Pirate Pack — Kenney (kenney.nl) — CC0 — https://kenney.nl/assets/pirate-pack
+kenney-board: Boardgame Pack — Kenney (kenney.nl) — CC0 — https://kenney.nl/assets/boardgame-pack
+kenney-racing: Racing Pack — Kenney (kenney.nl) — CC0 — https://kenney.nl/assets/racing-pack
+kenney-fish: Fish Pack — Kenney (kenney.nl) — CC0 — https://kenney.nl/assets/fish-pack
+kenney-tiny-town: Tiny Town — Kenney (kenney.nl) — CC0 — https://kenney.nl/assets/tiny-town
+kenney-tiny-dungeon: Tiny Dungeon — Kenney (kenney.nl) — CC0 — https://kenney.nl/assets/tiny-dungeon
+play: Toon Characters + New Platformer Pack + Fish Pack — Kenney (kenney.nl) — CC0 — https://kenney.nl/assets/toon-characters , https://kenney.nl/assets/new-platformer-pack , https://kenney.nl/assets/fish-pack (game mới đợt 15, tools/sprites_new.py)
+toon: Toon Characters — Kenney (kenney.nl) — CC0 — https://kenney.nl/assets/toon-characters
+pets: Cat & Dog Free Sprites — pzUH (OpenGameArt) — CC0 — https://opengameart.org/content/cat-dog-free-sprites
+racing, fxa, space, tanks, plat, puzzle, gallery, animals, fish (nhóm Chuyển động A, gộp bằng tools/sprites_a.py):
+Racing Pack — Kenney (kenney.nl) — CC0 — https://kenney.nl/assets/racing-pack
+Space Shooter Remastered — Kenney (kenney.nl) — CC0 — https://kenney.nl/assets/space-shooter-remastered
+Space Shooter Extension — Kenney (kenney.nl) — CC0 — https://kenney.nl/assets/space-shooter-extension
+Top-down Tanks Remastered — Kenney (kenney.nl) — CC0 — https://kenney.nl/assets/top-down-tanks-remastered
+Shooting Gallery — Kenney (kenney.nl) — CC0 — https://kenney.nl/assets/shooting-gallery
+Puzzle Pack — Kenney (kenney.nl) — CC0 — https://kenney.nl/assets/puzzle-pack-1
+Animal Pack Remastered — Kenney (kenney.nl) — CC0 — https://kenney.nl/assets/animal-pack-remastered
+creatures/dino: Free Dino Sprites — pzUH — CC0 — https://opengameart.org/content/free-dino-sprites
+creatures/flyers (vịt bay): Yellow Flappy Bird — Bevouliin — CC0 — https://opengameart.org/content/bevouliin-free-game-character-yellow-flappy-bird
+creatures/flyers (rồng): Flappy Dragon Sprite Sheets — Bevouliin — CC0 — https://opengameart.org/content/flappy-dragon-sprite-sheets
