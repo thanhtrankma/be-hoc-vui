@@ -84,3 +84,16 @@ chính sách quyền riêng tư cho trẻ em, ảnh chụp cửa hàng.
 - Dung lượng: giọng đọc 108 MB → app ~130 MB (dưới giới hạn 200 MB của cả hai store). Sau có thể tách gói tải sau qua Firebase Storage.
 - Hiệu ứng âm thanh/nhạc web tạo bằng Web Audio → tái tạo bằng SoLoud waveform hoặc render sẵn thành file.
 - Chính sách trẻ em: không quảng cáo, không thu thập dữ liệu cá nhân, mọi liên kết ngoài/mua hàng phải qua cổng phụ huynh.
+
+## 6. Tiến độ (cập nhật 15/10/2026)
+
+- [x] Giai đoạn 0–2: toàn bộ 48 module web đã port sang Flutter (15 đảo học, phòng của bé, thú cưng, bố con thi tài,
+      học cùng lớp, ôn tập, ~48 game khu vui chơi, RPG 10 vùng, góc bố mẹ, báo cáo, bằng khen, đồng bộ mã gia đình).
+- [x] Firebase project `bevuihoc-app` (Crashlytics, Remote Config, App Check; không Analytics). Bundle ID `com.iping.bevuihoc`.
+- [x] Kiểm thử: 366 test tự động (gồm quét tràn bố cục ở 320/360dp và màn ngang), chạy thử trên iPhone simulator,
+      iPad (ngang) và Android emulator; đồng bộ đã đối chiếu byte-với-byte với mã hoá của web.
+- [ ] Phát hành — cần chủ app:
+  - iOS: tài khoản Apple Developer (Team ID) để ký app, tạo app trên App Store Connect, bật App Attest.
+  - Android: tạo khoá ký upload (keystore) và lưu giữ cẩn thận, tạo app trên Google Play Console, bật Play Integrity.
+  - Trang chính sách quyền riêng tư cho trẻ em, ảnh chụp cửa hàng, mô tả, phân loại độ tuổi (Kids / Families).
+  - Chạy thử trên máy thật (iPhone + Android) bản release.
