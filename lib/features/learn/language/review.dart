@@ -360,12 +360,8 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> with SingleTickerPr
     final size = MediaQuery.sizeOf(context);
     final buddySize = (size.width * .10).clamp(70.0, 120.0);
     final hideBuddy = size.height <= 640 && size.width > size.height;
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: (didPop, _) {
-        if (!didPop) _back();
-      },
-      child: Stack(children: [
+    // Back của Android: IconBtn 'review-back' tự nhận (PopScope trong IconBtn) → _back.
+    return Stack(children: [
         AppScreen(
           child: Column(children: [
             TopBar(
@@ -409,8 +405,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> with SingleTickerPr
               ),
             ),
           ),
-      ]),
-    );
+    ]);
   }
 }
 

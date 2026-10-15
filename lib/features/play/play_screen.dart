@@ -53,7 +53,8 @@ class _PlayScreenState extends ConsumerState<PlayScreen> with SingleTickerProvid
     final isl = data.island(widget.islandId);
     final total = isl == null ? 0 : levelsOf(isl, content).length;
     final li = widget.levelIndex;
-    valid = p != null &&
+    valid =
+        p != null &&
         isl != null &&
         !isl.soon &&
         isl.route == null &&
@@ -163,7 +164,9 @@ class _PlayScreenState extends ConsumerState<PlayScreen> with SingleTickerProvid
     buddyAnim.dispose();
     try {
       ref.read(audioProvider).stopVoice();
-    } catch (_) {/* ref đã huỷ */}
+    } catch (_) {
+      /* ref đã huỷ */
+    }
     super.dispose();
   }
 
@@ -176,27 +179,31 @@ class _PlayScreenState extends ConsumerState<PlayScreen> with SingleTickerProvid
     final size = MediaQuery.sizeOf(context);
     final buddySize = (size.width * .10).clamp(70.0, 120.0);
     final hideBuddy = size.height <= 640 && size.width > size.height;
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: (didPop, _) {
-        if (!didPop) _back();
-      },
-      child: Stack(children: [
+    // Back của Android: IconBtn 'play-back' tự nhận (PopScope trong IconBtn) → _back.
+    return Stack(
+      children: [
         AppScreen(
-          child: Column(children: [
-            TopBar(
-              leading: IconBtn(key: const Key('play-back'), icon: AppIcon.back, label: 'Back', onTap: _back),
-              titleWidget: Center(child: ProgressSegments(index: progI, total: progN)),
-              trailing: Pill(children: [const EmojiImage('Glowing star', size: 34, photo: false), Text('${p.stars}')]),
-              bottomGap: 10,
-            ),
-            Expanded(
-              child: PhotoScope(
-                enabled: true,
-                child: KeyedSubtree(key: ValueKey('game-$gen'), child: Builder(builder: (context) => module!.build(context, ctx!))),
+          child: Column(
+            children: [
+              TopBar(
+                leading: IconBtn(key: const Key('play-back'), icon: AppIcon.back, label: 'Back', onTap: _back),
+                titleWidget: Center(
+                  child: ProgressSegments(index: progI, total: progN),
+                ),
+                trailing: Pill(children: [const EmojiImage('Glowing star', size: 34, photo: false), Text('${p.stars}')]),
+                bottomGap: 10,
               ),
-            ),
-          ]),
+              Expanded(
+                child: PhotoScope(
+                  enabled: true,
+                  child: KeyedSubtree(
+                    key: ValueKey('game-$gen'),
+                    child: Builder(builder: (context) => module!.build(context, ctx!)),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         if (buddyVisible && !hideBuddy)
           Positioned(
@@ -209,9 +216,20 @@ class _PlayScreenState extends ConsumerState<PlayScreen> with SingleTickerProvid
                   final t = buddyAnim.value;
                   if (buddyMode == 'cheer') {
                     // cheer: 30% -40px xoay -10°, 60% -20px xoay 8°
-                    final y = t < .3 ? -40 * t / .3 : t < .6 ? -40 + 20 * (t - .3) / .3 : -20 * (1 - (t - .6) / .4);
-                    final r = t < .3 ? -10 * t / .3 : t < .6 ? -10 + 18 * (t - .3) / .3 : 8 * (1 - (t - .6) / .4);
-                    return Transform.translate(offset: Offset(0, y), child: Transform.rotate(angle: r * math.pi / 180, child: child));
+                    final y = t < .3
+                        ? -40 * t / .3
+                        : t < .6
+                        ? -40 + 20 * (t - .3) / .3
+                        : -20 * (1 - (t - .6) / .4);
+                    final r = t < .3
+                        ? -10 * t / .3
+                        : t < .6
+                        ? -10 + 18 * (t - .3) / .3
+                        : 8 * (1 - (t - .6) / .4);
+                    return Transform.translate(
+                      offset: Offset(0, y),
+                      child: Transform.rotate(angle: r * math.pi / 180, child: child),
+                    );
                   }
                   if (buddyMode == 'sad') {
                     final r = 12 * math.sin(t * 2 * math.pi) * (t < 1 ? 1 : 0);
@@ -219,11 +237,14 @@ class _PlayScreenState extends ConsumerState<PlayScreen> with SingleTickerProvid
                   }
                   return child!;
                 },
-                child: Semantics(label: i.t('buddies'), child: Dressed(profile: p, size: buddySize, showBg: false)),
+                child: Semantics(
+                  label: i.t('buddies'),
+                  child: Dressed(profile: p, size: buddySize, showBg: false),
+                ),
               ),
             ),
           ),
-      ]),
+      ],
     );
   }
 }
@@ -242,24 +263,27 @@ class ProgressSegments extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(color: Colors.white.withValues(alpha: .75), borderRadius: BorderRadius.circular(999)),
-        child: Row(spacing: 4, children: [
-          for (var k = 0; k < total; k++)
-            Expanded(
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                height: 16,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.horizontal(left: Radius.circular(k == 0 ? 99 : 4), right: Radius.circular(k == total - 1 ? 99 : 4)),
-                  color: k < index || k == index ? null : const Color(0xFFE6EDF6),
-                  gradient: k < index
-                      ? const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Color(0xFF6EE79A), AppColors.good])
-                      : k == index
-                          ? const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Color(0xFFFFE08A), AppColors.sun])
-                          : null,
+        child: Row(
+          spacing: 4,
+          children: [
+            for (var k = 0; k < total; k++)
+              Expanded(
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  height: 16,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.horizontal(left: Radius.circular(k == 0 ? 99 : 4), right: Radius.circular(k == total - 1 ? 99 : 4)),
+                    color: k < index || k == index ? null : const Color(0xFFE6EDF6),
+                    gradient: k < index
+                        ? const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Color(0xFF6EE79A), AppColors.good])
+                        : k == index
+                        ? const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Color(0xFFFFE08A), AppColors.sun])
+                        : null,
+                  ),
                 ),
               ),
-            ),
-        ]),
+          ],
+        ),
       ),
     );
   }

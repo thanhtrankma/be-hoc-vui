@@ -66,10 +66,12 @@ Future<void> finishRound(
   }
   final homePath = cls != null ? '/lop1' : '/island/${island.id}';
   if (!context.mounted) return;
+  // Giữ router từ trước: lúc bấm nút, màn chơi có thể đã bị thay (context không còn dùng được).
+  final router = GoRouter.of(context);
 
   void go(BuildContext c, String path) {
     Navigator.pop(c);
-    context.go(path);
+    router.go(path);
   }
 
   await showPanel<void>(

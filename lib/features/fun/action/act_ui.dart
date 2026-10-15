@@ -135,7 +135,11 @@ class ShopFrame extends StatelessWidget {
             child: Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 1000),
-                child: Column(mainAxisSize: MainAxisSize.min, spacing: 12, children: children),
+                child: Column(mainAxisSize: MainAxisSize.min, spacing: 12, children: [
+                  // Hàng tiêu đề nằm ngang hàng nút ✕ (top 70 như .funquit): chừa hai bên để không bị nút che.
+                  if (children.isNotEmpty) Padding(padding: const EdgeInsets.symmetric(horizontal: 52), child: children.first),
+                  ...children.skip(1),
+                ]),
               ),
             ),
           ),

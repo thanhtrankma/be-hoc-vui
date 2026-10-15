@@ -77,6 +77,7 @@ class SoloudAudio extends AudioService {
       return hit;
     }
     final f = _sl.loadAsset(asset).then<AudioSource?>((s) => s).catchError((Object e) {
+      debugPrint('Không nạp được giọng đọc $asset: $e');
       _voices.remove(asset);
       return null;
     });
@@ -153,7 +154,10 @@ class SoloudAudio extends AudioService {
   @override
   Future<VoidCallback?> clip(String name, {double rate = 1, double vol = 1, bool loop = false}) async {
     if (!_ok || !soundOn) return null;
-    final src = await (_clips[name] ??= _sl.loadAsset('assets/sfx/$name.mp3').then<AudioSource?>((s) => s).catchError((Object _) => null));
+    final src = await (_clips[name] ??= _sl.loadAsset('assets/sfx/$name.mp3').then<AudioSource?>((s) => s).catchError((Object e) {
+          debugPrint('Không nạp được âm thanh assets/sfx/$name.mp3: $e');
+          return null;
+        }));
     if (src == null) return null;
     final h = _sl.play(src, volume: vol * _clipVol, looping: loop);
     if (rate != 1) _sl.setRelativePlaySpeed(h, rate);

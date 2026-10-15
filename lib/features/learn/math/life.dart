@@ -506,25 +506,28 @@ class _ShopViewState extends _RoundsState<ShopView> {
               child: PopIn(child: EmojiImage(asStr(g.content.list('shopItems').firstWhere((x) => x['id'] == e.key)['img']), size: 44, photo: false)),
             ),
       ];
+      final basketBox = Shake(
+        trigger: wrongBump,
+        child: Container(
+          key: const Key('basket'),
+          constraints: const BoxConstraints(minHeight: 84),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: const Color(0xFFC7D3E3), width: 4)),
+          child: Row(spacing: 8, children: [
+            const EmojiImage('Shopping cart', size: 56, photo: false),
+            Expanded(child: Wrap(spacing: 4, runSpacing: 4, children: items)),
+          ]),
+        ),
+      );
+      final deliver = AppButton(key: const Key('deliver'), icon: '🛍️', label: g.i18n.t('deliver'), variant: BtnVariant.green, onTap: _deliver, fontSize: fs * 1.1);
+      // Điện thoại dọc: giỏ cạnh nút chỉ còn chỗ cho 1 món/hàng → giỏ cao dần, kệ bị đẩy lên khi bé đang bấm.
+      // Cho giỏ cả bề ngang, nút Giao hàng xuống dưới.
+      final narrow = shelfW < 520;
       final basketRow = SizedBox(
         width: shelfW,
-        child: Row(spacing: 14, children: [
-          Expanded(
-            child: Shake(
-              trigger: wrongBump,
-              child: Container(
-                constraints: const BoxConstraints(minHeight: 84),
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: const Color(0xFFC7D3E3), width: 4)),
-                child: Row(spacing: 8, children: [
-                  const EmojiImage('Shopping cart', size: 56, photo: false),
-                  Expanded(child: Wrap(spacing: 4, runSpacing: 4, children: items)),
-                ]),
-              ),
-            ),
-          ),
-          AppButton(key: const Key('deliver'), icon: '🛍️', label: g.i18n.t('deliver'), variant: BtnVariant.green, onTap: _deliver, fontSize: fs * 1.1),
-        ]),
+        child: narrow
+            ? Column(mainAxisSize: MainAxisSize.min, spacing: 14, children: [basketBox, deliver])
+            : Row(spacing: 14, children: [Expanded(child: basketBox), deliver]),
       );
       return Center(
         child: SingleChildScrollView(
@@ -790,10 +793,16 @@ class _WeekViewState extends _RoundsState<WeekView> {
                     child: SizedBox(
                       width: cw,
                       height: ch,
-                      child: Column(mainAxisAlignment: MainAxisAlignment.center, spacing: 4, children: [
-                        Text(asStr(d['short']), style: TextStyle(fontSize: fs, fontWeight: FontWeight.w800, color: wk ? AppColors.bad : AppColors.ink)),
-                        if (isToday) EmojiImage('Glowing star', size: cw * .5, photo: false),
-                      ]),
+                      // FittedBox: ô hẹp trên điện thoại (cw ~43) không đủ cao cho chữ + sao → thu nhỏ, không tràn.
+                      child: Center(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Column(mainAxisSize: MainAxisSize.min, spacing: 4, children: [
+                            Text(asStr(d['short']), style: TextStyle(fontSize: fs, fontWeight: FontWeight.w800, color: wk ? AppColors.bad : AppColors.ink)),
+                            if (isToday) EmojiImage('Glowing star', size: cw * .5, photo: false),
+                          ]),
+                        ),
+                      ),
                     ),
                   ),
                 );

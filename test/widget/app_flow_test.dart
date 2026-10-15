@@ -6,7 +6,7 @@ import 'package:be_vui_hoc/core/content/content.dart';
 import 'package:be_vui_hoc/core/game/placeholder.dart';
 import 'package:be_vui_hoc/core/game/registry.dart';
 import 'package:be_vui_hoc/core/store/store.dart';
-import 'package:be_vui_hoc/core/ui/motion.dart';
+import 'package:be_vui_hoc/core/ui/ui.dart';
 import 'package:be_vui_hoc/features/room/room.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -181,6 +181,68 @@ void main() {
     expect(find.byKey(const Key('fun-result')), findsOneWidget);
     expect(store.funLevel(store.profile!, 'racer'), 3);
     expect(store.profile!.best['racer'], 30);
+    await unmount(tester);
+  });
+
+  testWidgets('Khu vui chơi: game không vẽ dưới tai thỏ, nút ✕ dưới hàng HUD (như .funquit)', (tester) async {
+    tester.view.padding = const FakeViewPadding(top: 62 * 3, bottom: 34 * 3);
+    addTearDown(tester.view.resetPadding);
+    final (store, _) = await pumpApp(tester);
+    store.addProfile('Na', 'robot');
+    await tester.tap(find.byKey(const Key('start-btn')));
+    await tester.pumpAndSettle();
+    final container = ProviderScope.containerOf(tester.element(find.byType(Scaffold).first));
+    container.read(routerProvider).go('/fun/racer');
+    await tester.pumpAndSettle();
+    final game = tester.getRect(find.byKey(const ValueKey('fun-0')));
+    expect(game.top, 62);
+    expect(game.bottom, 844);
+    // Trong game, MediaQuery không còn lề trên (SafeArea của game không cộng thêm lần nữa).
+    expect(MediaQuery.paddingOf(tester.element(find.text('Thắng (thử)'))).top, 0);
+    expect(tester.getRect(find.byKey(const Key('fun-quit'))).top, 62 + 70);
+    await unmount(tester);
+  });
+
+  testWidgets('Back của Android = nút Quay lại / ✕ của màn; panel mở thì đóng panel trước', (tester) async {
+    final (store, _) = await pumpApp(tester);
+    store.addProfile('Na', 'robot');
+    store.updateProfile(store.profile!.id, {'tier': 1});
+    await tester.tap(find.byKey(const Key('start-btn')));
+    await tester.pumpAndSettle();
+    final container = ProviderScope.containerOf(tester.element(find.byType(Scaffold).first));
+    final router = container.read(routerProvider);
+    String path() => router.routerDelegate.currentConfiguration.uri.path;
+    Future<void> back() async {
+      await tester.binding.handlePopRoute();
+      await tester.pumpAndSettle();
+    }
+
+    router.go('/island/letters');
+    await tester.pumpAndSettle();
+    await back();
+    expect(path(), '/map');
+    // Màn chơi: Back = nút quay lại (về danh sách bài), không thoát app.
+    router.go('/play/letters/0');
+    await tester.pumpAndSettle();
+    await back();
+    expect(path(), '/island/letters');
+    // Game khu vui chơi (trang lồng trên /fun): Back = ✕ → về Khu vui chơi.
+    router.go('/fun/racer');
+    await tester.pumpAndSettle();
+    expect(find.text('Thắng (thử)'), findsOneWidget);
+    await back();
+    expect(path(), '/fun');
+    // Panel đang mở: Back đóng panel, vẫn ở màn cũ.
+    router.go('/room');
+    await tester.pumpAndSettle();
+    showPanel<void>(context: tester.element(find.byType(RoomScreen)), builder: (c) => const Text('panel-test'));
+    await tester.pumpAndSettle();
+    expect(find.text('panel-test'), findsOneWidget);
+    await back();
+    expect(find.text('panel-test'), findsNothing);
+    expect(path(), '/room');
+    await back();
+    expect(path(), '/map');
     await unmount(tester);
   });
 }

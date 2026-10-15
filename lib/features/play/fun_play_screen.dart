@@ -174,18 +174,31 @@ class _FunPlayScreenState extends ConsumerState<FunPlayScreen> {
   @override
   Widget build(BuildContext context) {
     final i = ref.watch(i18nProvider);
+    // Như web (PWA, thanh trạng thái 'default'): game không vẽ dưới thanh trạng thái / tai thỏ,
+    // nếu không HUD ở góc trên (hạng, điểm, máu...) bị đồng hồ và Dynamic Island che.
+    final top = MediaQuery.paddingOf(context).top;
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
       body: Stack(fit: StackFit.expand, children: [
-        if (ready && ctx != null) Positioned.fill(child: KeyedSubtree(key: ValueKey('fun-$run'), child: Builder(builder: (c) => module!.build(c, ctx!)))),
-        Positioned(
-          top: 0,
-          left: 0,
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: IconBtn(key: const Key('fun-quit'), icon: AppIcon.close, size: 48, label: i.t('close'), onTap: _quit),
+        if (ready && ctx != null)
+          Positioned(
+            top: top,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: MediaQuery.removePadding(
+              context: context,
+              removeTop: true,
+              child: KeyedSubtree(key: ValueKey('fun-$run'), child: Builder(builder: (c) => module!.build(c, ctx!))),
             ),
+          ),
+        // .funquit: top: max(70px, safe-area) — nằm dưới hàng HUD của game.
+        Positioned(
+          top: top + 70,
+          left: math.max(12, MediaQuery.paddingOf(context).left),
+          child: Opacity(
+            opacity: .85,
+            child: IconBtn(key: const Key('fun-quit'), icon: AppIcon.close, size: 48, label: i.t('close'), onTap: _quit),
           ),
         ),
       ]),

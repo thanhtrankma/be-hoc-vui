@@ -190,7 +190,7 @@ class IconBtn extends StatelessWidget {
   final double size;
   @override
   Widget build(BuildContext context) {
-    return Chunky(
+    final btn = Chunky(
       onTap: onTap,
       depth: 5,
       radius: 20,
@@ -200,6 +200,17 @@ class IconBtn extends StatelessWidget {
         height: size,
         child: Center(child: child ?? (icon == null ? null : AppIconView(icon!, size: size / 2))),
       ),
+    );
+    // Nút Quay lại / ✕ của màn cũng là nút Back của Android (web: nút back trình duyệt về màn trước).
+    // Không có thì Back thoát app ngay giữa game vì go_router chỉ giữ một trang.
+    // Panel mở đè lên thì route của nút không còn là route hiện tại → Back đóng panel trước.
+    if (onTap == null || (icon != AppIcon.back && icon != AppIcon.close)) return btn;
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) onTap!();
+      },
+      child: btn,
     );
   }
 }
@@ -303,16 +314,18 @@ class Seg<T> extends StatelessWidget {
         for (final (v, label) in options)
           GestureDetector(
             onTap: () => onPick(v),
+            // Không dùng Container.alignment: trong Wrap nó làm mỗi nút giãn hết bề ngang → các lựa chọn xếp dọc.
             child: Container(
               constraints: const BoxConstraints(minHeight: 48),
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: v == value ? Colors.white : Colors.transparent,
                 borderRadius: BorderRadius.circular(999),
                 boxShadow: v == value ? const [BoxShadow(color: Color(0x1F000000), blurRadius: 6, offset: Offset(0, 2))] : null,
               ),
-              child: Text(label, style: TextStyle(fontWeight: FontWeight.w700, color: v == value ? AppColors.ink : AppColors.inkSoft)),
+              child: Column(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.center, children: [
+                Text(label, style: TextStyle(fontWeight: FontWeight.w700, color: v == value ? AppColors.ink : AppColors.inkSoft)),
+              ]),
             ),
           ),
       ]),

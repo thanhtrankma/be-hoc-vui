@@ -96,6 +96,35 @@ void main() {
     await unmount(tester);
   });
 
+  testWidgets('Thứ trong tuần trên điện thoại nhỏ, chữ to: ô ngày không tràn', (tester) async {
+    tester.platformDispatcher.textScaleFactorTestValue = 1.5;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+    final h = await pumpGame(tester, bundle, lifeModule, island: 'life', li: lifeLi('week'), size: const Size(320, 640));
+    await pumpUntil(tester, () => find.byKey(const Key('day-0')).evaluate().isNotEmpty);
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(tester.takeException(), isNull);
+    expect(h.stars, isNull);
+    await unmount(tester);
+  });
+
+  testWidgets('Siêu thị trên điện thoại: giỏ đủ bề ngang, nút Giao hàng ở dưới, kệ không bị đẩy khi thêm hàng', (tester) async {
+    final h = await pumpGame(tester, bundle, lifeModule, island: 'life', li: lifeLi('shop', 1), size: const Size(390, 844));
+    await pumpUntil(tester, () => find.byKey(const Key('deliver')).evaluate().isNotEmpty);
+    final basket = tester.getRect(find.byKey(const Key('basket')));
+    final deliver = tester.getRect(find.byKey(const Key('deliver')));
+    expect(deliver.top, greaterThan(basket.bottom), reason: 'nút nằm dưới giỏ');
+    final order = debugLifeAnswer as Map<String, int>;
+    final shelfKey = Key('shelf-${order.keys.first}');
+    final y0 = tester.getRect(find.byKey(shelfKey)).top;
+    for (var k = 0; k < 5; k++) {
+      await tester.tap(find.byKey(shelfKey));
+      await tester.pump();
+    }
+    expect(tester.getRect(find.byKey(shelfKey)).top, y0, reason: '5 món vẫn vừa một hàng giỏ');
+    expect(h.stars, isNull);
+    await unmount(tester);
+  });
+
   testWidgets('Xem lịch: tìm đúng ngày → 3 sao', (tester) async {
     final h = await pumpGame(tester, bundle, lifeModule, island: 'life', li: lifeLi('calendar'));
     for (var r = 0; r < 5; r++) {

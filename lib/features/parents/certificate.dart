@@ -18,7 +18,7 @@ import 'package:be_vui_hoc/core/ui/ui.dart';
 
 const String kShareUrl = 'https://datpilot.com/be-vui-hoc';
 const String kAppPitch =
-    'Bé Vui Học: web học mà chơi miễn phí cho bé 3–6 tuổi. Ghép vần, đếm số, toán, tiếng Anh, có lộ trình theo thứ tự bài sách lớp 1. Không quảng cáo, không cần tài khoản.';
+    'Bé Vui Học: ứng dụng học mà chơi miễn phí cho bé 3–6 tuổi. Ghép vần, đếm số, toán, tiếng Anh, có lộ trình theo thứ tự bài sách lớp 1. Không quảng cáo, không cần tài khoản.';
 String shareLink(String src) => '$kShareUrl?src=$src';
 
 /// 'YYYY-MM-DD' → 'DD/MM/YYYY' (fmtDate của web).
