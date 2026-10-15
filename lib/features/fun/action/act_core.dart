@@ -124,8 +124,8 @@ class Txt {
 
   static TextPainter _tp(String s, double size, FontWeight w, Color color, {double strokeW = 0}) {
     final key = '$s|${size.round()}|${w.value}|${color.toARGB32()}|${strokeW.round()}';
-    var tp = _cache[key];
-    if (tp != null) return tp;
+    var tp = _cache.remove(key);
+    if (tp != null) return _cache[key] = tp; // LRU: dùng gần đây → cuối danh sách
     final style = strokeW > 0
         ? TextStyle(
             fontFamily: kFontFamily,
@@ -149,7 +149,12 @@ class Txt {
 
   /// Bộ đệm quá lớn thì xoá (chỉ gọi trước khi lấy painter, không giữa chừng).
   static void _trim() {
-    if (_cache.length > 400) clear();
+    // Bỏ 1/4 mục ít dùng nhất thay vì xoá hết (xoá hết → chữ HUD phải layout lại cùng khung → giật).
+    if (_cache.length > 400) {
+      for (final k in _cache.keys.take(100).toList()) {
+        _cache.remove(k)!.dispose();
+      }
+    }
   }
 
   /// Vẽ chữ: (x, y) = điểm neo theo align, y là đường chân chữ (như ctx.fillText).
@@ -746,6 +751,9 @@ abstract class ActGame extends Game {
       ended = true;
       onStop();
       onEnd?.call(r);
+      // Xong: trạng thái không đổi nữa (tick bỏ qua) → dừng vòng lặp Flame, khung cuối vẫn hiện dưới bảng kết quả
+      // (trước đây vẫn vẽ lại 60 hình/giây phía sau bảng).
+      Future.microtask(pauseEngine);
     }
   }
 
@@ -917,44 +925,28 @@ class _ActGameViewState extends State<ActGameView> {
 
 /// Phiên chơi trong một vé: các cấp liên tiếp (thắng → cấp sau) dùng chung dữ liệu (opts của web).
 class ActSession {
-  int lastLevel = -99, chain = 0;
-  bool won = false, open = false;
+  int chain = 0;
   Map<String, Object?> data = {};
 
   /// true nếu đây là cấp đầu của vé (hiện Gara / Xưởng / chọn chế độ).
   bool first = true;
 }
 
-final Map<String, ActSession> _sessions = {};
-
-/// Lấy phiên cho ctx: tiếp nối nếu cấp trước vừa thắng và đây là cấp kế tiếp (tối đa 3 cấp/vé).
+/// Phiên của vé đang chơi: lưu trong ctx.ticket (web: đối tượng opts dùng chung mọi cấp của một vé —
+/// opts.car, opts.tankShopDone, opts.vs). Vé mới → phiên mới.
 ActSession actSession(FunGameContext ctx) {
-  final key = '${ctx.gameId}|${identityHashCode(ctx.store)}|${ctx.profile.json['id']}';
-  final s = _sessions[key] ??= ActSession();
-  final cont = s.open && s.won && ctx.level == s.lastLevel + 1 && s.chain < kLevelsPerTicket;
-  if (!cont) {
-    s
-      ..chain = 0
-      ..data = {}
-      ..first = true;
-  } else {
-    s.first = false;
-  }
-  s.open = false;
+  final cur = ctx.ticket['_act'];
+  final s = cur is ActSession ? cur : ActSession();
+  ctx.ticket['_act'] = s;
+  s.first = s.chain == 0;
   return s;
 }
 
 /// Ghi kết quả một cấp vào phiên.
-void actSessionDone(ActSession s, FunGameContext ctx, FunResult r) {
-  s
-    ..lastLevel = ctx.level
-    ..won = r.win && !r.pvp
-    ..chain = s.chain + 1
-    ..open = true;
-}
+void actSessionDone(ActSession s, FunGameContext ctx, FunResult r) => s.chain++;
 
-/// Xoá mọi phiên (test).
-void actSessionsReset() => _sessions.clear();
+/// Giữ cho test cũ (phiên nay theo vé, không còn bộ nhớ toàn cục).
+void actSessionsReset() {}
 
 /// Màn chờ nạp hình.
 class ActLoading extends StatelessWidget {

@@ -651,8 +651,10 @@ class _TraceBoardState extends State<TraceBoard> {
               child: TweenAnimationBuilder<double>(
                 tween: Tween(begin: 0, end: done ? 1 : 0),
                 duration: const Duration(milliseconds: 300),
-                builder: (context, doneT, _) => CustomPaint(
-                  painter: _TracePainter(strokes: strokes, lengths: lengths, si: si, inkLen: pi * _step, scale: scale, doneT: doneT),
+                builder: (context, doneT, _) => RepaintBoundary(
+                  child: CustomPaint(
+                    painter: _TracePainter(strokes: strokes, lengths: lengths, si: si, inkLen: pi * _step, scale: scale, doneT: doneT),
+                  ),
                 ),
               ),
             ),
@@ -729,10 +731,10 @@ class _TracePainter extends CustomPainter {
         ..style = PaintingStyle.stroke
         ..strokeWidth = kind == 0 ? 1.4 : .8
         ..color = kind == 0 ? const Color(0xFFFF8FAB) : kind == 1 ? const Color(0xFFA5C8F0) : const Color(0xFFD6E4F5);
-      final line = Path()
+      final line = _lines[y] ??= (Path()
         ..moveTo(-6, y)
-        ..lineTo(106, y);
-      canvas.drawPath(kind == 2 ? _dash(line, 3, 3) : line, paint);
+        ..lineTo(106, y));
+      canvas.drawPath(kind == 2 ? (_dashedLines[y] ??= _dash(line, 3, 3)) : line, paint);
     }
     // Nét mờ (guide) và nét chấm (dash); nét đang tô đậm hơn.
     for (var k = 0; k < strokes.length; k++) {
@@ -748,7 +750,7 @@ class _TracePainter extends CustomPainter {
     }
     for (var k = 0; k < strokes.length; k++) {
       canvas.drawPath(
-        _dash(strokes[k], 3, 4),
+        _dashedStrokes[strokes[k]] ??= _dash(strokes[k], 3, 4),
         Paint()
           ..style = PaintingStyle.stroke
           ..strokeWidth = 1.6
@@ -775,6 +777,10 @@ class _TracePainter extends CustomPainter {
     }
     canvas.restore();
   }
+
+  // Hiệu năng: nét chấm tính một lần cho mỗi nét chữ (trước đây computeMetrics + extractPath từng chấm mỗi lần vẽ).
+  static final Expando<Path> _dashedStrokes = Expando<Path>();
+  static final Map<double, Path> _lines = {}, _dashedLines = {};
 
   Path _dash(Path src, double on, double off) {
     final out = Path();

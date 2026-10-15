@@ -366,6 +366,10 @@ abstract class FunCanvasGame {
   void pointerMove(Offset p, int id, bool down) {}
   void pointerUp(Offset p, int id) {}
 
+  /// Hệ thống huỷ chạm (cuộc gọi, vuốt hệ thống...): web không có xử lý này, nên mặc định không làm gì
+  /// (không coi là thả tay — tránh ná tự bắn, bóng tự phóng).
+  void pointerCancel(Offset p, int id) {}
+
   /// Phím đang giữ (mũi tên/WASD).
   final Set<LogicalKeyboardKey> keys = {};
   void dispose() {}
@@ -388,14 +392,25 @@ class _FunCanvasState extends State<FunCanvas> with SingleTickerProviderStateMix
   Duration _last = Duration.zero;
   bool _done = false;
 
-  FunCanvasGame get g => widget.game;
+  /// Web: await loadAll(...) rồi mới loop() — đồng hồ cấp (bảng giới thiệu, giờ chơi) chỉ chạy khi hình đã nạp.
+  /// Nạp lỗi/chậm quá [_loadWait] giây thì vẫn chạy.
+  bool _loaded = false;
+  double _waited = 0;
+  static const _loadWait = 2.0;
+
+  /// Giữ game đầu tiên: module dựng lại (xoay máy, đổi vùng an toàn...) tạo object game mới trong build() —
+  /// không được thay game đang chơi (sẽ chơi lại từ đầu / đứng hình).
+  late final FunCanvasGame g = widget.game;
 
   @override
   void initState() {
     super.initState();
     g.load().then((_) {
+      _loaded = true;
       if (mounted) _frame.value++;
-    }).catchError((_) {});
+    }).catchError((_) {
+      _loaded = true;
+    });
     _ticker.start();
   }
 
@@ -409,6 +424,7 @@ class _FunCanvasState extends State<FunCanvas> with SingleTickerProviderStateMix
       return;
     }
     if (!g.inited) return;
+    if (!_loaded && (_waited += dt) < _loadWait) return;
     final r = g.update(dt);
     _frame.value++;
     if (r != null) {
@@ -451,11 +467,14 @@ class _FunCanvasState extends State<FunCanvas> with SingleTickerProviderStateMix
           onPointerMove: (e) => g.pointerMove(e.localPosition, e.pointer, e.down),
           onPointerHover: (e) => g.pointerMove(e.localPosition, e.pointer, false),
           onPointerUp: (e) => g.pointerUp(e.localPosition, e.pointer),
-          onPointerCancel: (e) => g.pointerUp(e.localPosition, e.pointer),
-          child: ClipRect(
-            child: CustomPaint(
-              size: Size(w, h),
-              painter: _GamePainter(g, _frame, widget.background),
+          onPointerCancel: (e) => g.pointerCancel(e.localPosition, e.pointer),
+          // RepaintBoundary: mỗi khung hình chỉ vẽ lại canvas game, không kéo theo cả màn.
+          child: RepaintBoundary(
+            child: ClipRect(
+              child: CustomPaint(
+                size: Size(w, h),
+                painter: _GamePainter(g, _frame, widget.background),
+              ),
             ),
           ),
         ),

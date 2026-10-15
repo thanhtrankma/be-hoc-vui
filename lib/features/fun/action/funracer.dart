@@ -131,7 +131,8 @@ void drawCar(Canvas c, Gfx g, SpriteSheet? rs, double x, double y, double w, dou
     ellipse(c, w * .3, h * .47, w * .1, h * .025, rgba(255, 40, 40, .5 + brake * .5));
     ellipse(c, 0, h * .56, w * .5, h * .07, rgba(255, 60, 60, brake * .25));
   }
-  if (hero != null) drawHead(c, 0, h * .02, w * .2, hero);
+  // Web: {...heroOf(hero), hat: 'racing'} → mũ lưỡi trai của tay đua (OLD_HATS racing = 'Billed cap').
+  if (hero != null) drawHead(c, 0, h * .02, w * .2, hero.copyWith(hat: 'Billed cap'));
   if (num != null) {
     circle(c, 0, h * .08, w * .16, Colors.white);
     Txt.draw(c, '$num', 0, h * .08 + w * .08, size: w * .22, color: hex(0x212529));
@@ -380,7 +381,7 @@ class _RacerGarageState extends State<RacerGarage> {
         );
     final sws = kPaints.keys.map((p) {
       final has = G.paints.contains(p);
-      return sw('paint-$p', has ? const SizedBox() : Text('$kPaintCost', style: shopText(14)), G.paint[c.id] == p, hex(kPaints[p]!), () {
+      return sw('paint-$p', has ? const SizedBox() : const PriceTag(kPaintCost, size: 12), G.paint[c.id] == p, hex(kPaints[p]!), () {
         if (has) {
           setState(() => G.paint[c.id] = p);
           widget.ctx.audio.sfx('tap');

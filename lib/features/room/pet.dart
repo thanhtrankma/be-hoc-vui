@@ -48,7 +48,7 @@ class _PetScreenState extends ConsumerState<PetScreen> {
         onDone: () => setState(() => naming = null),
       );
     }
-    return _Adopt(onExit: () => context.go('/map'), onPick: (k) => setState(() => naming = k));
+    return _Adopt(onExit: exit, onPick: (k) => setState(() => naming = k)); // web: adopt() dùng chung onExit (nói 'petWash')
   }
 }
 
@@ -109,7 +109,7 @@ class _MiniPetState extends State<_MiniPet> with SingleTickerProviderStateMixin 
     final big = widget.big;
     return AspectRatio(
       aspectRatio: big ? 36 / 28 : 32 / 26,
-      child: CustomPaint(painter: _MiniPainter(widget.kind, P, _t, big, widget.phase)),
+      child: RepaintBoundary(child: CustomPaint(painter: _MiniPainter(widget.kind, P, _t, big, widget.phase))),
     );
   }
 }
@@ -407,7 +407,8 @@ class _PetRoomState extends ConsumerState<_PetRoom> with SingleTickerProviderSta
                 onPointerMove: (e) => sim.pointerMove(e.localPosition, e.buttons != 0),
                 onPointerUp: (_) => sim.pointerUp(),
                 onPointerCancel: (_) => sim.pointerUp(),
-                child: CustomPaint(size: Size(c.maxWidth, c.maxHeight), painter: _RoomPainter(sim)),
+                // RepaintBoundary: phòng vẽ lại 60 hình/giây, không kéo theo thanh chỉ số và các nút xung quanh.
+                child: RepaintBoundary(child: CustomPaint(size: Size(c.maxWidth, c.maxHeight), painter: _RoomPainter(sim))),
               );
             }),
           ),

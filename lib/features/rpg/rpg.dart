@@ -313,7 +313,7 @@ class _RpgTownScreenState extends ConsumerState<RpgTownScreen> {
           width: 170,
           height: 160,
           child: Stack(children: [
-            Positioned(left: 0, top: 0, child: FigureView(costume: heroOf(heroImg), size: 150)),
+            Positioned(left: 0, top: 0, child: FigureView(costume: heroOf(heroImg), size: 150, weapon: kWeapons[R.w].img)),
             if (R.pet != null) Positioned(right: 0, bottom: 0, child: PetView(kind: kPetRig[R.pet] ?? 'dog', size: 70)),
           ]),
         ),
@@ -371,7 +371,7 @@ class _RpgTownScreenState extends ConsumerState<RpgTownScreen> {
         const RpgVillage(),
         heroCard,
         Row(crossAxisAlignment: CrossAxisAlignment.end, spacing: 10, children: [
-          FigureView(costume: npc.c, size: 76),
+          FigureView(costume: npc.c, size: 76, weapon: npc.wp),
           Expanded(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -751,7 +751,7 @@ class _RpgVillageState extends State<RpgVillage> with SingleTickerProviderStateM
     if (_bg != null && _bgW == W) return _bg;
     _bg?.dispose();
     _bgW = W;
-    return _bg = prerender(Pen(_art!), (g) {
+    return _bg = flattenPicture(prerender(Pen(_art!), (g) {
       const ts = 38.0;
       final cols = (W / ts).ceil() + 1, rows = (hh / ts).ceil();
       var seed = 3;
@@ -790,7 +790,7 @@ class _RpgVillageState extends State<RpgVillage> with SingleTickerProviderStateM
         put('t46', X + ts * 2.8, ts * 4);
         put(const ['t29', 't17', 't5'][i % 3], X + ts * 4.2, ts * 4.1);
       }
-    });
+    }), W, hh);
   }
 
   @override
@@ -801,10 +801,13 @@ class _RpgVillageState extends State<RpgVillage> with SingleTickerProviderStateM
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(18), boxShadow: const [BoxShadow(color: Color(0x1F000000), offset: Offset(0, 4))]),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(18),
-            child: CustomPaint(
-              key: const Key('rpg-village'),
-              size: Size(_w, widget.height),
-              painter: _VillagePainter(this),
+            // RepaintBoundary: làng chạy 60 hình/giây, không kéo cả màn Làng (nút, thẻ vùng) vẽ lại.
+            child: RepaintBoundary(
+              child: CustomPaint(
+                key: const Key('rpg-village'),
+                size: Size(_w, widget.height),
+                painter: _VillagePainter(this),
+              ),
             ),
           ),
         );
@@ -1022,7 +1025,8 @@ class _RpgStageScreenState extends ConsumerState<RpgStageScreen> {
   @override
   Widget build(BuildContext context) {
     final ready = Z != null && art != null;
-    return Scaffold(
+    // SkyCover: nền đục che kín trời → mây phía sau ngừng chạy (hiệu năng).
+    return SkyCover(child: Scaffold(
       backgroundColor: const Color(0xFF101228),
       body: Stack(fit: StackFit.expand, children: [
         if (ready)
@@ -1045,6 +1049,6 @@ class _RpgStageScreenState extends ConsumerState<RpgStageScreen> {
           ),
         ),
       ]),
-    );
+    ));
   }
 }

@@ -35,7 +35,7 @@ class FunRun {
 /// Chạy game; [input] gọi mỗi 0,25 s game (i = số lần gọi) để chạm/vuốt. Trả về khi game xong hoặc hết [maxSeconds].
 Future<FunRun> playFun(WidgetTester tester, FunGameFn run,
     {int level = 0, bool bot = false, String lang = 'vi', Size size = const Size(390, 760), double maxSeconds = 150,
-    Json? carry, Future<void> Function(WidgetTester t, int i, Size size)? input, String hero = 'Robot'}) async {
+    Json? carry, Json? ticket, Future<void> Function(WidgetTester t, int i, Size size)? input, String hero = 'Robot'}) async {
   tester.view.physicalSize = size * 2;
   tester.view.devicePixelRatio = 2;
   addTearDown(tester.view.reset);
@@ -55,6 +55,7 @@ Future<FunRun> playFun(WidgetTester tester, FunGameFn run,
     store: store,
     carry: carry ?? {},
     free: false,
+    ticket: ticket,
     isAlive: () => alive,
     onSaveGear: r.saved.add,
     onLevelUp: () {},

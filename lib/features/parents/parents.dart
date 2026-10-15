@@ -359,7 +359,19 @@ class _CreditsCardState extends ConsumerState<CreditsCard> {
             child: Text.rich(
               TextSpan(children: [
                 TextSpan(text: e.key, style: const TextStyle(fontWeight: FontWeight.w800, color: AppColors.ink)),
-                TextSpan(text: ' — ${e.value.by ?? '?'} — ${e.value.lic ?? ''} — Wikimedia Commons'),
+                TextSpan(text: ' — ${e.value.by ?? '?'} — ${e.value.lic ?? ''} — '),
+                // Như web: mỗi ảnh dẫn tới trang tệp gốc trên Wikimedia (ghi công CC BY / BY-SA). Đã qua khoá bố mẹ.
+                if (e.value.src != null)
+                  WidgetSpan(
+                    alignment: PlaceholderAlignment.baseline,
+                    baseline: TextBaseline.alphabetic,
+                    child: GestureDetector(
+                      onTap: () => io.openUrl(e.value.src!),
+                      child: Text('Wikimedia Commons', style: small.copyWith(color: AppColors.blueDark, decoration: TextDecoration.underline)),
+                    ),
+                  )
+                else
+                  const TextSpan(text: 'Wikimedia Commons'),
               ]),
               style: small,
             ),

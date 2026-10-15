@@ -412,7 +412,8 @@ class AppScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget body = Padding(padding: padding, child: child);
-    if (scroll) body = SingleChildScrollView(child: body);
+    // RepaintBoundary: khi cuộn chỉ dời lớp nội dung đã vẽ, không ghi lại cả danh sách (thẻ đảo, ~50 thẻ game) mỗi khung.
+    if (scroll) body = SingleChildScrollView(child: RepaintBoundary(child: body));
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: SafeArea(

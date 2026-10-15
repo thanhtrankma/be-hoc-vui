@@ -331,10 +331,12 @@ class _DailyBar extends ConsumerWidget {
                 radius: 16,
                 color: isl.color,
                 extraShadow: const [BoxShadow(color: Color(0x26000000), offset: Offset(0, -4), spreadRadius: -2)],
+                // title: t('playIn', {name}) của web → nhãn trợ năng.
                 child: SizedBox(
                   width: 52,
                   height: 52,
                   child: Stack(alignment: Alignment.center, children: [
+                    Semantics(label: i.t('playIn', {'name': i.L(isl)}), button: true, child: const SizedBox.expand()),
                     Opacity(opacity: done.contains(id) ? .5 : 1, child: EmojiImage(isl.img, size: 37, photo: false)),
                     if (done.contains(id))
                       const Text('✔', style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.w800, shadows: [Shadow(color: Color(0x4D000000), offset: Offset(0, 2))])),

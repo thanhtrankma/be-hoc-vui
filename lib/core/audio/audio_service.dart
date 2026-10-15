@@ -87,11 +87,21 @@ abstract class AudioService {
     stopVoiceEngine();
   }
 
+  DateTime _sayAt = DateTime.fromMillisecondsSinceEpoch(0);
+
+  /// Đổi màn (route() của web gọi audio.stopVoice()): cắt câu đang đọc của màn cũ. Câu vừa bắt đầu trong [fresh]
+  /// gần đây được giữ — đó là câu nói kèm lệnh chuyển màn (vd. 'welcome' rồi go('/new'), 'noTicket' rồi về /fun)
+  /// hoặc câu mở màn mới.
+  void stopVoiceOnRoute({Duration fresh = const Duration(milliseconds: 300)}) {
+    if (DateTime.now().difference(_sayAt) > fresh) stopVoice();
+  }
+
   /// Đọc một câu; Future xong khi đọc hết (hoặc bị câu khác cắt ngang).
   Future<void> say(VoiceLine? line) async {
     if (line == null || !soundOn) return;
     final asset = voice.assetOf(line);
     stopVoice();
+    _sayAt = DateTime.now();
     final my = _seq;
     if (asset == null) {
       if (line.text.isNotEmpty) debugPrint('Thiếu câu đọc: ${line.lang} ${line.text}');

@@ -484,8 +484,11 @@ class FigureController extends ChangeNotifier {
 
 /// Nhân vật động trong giao diện (figureEl): tự chạy hoạt ảnh. controller (tuỳ chọn) đổi pose/face/run từ ngoài.
 class FigureView extends StatefulWidget {
-  const FigureView({super.key, required this.costume, this.size = 160, this.pose = 'idle', this.face = 1, this.controller});
+  const FigureView({super.key, required this.costume, this.size = 160, this.pose = 'idle', this.face = 1, this.controller, this.weapon});
   final Costume costume;
+
+  /// Vũ khí cầm tay (tên hình Fluent) — figureEl(...).weapon của web (RPG: anh hùng ở làng, NPC).
+  final String? weapon;
   final double size;
   final String pose;
   final int face;
@@ -559,27 +562,28 @@ class _FigureViewState extends State<FigureView> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return SizedBox.square(
       dimension: widget.size,
-      child: RepaintBoundary(child: CustomPaint(painter: _FigurePainter(widget.costume, widget.pose, _t, widget.face, widget.controller))),
+      child: RepaintBoundary(child: CustomPaint(painter: _FigurePainter(widget.costume, widget.pose, _t, widget.face, widget.controller, widget.weapon))),
     );
   }
 }
 
 class _FigurePainter extends CustomPainter {
-  _FigurePainter(this.c, this.pose, this.t, this.face, this.ctl) : super(repaint: Listenable.merge([t, ?ctl]));
+  _FigurePainter(this.c, this.pose, this.t, this.face, this.ctl, [this.weapon]) : super(repaint: Listenable.merge([t, ?ctl]));
   final Costume c;
   final String pose;
   final ValueNotifier<double> t;
   final int face;
   final FigureController? ctl;
+  final String? weapon;
   @override
   void paint(Canvas canvas, Size size) {
     final ct = ctl;
     final p = ct == null ? pose : (ct.runT > 0 ? 'run' : ct.pose);
-    drawFigure(canvas, size.width / 2, size.height * .97, size.height * .8, c, pose: p, t: t.value, face: ct?.face ?? face, weapon: ct?.weapon);
+    drawFigure(canvas, size.width / 2, size.height * .97, size.height * .8, c, pose: p, t: t.value, face: ct?.face ?? face, weapon: ct?.weapon ?? weapon);
   }
 
   @override
-  bool shouldRepaint(covariant _FigurePainter old) => old.pose != pose || old.c != c || old.face != face || old.ctl != ctl;
+  bool shouldRepaint(covariant _FigurePainter old) => old.pose != pose || old.c != c || old.face != face || old.ctl != ctl || old.weapon != weapon;
 }
 
 /// Thú cưng đứng thở trong giao diện (petEl).

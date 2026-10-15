@@ -26,7 +26,7 @@ class StartScreen extends ConsumerWidget {
       audio.sayPhrase('welcome');
       context.go('/new');
     } else if (store.profiles.length == 1 && p != null) {
-      context.go('/map');
+      context.go(resumeRoute(store) ?? '/map');
     } else {
       context.go('/kids');
     }
@@ -123,13 +123,14 @@ class _Pulse extends StatelessWidget {
   const _Pulse({required this.child});
   final Widget child;
   @override
-  Widget build(BuildContext context) => LoopAnim(
+  Widget build(BuildContext context) => LoopAnim.transform(
         period: const Duration(milliseconds: 2200),
-        child: child,
-        builder: (context, t, child) {
+        alignment: Alignment.center,
+        transform: (t) {
           final k = t < .5 ? t * 2 : 2 - t * 2;
           final e = k * k * (3 - 2 * k);
-          return Transform.scale(scale: 1 + .05 * e, child: child);
+          return Matrix4.diagonal3Values(1 + .05 * e, 1 + .05 * e, 1);
         },
+        child: child,
       );
 }

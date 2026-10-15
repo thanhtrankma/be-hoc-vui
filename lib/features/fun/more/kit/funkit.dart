@@ -869,7 +869,8 @@ class _FunCanvasState extends State<FunCanvas> with SingleTickerProviderStateMix
             onPointerMove: (e) => _emit(g._move, e, size),
             onPointerUp: (e) => _emit(g._up, e, size),
             onPointerCancel: (e) => _emit(g._cancel, e, size),
-            child: CustomPaint(key: const Key('fun-canvas'), size: size, painter: _Painter(this, g, _repaint)),
+            // RepaintBoundary: khung hình game không kéo theo cả màn (nút thoát, HUD widget) vẽ lại.
+            child: RepaintBoundary(child: CustomPaint(key: const Key('fun-canvas'), size: size, painter: _Painter(this, g, _repaint))),
           ),
         if (_overlay != null) Positioned.fill(child: Builder(builder: _overlay!)),
       ]);

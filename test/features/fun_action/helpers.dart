@@ -6,7 +6,7 @@ import 'package:be_vui_hoc/core/i18n/i18n.dart';
 import 'package:be_vui_hoc/core/store/store.dart';
 
 class FakeFun {
-  FakeFun({String gameId = 'racer', int level = 0, Json? carry, this.alive = true}) {
+  FakeFun({String gameId = 'racer', int level = 0, Json? carry, Json? ticket, this.alive = true}) {
     store = AppStore(null);
     audio = SilentAudio(store: store);
     ctx = FunGameContext(
@@ -21,6 +21,7 @@ class FakeFun {
       store: store,
       carry: carry ?? {},
       free: false,
+      ticket: ticket,
       isAlive: () => alive,
       onSaveGear: (c) => saved.add(c),
       onLevelUp: () => ups++,

@@ -85,7 +85,7 @@ void main() {
     expect(f.results.single!.win, isTrue);
     expect(f.results.single!.pvp, isFalse);
     // Cấp sau (cùng vé): không hỏi lại chế độ
-    final f2 = FakeFun(gameId: 'tug', level: 1);
+    final f2 = FakeFun(gameId: 'tug', level: 1, ticket: f.ctx.ticket);
     await mount(tester, funvs1Games['tug']!, f2);
     expect(find.byKey(const Key('vs-bot')), findsNothing);
     expect(find.byType(GameWidget<ActGame>), findsOneWidget);

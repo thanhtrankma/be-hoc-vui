@@ -1,6 +1,7 @@
 // Nền trời của web (body gradient + .sky: 3 đám mây trôi + 2 quả đồi xanh nhạt dưới đáy).
 // Mọi màn đã nằm trên nền này (AppShell bọc ngoài router), màn riêng không cần tự vẽ.
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'motion.dart';
 import 'theme.dart';
@@ -25,17 +26,62 @@ class SkyBackground extends StatelessWidget {
           ),
         ),
         const RepaintBoundary(child: CustomPaint(painter: _HillsPainter())),
-        LayoutBuilder(builder: (context, c) {
-          return Stack(children: [
-            _Cloud(top: c.maxHeight * .08, scale: 1, opacity: .85, period: const Duration(seconds: 60), delay: Duration.zero, width: c.maxWidth),
-            _Cloud(top: c.maxHeight * .26, scale: .7, opacity: .85, period: const Duration(seconds: 85), delay: const Duration(seconds: 30), width: c.maxWidth),
-            _Cloud(top: c.maxHeight * .55, scale: .55, opacity: .6, period: const Duration(seconds: 110), delay: const Duration(seconds: 70), width: c.maxWidth),
-          ]);
-        }),
+        // Mây trôi: lớp riêng (không bắt nền + màn phía trên vẽ lại), dừng hẳn khi màn game che kín nền (SkyCover).
+        RepaintBoundary(
+          child: ValueListenableBuilder<bool>(
+            valueListenable: SkyCover.covered,
+            builder: (context, covered, child) => TickerMode(enabled: !covered, child: child!),
+            child: LayoutBuilder(builder: (context, c) {
+              return Stack(children: [
+                _Cloud(top: c.maxHeight * .08, scale: 1, opacity: .85, period: const Duration(seconds: 60), delay: Duration.zero, width: c.maxWidth),
+                _Cloud(top: c.maxHeight * .26, scale: .7, opacity: .85, period: const Duration(seconds: 85), delay: const Duration(seconds: 30), width: c.maxWidth),
+                _Cloud(top: c.maxHeight * .55, scale: .55, opacity: .6, period: const Duration(seconds: 110), delay: const Duration(seconds: 70), width: c.maxWidth),
+              ]);
+            }),
+          ),
+        ),
         ?child,
       ],
     );
   }
+}
+
+/// Bọc một màn che kín nền trời (game toàn màn hình, nền đục): khi còn màn như vậy, mây ngừng chạy
+/// (không tốn CPU/GPU cho thứ không nhìn thấy). Hình không đổi vì mây bị che.
+class SkyCover extends StatefulWidget {
+  const SkyCover({super.key, required this.child});
+  final Widget child;
+
+  /// Đang có màn che kín nền (mây dừng). Cập nhật sau khung hình (không báo giữa lúc dựng cây widget).
+  static final ValueNotifier<bool> covered = ValueNotifier<bool>(false);
+  static int _n = 0;
+  static void _sync() {
+    SchedulerBinding.instance
+      ..addPostFrameCallback((_) => covered.value = _n > 0)
+      ..ensureVisualUpdate();
+  }
+
+  @override
+  State<SkyCover> createState() => _SkyCoverState();
+}
+
+class _SkyCoverState extends State<SkyCover> {
+  @override
+  void initState() {
+    super.initState();
+    SkyCover._n++;
+    SkyCover._sync();
+  }
+
+  @override
+  void dispose() {
+    SkyCover._n--;
+    SkyCover._sync();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }
 
 /// Đồi: nửa elip phía trên (border-radius 50% 50% 0 0), chìm 8vh dưới đáy.
@@ -68,17 +114,18 @@ class _Cloud extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // translateX từ -200px tới 100vw + 200px (web: left -200px, drift tới calc(100vw + 400px)).
+    final motion = Motion.of(context);
     return Positioned(
       top: top,
       left: 0,
-      child: LoopAnim(
+      child: LoopAnim.transform(
         period: period,
         delay: delay,
-        builder: (context, t, child) {
+        transform: (t) {
           // Tắt hoạt ảnh: đặt mây ở vị trí cố định cho đẹp.
-          final k = Motion.of(context) ? t : (scale == 1 ? .18 : scale == .7 ? .62 : .35);
+          final k = motion ? t : (scale == 1 ? .18 : scale == .7 ? .62 : .35);
           final x = -200 + k * (width + 400);
-          return Transform.translate(offset: Offset(x, 0), child: child);
+          return Matrix4.translationValues(x, 0, 0);
         },
         child: Opacity(
           opacity: opacity,

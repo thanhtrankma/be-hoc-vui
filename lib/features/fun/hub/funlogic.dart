@@ -534,6 +534,14 @@ class FlowPuzzleState extends State<FlowPuzzle> {
   int pulse = 0;
   final Map<int, int> cellPulse = {};
 
+  /// Kiểu nảy của từng ô (bounce(el, k, ms, delay) của web) và nảy riêng của chấm đầu/cuối.
+  final Map<int, (double, int, int)> cellFx = {};
+  final Map<int, int> dotPulse = {};
+  void _bounce(int i, double k, int ms, [int delay = 0]) {
+    cellPulse[i] = ++pulse;
+    cellFx[i] = (k, ms, delay);
+  }
+
   /// Đáp án dạng chỉ số ô (data-sol của web; dùng cho kiểm thử).
   List<List<int>> get solution => [for (final s in L.segs) s.map((p) => p[1] * n + p[0]).toList()];
 
@@ -596,19 +604,27 @@ class FlowPuzzleState extends State<FlowPuzzle> {
         p.add(i);
         owner[i] = c;
         widget.ctx.audio.sfx('count');
-        cellPulse[i] = ++pulse;
+        _bounce(i, 1.08, 180);
       }
       if (_done(c)) {
         widget.ctx.audio.sfx('star');
-        for (final j in paths[c]) {
-          cellPulse[j] = ++pulse;
+        final pp = paths[c];
+        // Web: hai chấm nảy 1,4× (380 ms), rồi cả đường nảy 1,1× lần lượt 30 ms mỗi ô.
+        for (final j in [pp.first, pp.last]) {
+          dotPulse[j] = ++pulse;
+        }
+        for (final (k, j) in pp.indexed) {
+          _bounce(j, 1.1, 260, k * 30);
         }
         cur = null;
       }
       if (List.generate(paths.length, (k) => k).every(_done)) {
         solved = true;
+        // Web: cả bảng nảy 1,12× thành sóng chéo (40 ms mỗi đường chéo).
+        for (var k = 0; k < n * n; k++) {
+          _bounce(k, 1.12, 320, ((k % n) + (k ~/ n)) * 40);
+        }
         final full = owner.every((o) => o >= 0);
-        widget.ctx.audio.sfx('win');
         Future<void>.delayed(const Duration(milliseconds: 500), () {
           if (mounted) widget.onSolved(10 + (full ? 5 : 0));
         });
@@ -657,9 +673,13 @@ class FlowPuzzleState extends State<FlowPuzzle> {
               height: cell - 3,
               child: _Bounce(
                 trigger: cellPulse[i] ?? 0,
-                k: 1.08,
-                ms: 200,
-                child: CustomPaint(painter: _FlowCell(i, n, owner[i], dots[i], paths)),
+                k: cellFx[i]?.$1 ?? 1.08,
+                ms: cellFx[i]?.$2 ?? 200,
+                delayMs: cellFx[i]?.$3 ?? 0,
+                child: Stack(fit: StackFit.expand, children: [
+                  CustomPaint(painter: _FlowCell(i, n, owner[i], null, paths)),
+                  if (dots[i] != null) _Bounce(trigger: dotPulse[i] ?? 0, k: 1.4, ms: 380, child: CustomPaint(painter: _FlowCell.dotOnly(dots[i]!))),
+                ]),
               ),
             ),
         ]),
@@ -670,7 +690,17 @@ class FlowPuzzleState extends State<FlowPuzzle> {
 
 class _FlowCell extends CustomPainter {
   _FlowCell(this.i, this.n, this.owner, this.dot, List<List<int>> paths)
-      : sig = [for (final (c, p) in paths.indexed) if (p.contains(i)) '$c:${_nbs(p, i)}'].join('|');
+      : sig = [for (final (c, p) in paths.indexed) if (p.contains(i)) '$c:${_nbs(p, i)}'].join('|'),
+        bg = true;
+
+  /// Chỉ vẽ chấm màu (lớp riêng để chấm nảy riêng như .dot của web).
+  _FlowCell.dotOnly(int this.dot)
+      : i = -1,
+        n = 0,
+        owner = -1,
+        sig = '',
+        bg = false;
+  final bool bg;
   final int i, n, owner;
   final int? dot;
   final String sig;
@@ -682,7 +712,7 @@ class _FlowCell extends CustomPainter {
 
   @override
   void paint(Canvas c, Size s) {
-    c.drawRRect(RRect.fromRectAndRadius(Offset.zero & s, const Radius.circular(8)), Paint()..color = const Color(0xFF212529));
+    if (bg) c.drawRRect(RRect.fromRectAndRadius(Offset.zero & s, const Radius.circular(8)), Paint()..color = const Color(0xFF212529));
     if (owner >= 0) c.drawRRect(RRect.fromRectAndRadius(Offset.zero & s, const Radius.circular(8)), Paint()..color = kFlowColors[owner].withValues(alpha: .25));
     for (final part in sig.split('|')) {
       if (part.isEmpty) continue;
@@ -756,8 +786,8 @@ PipeLevel pipeLevel(int lv) {
       final opts = shuffle(kDirs.values).map((d) => [x + d[0], y + d[1]]).where((p) => p[0] >= 0 && p[1] >= 0 && p[0] < n && p[1] < n && !seen.contains(p.join(','))).toList();
       if (opts.isEmpty) break;
       // Ưu tiên đi sang phải (sort theo x giảm dần, có ngẫu nhiên)
-      final right = rng.nextDouble() < .6;
-      if (right) opts.sort((p, q) => q[0] - p[0]);
+      // Như web: tung xác suất 60% ở MỖI lần so sánh trong sort.
+      opts.sort((p, q) => (q[0] - p[0]) * (rng.nextDouble() < .6 ? 1 : 0));
       path.add(opts.first);
       seen.add(opts.first.join(','));
     }
@@ -988,7 +1018,11 @@ class SchultePuzzleState extends State<SchultePuzzle> {
   late final bool down = widget.lv >= 8 && widget.lv % 3 == 2;
   late final List<int> nums = shuffle(List.generate(total, (i) => i + 1));
   late int next = down ? total : 1;
-  int mistakes = 0, found = 0, tenths = 0;
+  int mistakes = 0, found = 0;
+
+  /// Giờ thật (performance.now() - t0 của web), không đếm nhịp Timer (nhịp trễ làm giờ đọc thiếu).
+  final Stopwatch _sw = Stopwatch()..start();
+  int get tenths => _sw.elapsedMilliseconds ~/ 100;
   final hit = <int>{};
   final shake = <int, int>{};
   Timer? _timer;
@@ -1002,7 +1036,7 @@ class SchultePuzzleState extends State<SchultePuzzle> {
     super.initState();
     _sayNum(next);
     _timer = Timer.periodic(const Duration(milliseconds: 100), (_) {
-      if (mounted && !done) setState(() => tenths++);
+      if (mounted && !done) setState(() {});
     });
   }
 
@@ -1023,7 +1057,8 @@ class SchultePuzzleState extends State<SchultePuzzle> {
   }
 
   void tap(int v) {
-    if (done || hit.contains(v)) return;
+    // Web: số đã tìm vẫn bấm được (chỉ mờ đi) — bấm lại tính là sai.
+    if (done) return;
     final a = widget.ctx.audio;
     if (v != next) {
       mistakes++;
@@ -1040,7 +1075,8 @@ class SchultePuzzleState extends State<SchultePuzzle> {
     if (found >= total) {
       done = true;
       _timer?.cancel();
-      final sec = tenths / 10;
+      _sw.stop();
+      final sec = _sw.elapsedMilliseconds / 1000;
       a.sfx('win');
       Future<void>.delayed(const Duration(milliseconds: 600), () {
         if (mounted) widget.onSolved(math.max(5, (total * 2 - sec - mistakes * 2).round()));

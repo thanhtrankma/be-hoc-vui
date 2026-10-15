@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import 'app_router.dart';
 import 'core/audio/audio_service.dart';
@@ -28,6 +29,21 @@ class _BeVuiHocAppState extends ConsumerState<BeVuiHocApp> with WidgetsBindingOb
     _usage = Timer.periodic(const Duration(seconds: 15), (_) => _tickUsage());
     // Đồng bộ mã gia đình (chỉ chạy khi bố mẹ đã bật trong Góc bố mẹ).
     WidgetsBinding.instance.addPostFrameCallback((_) => ref.read(syncServiceProvider).init());
+    final router = ref.read(routerProvider);
+    _router = router;
+    router.routerDelegate.addListener(_onRoute);
+  }
+
+  GoRouter? _router;
+  String _lastPath = '';
+
+  /// Mỗi lần đổi màn (route() của web): dừng giọng đọc của màn cũ, nhớ màn để mở lại (resumeRoute).
+  void _onRoute() {
+    final uri = ref.read(routerProvider).routerDelegate.currentConfiguration.uri;
+    if (uri.path == _lastPath) return;
+    _lastPath = uri.path;
+    ref.read(audioProvider).stopVoiceOnRoute();
+    if (ref.read(startedProvider)) saveResumeRoute(ref.read(storeProvider), uri.path);
   }
 
   void _tickUsage() {
@@ -50,6 +66,7 @@ class _BeVuiHocAppState extends ConsumerState<BeVuiHocApp> with WidgetsBindingOb
 
   @override
   void dispose() {
+    _router?.routerDelegate.removeListener(_onRoute);
     _usage?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();

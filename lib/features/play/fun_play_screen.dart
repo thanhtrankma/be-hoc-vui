@@ -29,6 +29,10 @@ class _FunPlayScreenState extends ConsumerState<FunPlayScreen> {
   FunGameModule? module;
   FunGameContext? ctx;
 
+  /// Trạng thái dùng chung các cấp của vé này (opts của web) và kho đồ mang sang cấp sau (cả khi bố mẹ chơi miễn phí).
+  final Json _ticket = {};
+  Json? _carry;
+
   @override
   void initState() {
     super.initState();
@@ -72,8 +76,9 @@ class _FunPlayScreenState extends ConsumerState<FunPlayScreen> {
       audio: ref.read(audioProvider),
       i18n: ref.read(i18nProvider),
       store: store,
-      carry: store.gear(p, widget.gameId),
+      carry: _carry ?? store.gear(p, widget.gameId),
       free: free,
+      ticket: _ticket,
       isAlive: () => alive && mounted && run == myRun,
       onSaveGear: (c) => store.saveGear(widget.gameId, c),
       onLevelUp: () => store.funLevelUp(widget.gameId),
@@ -88,7 +93,10 @@ class _FunPlayScreenState extends ConsumerState<FunPlayScreen> {
     final store = ref.read(storeProvider);
     if (!def!.leveled || r.pvp) return _result(r);
     // Kho đồ mang sang cấp sau và lưu vào hồ sơ, thắng hay thua đều giữ.
-    if (r.carry != null && !free) store.saveGear(widget.gameId, r.carry);
+    if (r.carry != null) {
+      _carry = r.carry;
+      if (!free) store.saveGear(widget.gameId, r.carry);
+    }
     total += r.score;
     last = r;
     if (r.win) {
@@ -179,7 +187,8 @@ class _FunPlayScreenState extends ConsumerState<FunPlayScreen> {
     // Đáy cũng vậy: thanh điều hướng Android (edge-to-edge) và vạch Home của iPhone không được che nút điều khiển.
     final pad = MediaQuery.paddingOf(context);
     final top = pad.top;
-    return Scaffold(
+    // SkyCover: nền đục che kín trời → mây phía sau ngừng chạy (hiệu năng).
+    return SkyCover(child: Scaffold(
       backgroundColor: Colors.white,
       body: Stack(fit: StackFit.expand, children: [
         if (ready && ctx != null)
@@ -207,6 +216,6 @@ class _FunPlayScreenState extends ConsumerState<FunPlayScreen> {
           ),
         ),
       ]),
-    );
+    ));
   }
 }

@@ -148,6 +148,8 @@ class _PlayScreenState extends ConsumerState<PlayScreen> with SingleTickerProvid
       from: widget.from,
       onAgain: () {
         if (!mounted) return;
+        // route(true) của web chạy lại các chặn: hết giờ chơi hôm nay → màn nghỉ.
+        if (ref.read(storeProvider).overLimit()) return context.go('/rest');
         setState(() {
           gen++;
           progI = progN = 0;
@@ -173,7 +175,9 @@ class _PlayScreenState extends ConsumerState<PlayScreen> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     if (!valid || ctx == null) return const AppScreen(child: SizedBox());
-    final p = ref.watch(storeProvider).profile;
+    // Chỉ dựng lại khi số sao (hoặc bé) đổi — không dựng lại cả màn chơi mỗi lần lưu dữ liệu (15 giây/lần, mỗi câu...).
+    ref.watch(storeProvider.select((s) => (s.activeId, s.profile?.stars)));
+    final p = ref.read(storeProvider).profile;
     if (p == null) return const SizedBox();
     final i = ref.watch(i18nProvider);
     final size = MediaQuery.sizeOf(context);

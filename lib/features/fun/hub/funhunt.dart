@@ -71,9 +71,22 @@ class HuntCarry {
   Json toJson() => {'v': 1, 'coins': coins, 'skills': {...skills}, 'perm': {...perm}, 'off': [...off]};
 }
 
+/// int(v, a, b) của web: Math.max(a, Math.min(b, Math.floor(+v || 0))) — +v như JS ("3.7" → 3, true → 1).
 int _int(Object? v, int a, int b) {
-  final n = v is num ? v.floor() : (int.tryParse('$v') ?? 0);
-  return n.clamp(a, b);
+  double d;
+  if (v is num) {
+    d = v.toDouble();
+  } else if (v is bool) {
+    d = v ? 1 : 0;
+  } else if (v is String) {
+    final t = v.trim();
+    d = t.isEmpty ? 0 : (double.tryParse(t) ?? double.nan);
+  } else {
+    d = v == null ? 0 : double.nan;
+  }
+  if (d.isNaN || d == 0) return math.max(a, math.min(b, 0));
+  if (d.isInfinite) return d > 0 ? b : a;
+  return math.max(a, math.min(b, d.floor()));
 }
 
 /// Đọc carry phòng thủ: thiếu trường thì mặc định. Súng nước tối thiểu cấp 1 (món chính).
@@ -106,10 +119,6 @@ String _stars(int n, [int m = 5]) => '★' * n + '☆' * math.max(0, m - n);
 // Module: Kho vũ khí (cấp đầu của lượt) rồi chơi
 // =================================================================================================================
 
-/// Cấp vừa thắng và khung sẽ chơi tiếp cấp sau trong cùng vé → bỏ qua Kho vũ khí (opts._huntShop của web).
-bool _skipShop = false;
-int _chain = 0;
-
 class HuntModule extends FunGameModule {
   const HuntModule();
   @override
@@ -134,28 +143,20 @@ class _HuntRunState extends State<HuntRun> {
   late final HuntCarry C = readHuntCarry(widget.ctx.carry);
   late final Json saved = readHuntCarry(widget.ctx.carry).toJson();
 
+  /// Game tạo một lần (build() chạy lại khi xoay máy... không được tạo game mới).
+  late final HuntGame game = HuntGame(widget.ctx, carry: C, saved: saved, bot: widget.bot, turbo: widget.turbo);
+
   @override
   void initState() {
     super.initState();
-    shop = !_skipShop;
-    if (shop) _chain = 0;
-    _skipShop = false;
+    // Kho vũ khí chỉ ở cấp đầu của vé (web: opts._huntShop dùng chung các cấp của vé = ctx.ticket).
+    shop = widget.ctx.ticket['_huntShop'] != true;
+    widget.ctx.ticket['_huntShop'] = true;
   }
 
   void _save() => widget.ctx.saveGear(mergeHuntCarry(saved, C));
 
-  void _end(FunResult r) {
-    if (r.win) {
-      _chain++;
-      final more = _chain < kLevelsPerTicket && widget.ctx.level + 1 < kFunMax;
-      _skipShop = more;
-      if (!more) _chain = 0;
-    } else {
-      _chain = 0;
-      _skipShop = false;
-    }
-    widget.ctx.finish(r);
-  }
+  void _end(FunResult r) => widget.ctx.finish(r);
 
   @override
   Widget build(BuildContext context) {
@@ -169,7 +170,7 @@ class _HuntRunState extends State<HuntRun> {
     }
     return ColoredBox(
       color: funTheme(widget.ctx.level).groundColor,
-      child: FunCanvas(game: HuntGame(widget.ctx, carry: C, saved: saved, bot: widget.bot, turbo: widget.turbo), onEnd: _end),
+      child: FunCanvas(game: game, onEnd: _end),
     );
   }
 }
@@ -662,6 +663,7 @@ class HuntGame extends FunCanvasGame {
       } else {
         gems[kills % gems.length].v += 1; // nhiều ngọc quá: dồn vào ngọc cũ
       }
+      if (gems.last.v == 3) gems.last.k = 'gem_green';
       if (rng.nextDouble() < .04) {
         coins.add(_Pickup(f.x, f.y));
       } else if (rng.nextDouble() < .012) {

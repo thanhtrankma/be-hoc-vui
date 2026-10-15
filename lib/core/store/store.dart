@@ -432,7 +432,9 @@ class AppStore extends ChangeNotifier {
       cf[c] = asInt(cf[c]) + 1;
     }
     if (cf.length > 80) {
-      final ck = cf.keys.toList()..sort((a, b) => asInt(cf[a]) - asInt(cf[b]));
+      // Sort ổn định như Array.sort của JS: bằng số lần thì giữ thứ tự chèn (xoá cặp cũ nhất trước).
+      final order = {for (final (i, k) in cf.keys.indexed) k: i};
+      final ck = cf.keys.toList()..sort((a, b) => asInt(cf[a]) - asInt(cf[b]) != 0 ? asInt(cf[a]) - asInt(cf[b]) : order[a]! - order[b]!);
       for (final k in ck.take(ck.length - 80)) {
         cf.remove(k);
       }
@@ -450,10 +452,14 @@ class AppStore extends ChangeNotifier {
       final ok = asInt(it[1]) > 0 && asInt(it[3]) < 5;
       return ok && (all ? (asInt(it[3]) < 2 || asInt(it[2]) <= now) : asInt(it[2]) <= now);
     }).toList();
+    // Sort ổn định như JS (bằng điểm thì giữ thứ tự mục).
+    final order = {for (final (i, e) in list.indexed) e.key: i};
     list.sort((a, b) {
       final x = a.value as List, y = b.value as List;
       final c = asInt(x[2]) - asInt(y[2]);
-      return c != 0 ? c : (asInt(y[1]) - asInt(y[0])) - (asInt(x[1]) - asInt(x[0]));
+      if (c != 0) return c;
+      final w = (asInt(y[1]) - asInt(y[0])) - (asInt(x[1]) - asInt(x[0]));
+      return w != 0 ? w : order[a.key]! - order[b.key]!;
     });
     return list.map((e) => e.key).toList();
   }

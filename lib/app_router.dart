@@ -36,6 +36,31 @@ String routeName(String path) {
   return parts.isEmpty ? '' : parts.first;
 }
 
+// Máy tắt app khi đang ở nền (thiếu bộ nhớ...): bấm Bắt đầu xong quay về đúng màn bé đang ở (resumeRoute() của web,
+// sessionStorage 'bvh.route'). App không có "phiên tab" nên nhớ kèm giờ, quá [kResumeFor] thì thôi.
+const kResumeRoutes = ['map', 'island', 'fun', 'pet', 'album', 'room', 'buddies', 'rpg', 'lop1'];
+const kResumeKey = 'bvh.route';
+const kResumeFor = Duration(hours: 2);
+
+/// Ghi màn hiện tại (chỉ các màn trong [kResumeRoutes]; không nhớ màn đang chơi `/fun/<id>`, `/rpg/<r>/<s>`).
+void saveResumeRoute(AppStore store, String path) {
+  final parts = path.replaceFirst(RegExp(r'^/'), '').split('/');
+  final name = parts.first;
+  final ok = kResumeRoutes.contains(name) && !((name == 'fun' || name == 'rpg') && parts.length > 1 && parts[1].isNotEmpty);
+  store.setKv(kResumeKey, ok ? '${store.now().millisecondsSinceEpoch}|$path' : null);
+}
+
+/// Màn để mở lại sau khi bấm Bắt đầu, hoặc null.
+String? resumeRoute(AppStore store) {
+  final v = store.getKv(kResumeKey);
+  if (v == null) return null;
+  final i = v.indexOf('|');
+  final at = int.tryParse(i < 0 ? '' : v.substring(0, i));
+  if (at == null || store.now().millisecondsSinceEpoch - at > kResumeFor.inMilliseconds) return null;
+  final path = v.substring(i + 1);
+  return kResumeRoutes.contains(routeName(path)) ? path : null;
+}
+
 /// Màn không cần có bé đang chơi.
 const _noKid = ['', 'kids', 'new', 'parent', 'report'];
 

@@ -7,6 +7,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
+import 'package:be_vui_hoc/core/ui/sprite_sheet.dart' show flattenPicture;
 import 'package:be_vui_hoc/features/learn/creative/figure.dart';
 
 import 'rpgcore.dart';
@@ -44,7 +45,7 @@ class TileBg {
       return seed / 233280;
     }
 
-    return _pic = prerender(G.pen, (g) {
+    return _pic = flattenPicture(prerender(G.pen, (g) {
       for (var y = 0.0; y < G.H; y += size) {
         for (var x = 0.0; x < G.W; x += size) {
           final fr = rd() < .8 ? base[0] : base[1 + (rd() * (base.length - 1)).floor()];
@@ -67,7 +68,7 @@ class TileBg {
         final s = size * k;
         g.tile(T, fr, x - s / 2, y - s, s, s);
       }
-    });
+    }), G.W, G.H);
   }
 
   void dispose() => _pic?.dispose();

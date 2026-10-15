@@ -882,9 +882,12 @@ class _RewardOverlay extends StatelessWidget {
         color: const Color(0xB8E6F7FF),
         child: Stack(alignment: Alignment.center, children: [
           IgnorePointer(
-            child: LoopAnim(
+            child: LoopAnim.transform(
               period: const Duration(seconds: 14),
-              builder: (context, t, _) => Transform.rotate(angle: t * 2 * math.pi, child: CustomPaint(size: Size.square(ray), painter: _RaysPainter())),
+              alignment: Alignment.center,
+              // Tia sáng vẽ một lần (LoopAnim bọc RepaintBoundary), mỗi khung chỉ xoay lớp.
+              transform: (t) => Matrix4.rotationZ(t * 2 * math.pi),
+              child: CustomPaint(size: Size.square(ray), painter: _RaysPainter()),
             ),
           ),
           Padding(

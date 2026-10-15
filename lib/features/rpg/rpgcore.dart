@@ -92,10 +92,15 @@ class _TextCache {
   final Map<String, TextPainter> _m = {};
   TextPainter get(String s, double size, FontWeight w, Color color, double strokeW) {
     final key = '$s|$size|${w.value}|${color.toARGB32()}|$strokeW';
-    final hit = _m[key];
-    if (hit != null) return hit;
-    // Đầy thì bỏ hết (không dispose: painter vừa trả ra có thể còn đang được vẽ).
-    if (_m.length > 400) _m.clear();
+    final hit = _m.remove(key);
+    if (hit != null) return _m[key] = hit; // LRU: dùng gần đây → cuối danh sách
+    // Đầy thì bỏ 1/4 mục ít dùng nhất (trước đây bỏ hết → mọi chữ HUD layout lại cùng lúc). Không dispose:
+    // painter vừa trả ra có thể còn đang được vẽ.
+    if (_m.length > 400) {
+      for (final k in _m.keys.take(100).toList()) {
+        _m.remove(k);
+      }
+    }
     final style = strokeW > 0
         ? TextStyle(
             fontFamily: kFontFamily,
@@ -1567,6 +1572,8 @@ class RpgFlame extends Game {
     if (r != null) {
       finished = true;
       onDone(r);
+      // Xong màn: không còn gì chuyển động → dừng vòng lặp (khung cuối vẫn hiện dưới bảng kết quả).
+      Future.microtask(pauseEngine);
     }
   }
 

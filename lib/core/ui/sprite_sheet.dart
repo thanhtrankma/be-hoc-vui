@@ -128,3 +128,31 @@ void drawImageCentered(Canvas canvas, ui.Image? img, double x, double y, double 
   canvas.drawImageRect(img, Rect.fromLTWH(0, 0, img.width.toDouble(), img.height.toDouble()), Rect.fromCenter(center: Offset.zero, width: w, height: hh), paint);
   canvas.restore();
 }
+
+/// Hiệu năng: cảnh tĩnh nhiều lệnh vẽ (nền lát ô: hàng trăm drawImageRect mỗi khung khi phát lại Picture) được
+/// chụp thành MỘT ảnh ở độ phân giải thật của màn hình, trả về Picture chỉ vẽ ảnh đó (1 lệnh vẽ). Cùng điểm ảnh → hình như cũ.
+/// [pic] được giải phóng; lỗi/quá lớn thì trả lại chính [pic].
+ui.Picture flattenPicture(ui.Picture pic, double w, double h, {double x = 0, double y = 0, ui.FilterQuality filter = ui.FilterQuality.none}) {
+  try {
+    final views = ui.PlatformDispatcher.instance.views;
+    final dpr = views.isEmpty ? 1.0 : views.first.devicePixelRatio;
+    final pw = (w * dpr).ceil(), ph = (h * dpr).ceil();
+    if (pw <= 0 || ph <= 0 || pw > 4096 || ph > 4096) return pic;
+    final r1 = ui.PictureRecorder();
+    ui.Canvas(r1)
+      ..scale(dpr)
+      ..translate(-x, -y)
+      ..drawPicture(pic);
+    final p1 = r1.endRecording();
+    final img = p1.toImageSync(pw, ph);
+    p1.dispose();
+    final r2 = ui.PictureRecorder();
+    ui.Canvas(r2).drawImageRect(img, ui.Rect.fromLTWH(0, 0, pw.toDouble(), ph.toDouble()), ui.Rect.fromLTWH(x, y, pw / dpr, ph / dpr),
+        ui.Paint()..filterQuality = filter);
+    img.dispose(); // Picture giữ tham chiếu riêng tới ảnh
+    pic.dispose();
+    return r2.endRecording();
+  } catch (_) {
+    return pic;
+  }
+}

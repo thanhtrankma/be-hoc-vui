@@ -120,26 +120,6 @@ Json heroNorm(Object? carry) {
   return g.out(g.charge);
 }
 
-// Web: opts.heroArmory dùng chung giữa các cấp của một vé → Kho chưởng chỉ hiện ở cấp đầu.
-// Flutter tạo FunGameContext mới mỗi cấp, nên nhớ lần xong gần nhất: vừa THẮNG cấp ngay trước (trong vài giây) = cấp sau của cùng vé.
-class _LastRun {
-  _LastRun(this.at, this.level, this.win);
-  final DateTime at;
-  final int level;
-  final bool win;
-}
-
-_LastRun? _heroLast;
-
-/// Test: giả lập vừa xong cấp [level] (thắng/thua) ngay lúc này; null = xoá.
-@visibleForTesting
-void debugHeroLastFinish(int? level, {bool win = true}) => _heroLast = level == null ? null : _LastRun(DateTime.now(), level, win);
-
-bool _armoryNeeded(int level) {
-  final l = _heroLast;
-  return !(l != null && l.win && l.level == level - 1 && DateTime.now().difference(l.at) < const Duration(seconds: 8));
-}
-
 // ---------- Màn Kho chưởng ----------
 class _Armory extends StatefulWidget {
   const _Armory({required this.G, required this.save, required this.g, required this.onPlay});
@@ -452,8 +432,9 @@ Future<LoopGame> hero(Fun g) async {
   var charge = G.charge;
   Json out() => G.out(charge);
   void save() => g.ctx.saveGear(out());
-  // Kho chưởng chỉ hiện ở cấp đầu của lượt
-  if (_armoryNeeded(lv)) {
+  // Kho chưởng chỉ hiện ở cấp đầu của lượt (web: opts.heroArmory dùng chung các cấp của một vé = ctx.ticket)
+  if (g.ctx.ticket['heroArmory'] != true) {
+    g.ctx.ticket['heroArmory'] = true;
     await g.overlay<bool>((context, close) => _Armory(G: G, save: save, g: g, onPlay: () => close(true)));
   }
   const FOES = ['Alien monster', 'Ghost', 'Bat', 'Goblin', 'Spider'];
@@ -753,7 +734,6 @@ Future<LoopGame> hero(Fun g) async {
         F.update(dt);
         if (endT > 2) {
           G.power = me.power;
-          _heroLast = _LastRun(DateTime.now(), lv, e0.win);
           return FunEnd(win: e0.win, score: e0.score, carry: out());
         }
         return null;

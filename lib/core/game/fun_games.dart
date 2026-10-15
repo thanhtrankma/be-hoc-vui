@@ -81,6 +81,7 @@ class FunGameContext {
     required this.store,
     required this.carry,
     required this.free,
+    Json? ticket,
     required bool Function() isAlive,
     required void Function(Json carry) onSaveGear,
     required VoidCallback onLevelUp,
@@ -88,7 +89,8 @@ class FunGameContext {
   })  : _isAlive = isAlive,
         _onSaveGear = onSaveGear,
         _onLevelUp = onLevelUp,
-        _onFinish = onFinish;
+        _onFinish = onFinish,
+        ticket = ticket ?? <String, dynamic>{};
 
   final String gameId;
 
@@ -109,6 +111,10 @@ class FunGameContext {
 
   /// Bố mẹ chơi miễn phí: không đổi cấp/kỷ lục của bé.
   final bool free;
+
+  /// Dùng chung giữa các cấp của MỘT vé (web: cùng một đối tượng opts cho cả vé — vd. opts.heroArmory,
+  /// opts.tankShopDone, opts.vs, opts.car). Vé mới → map mới.
+  final Json ticket;
 
   final bool Function() _isAlive;
   final void Function(Json) _onSaveGear;

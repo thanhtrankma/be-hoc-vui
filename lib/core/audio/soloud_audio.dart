@@ -16,7 +16,7 @@ class SoloudAudio extends AudioService {
   bool _ok = false;
 
   // Bus (âm lượng tương đối như web): giọng 1, hiệu ứng .5 (đã nhân khi tổng hợp), nhạc .07 (đang đọc: .025).
-  static const double _voiceVol = 1, _clipVol = .5, _musicVol = .07, _musicDuck = .025;
+  static const double _voiceVol = 1, _clipVol = .5, _musicVol = .07 / kMusicGain, _musicDuck = .025 / kMusicGain;
 
   final Map<String, AudioSource> _sfx = {};
   final Map<String, AudioSource> _notes = {};
@@ -39,12 +39,13 @@ class SoloudAudio extends AudioService {
     try {
       await _sl.init(bufferSize: 1024, channels: Channels.mono);
       _ok = true;
-      final recipes = sfxRecipes();
-      for (final e in recipes.entries) {
-        _sfx[e.key] = await _sl.loadMem('sfx_${e.key}.wav', toWav(renderTones(e.value, gain: .5)));
+      // Tổng hợp ở isolate khác (giống nhạc nền) để không chặn khung hình của màn Bắt đầu.
+      final bank = await compute(renderSynthBank, null);
+      for (final name in sfxRecipes().keys) {
+        _sfx[name] = await _sl.loadMem('sfx_$name.wav', bank['sfx_$name']!);
       }
       for (var i = 0; i < kNotes.length; i++) {
-        _notes['$i'] = await _sl.loadMem('note_$i.wav', toWav(renderTones(noteRecipe(kNotes[i]))));
+        _notes['$i'] = await _sl.loadMem('note_$i.wav', bank['note_$i']!);
       }
       store.addListener(_onSettings);
     } catch (e) {
@@ -184,7 +185,7 @@ class SoloudAudio extends AudioService {
       _sl.play(cached);
       return;
     }
-    _sl.loadMem('note_$key.wav', toWav(renderTones(noteRecipe(f, dur)))).then((s) {
+    _sl.loadMem('note_$key.wav', toWav(renderTones(noteRecipe(f, dur), gain: .5))).then((s) {
       _notes[key] = s;
       _sl.play(s);
     }).catchError((_) {});
@@ -248,19 +249,22 @@ class SoloudAudio extends AudioService {
     }
   }
 
+  // Web: ctx.suspend()/resume() khi ẩn/hiện trang — TẤT CẢ tiếng dừng tại chỗ (nhạc, câu đang đọc, động cơ xe,
+  // tiếng thật lặp như mèo rừ rừ) rồi phát tiếp đúng chỗ khi quay lại. stopAudioDevice giữ nguyên mọi voice.
   @override
   void suspend() {
     _suspended = true;
     if (!_ok) return;
     final h = _musicHandle;
     if (h != null) _sl.setPause(h, true);
-    stopVoice();
+    _sl.stopAudioDevice(force: true).catchError((Object _) {});
   }
 
   @override
   void resume() {
     _suspended = false;
     if (!_ok) return;
+    _sl.startAudioDevice().catchError((Object _) {});
     final h = _musicHandle;
     if (h != null) _sl.setPause(h, false);
   }
@@ -276,6 +280,11 @@ class _Engine {
     try {
       _a = await sl.loadWaveform(WaveForm.saw, false, 1, 0);
       _b = await sl.loadWaveform(WaveForm.square, false, 1, 0);
+      // Web: cả hai sóng qua bộ lọc thông thấp 400 + 900·ga Hz (tiếng ầm ấm, không rè).
+      try {
+        _a!.filters.biquadFilter.activate();
+        _b!.filters.biquadFilter.activate();
+      } catch (_) {}
       _ha = sl.play(_a!, volume: 0, looping: true);
       _hb = sl.play(_b!, volume: 0, looping: true);
       set(sl, _level);
@@ -289,9 +298,14 @@ class _Engine {
     try {
       sl.setWaveformFreq(a, 55 + level * 110);
       sl.setWaveformFreq(b, 27 + level * 55);
+      try {
+        a.filters.biquadFilter.frequency(soundHandle: ha).value = 400 + level * 900;
+        b.filters.biquadFilter.frequency(soundHandle: hb).value = 400 + level * 900;
+      } catch (_) {}
+      // Một gain chung .05 + .05·ga cho cả hai sóng, qua bus hiệu ứng .5 (như web).
       final v = (.05 + level * .05) * .5;
       sl.fadeVolume(ha, v, const Duration(milliseconds: 80));
-      sl.fadeVolume(hb, v * .6, const Duration(milliseconds: 80));
+      sl.fadeVolume(hb, v, const Duration(milliseconds: 80));
     } catch (_) {}
   }
 

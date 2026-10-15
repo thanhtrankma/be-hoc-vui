@@ -6,6 +6,7 @@
 // Kho đồ giữ qua màn (ctx.carry): {v, coins, wp: {loại: sao cao nhất}, cur, body, up: {hp, spd, rate, rng, ally}, allies, en}.
 // Xưởng xe tăng chỉ hiện ở cấp đầu của vé: chọn màu xe, chọn đạn, mua nâng cấp vĩnh viễn bằng xu.
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:be_vui_hoc/core/content/models.dart' show Json;
 import 'package:be_vui_hoc/core/game/fun_games.dart';
@@ -351,6 +352,8 @@ class TankGame extends ActGame {
   late double R;
   late bool narrow, sand;
   late String groundK;
+  ui.Picture? _ground;
+  Size? _groundSize;
   late (String, String, String, int) BODY;
   final List<(double, double, double, double)> tracks = List.filled(60, (0, 0, 0, 0));
   int trackI = 0;
@@ -1137,7 +1140,14 @@ class TankGame extends ActGame {
     c.save();
     SH.apply(c);
     if (tk != null) {
-      gfx.tile(c, tk, groundK, math.max(96, S * .16), 0, 0, -10, -10, W + 20, H + 20);
+      // Nền đất tĩnh: chụp một lần thành ảnh (trước đây ~50 drawImageRect mỗi khung).
+      if (_ground == null || _groundSize != Size(W, H)) {
+        _groundSize = Size(W, H);
+        final rec = ui.PictureRecorder();
+        gfx.tile(Canvas(rec), tk, groundK, math.max(96, S * .16), 0, 0, -10, -10, W + 20, H + 20);
+        _ground = flattenPicture(rec.endRecording(), W + 20, H + 20, x: -10, y: -10, filter: FilterQuality.low);
+      }
+      c.drawPicture(_ground!);
     } else {
       rect(c, 0, 0, W, H, Color(th.ground));
     }

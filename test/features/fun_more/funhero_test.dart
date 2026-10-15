@@ -46,7 +46,6 @@ void main() {
   });
 
   testWidgets('Kho chưởng: mua chưởng lửa + giáp, chơi bằng nút tới khi xong', (t) async {
-    debugHeroLastFinish(null);
     var sawArmory = false, played = false;
     late FunRun run;
     run = await playFun(t, hero, bot: true, carry: {'coins': 1000}, input: (t, i, s) async {
@@ -106,9 +105,8 @@ void main() {
   });
 
   testWidgets('cấp sau trong cùng vé (vừa thắng cấp trước) thì bỏ qua Kho chưởng', (t) async {
-    debugHeroLastFinish(0, win: true);
     var armory = false;
-    final r = await playFun(t, hero, level: 1, bot: true, carry: {'coins': 5, 'own': {'thunder': 3}, 'power': 'thunder', 'up': {'hp': 2, 'dash': 1, 'pound': 1}},
+    final r = await playFun(t, hero, level: 1, bot: true, ticket: {'heroArmory': true}, carry: {'coins': 5, 'own': {'thunder': 3}, 'power': 'thunder', 'up': {'hp': 2, 'dash': 1, 'pound': 1}},
         input: (t, i, s) async {
       if (find.byKey(const Key('hero-armory')).evaluate().isNotEmpty) armory = true;
     });
@@ -118,13 +116,11 @@ void main() {
     expect((r.result!.carry!['own'] as Map)['thunder'], greaterThanOrEqualTo(3));
   });
 
-  testWidgets('thua cấp trước (lượt mới) thì Kho chưởng hiện lại', (t) async {
-    debugHeroLastFinish(0, win: false);
+  testWidgets('vé mới thì Kho chưởng hiện lại', (t) async {
     var armory = false;
     await playFun(t, hero, level: 1, maxSeconds: 1, input: (t, i, s) async {
       if (find.byKey(const Key('hero-armory')).evaluate().isNotEmpty) armory = true;
     });
     expect(armory, isTrue);
-    debugHeroLastFinish(null);
   });
 }

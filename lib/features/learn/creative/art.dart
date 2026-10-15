@@ -671,7 +671,7 @@ class _DrawViewState extends State<DrawView> {
           onPointerMove: (e) => _move(e.localPosition, c.biggest),
           onPointerUp: (_) => _up(),
           onPointerCancel: (_) => _up(),
-          child: CustomPaint(size: c.biggest, painter: _DrawPainter(ops, stampImgs, rev)),
+          child: RepaintBoundary(child: CustomPaint(size: c.biggest, painter: _DrawPainter(ops, stampImgs, rev))),
         ),
       ),
       tools: [
@@ -775,16 +775,40 @@ class _DrawPainter extends CustomPainter {
   final List<_Op> ops;
   final Map<String, ui.Image> stamps;
   final ValueNotifier<int> rev;
+  /// Hiệu năng: các nét đã xong được ghi sẵn thành một Picture (chỉ nét đang vẽ — nét cuối — vẽ lại mỗi lần di tay),
+  /// nên vẽ lâu không chậm dần. Picture ghi đúng các lệnh cũ trong cùng hệ toạ độ → hình y hệt.
+  static final Expando<_Baked> _baked = Expando<_Baked>();
+
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawRect(Offset.zero & size, Paint()..color = Colors.white);
     canvas.save();
     canvas.clipRect(Offset.zero & size);
     canvas.scale(size.width / _vw);
-    _paintOps(canvas, ops, stamps);
+    final n = ops.length - 1;
+    if (n <= 0) {
+      _paintOps(canvas, ops, stamps);
+    } else {
+      var b = _baked[ops];
+      if (b == null || b.n != n || !identical(b.last, ops[n - 1]) || !identical(b.stamps, stamps)) {
+        final rec = ui.PictureRecorder();
+        _paintOps(Canvas(rec), ops.sublist(0, n), stamps);
+        b = _baked[ops] = _Baked(rec.endRecording(), n, ops[n - 1], stamps);
+      }
+      canvas.drawPicture(b.pic);
+      _paintOps(canvas, [ops[n]], stamps);
+    }
     canvas.restore();
   }
 
   @override
   bool shouldRepaint(covariant _DrawPainter old) => old.stamps != stamps || old.ops != ops;
+}
+
+class _Baked {
+  _Baked(this.pic, this.n, this.last, this.stamps);
+  final ui.Picture pic;
+  final int n;
+  final _Op last;
+  final Map<String, ui.Image> stamps;
 }

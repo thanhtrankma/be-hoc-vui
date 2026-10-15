@@ -798,7 +798,7 @@ class StackGame extends _MoreGame {
       _block(c, b.x, y, b.w, i, sx: 1 + k * .5, sy: 1 - k);
     }
     final cur = _cur;
-    if (cur != null && end == null) {
+    if (cur != null) {
       final y = H * .82 - tower.length * bh;
       final dash = Paint()
         ..color = const Color(0xCCFFFFFF)

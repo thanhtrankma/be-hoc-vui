@@ -262,15 +262,19 @@ class _ConfettiState extends State<_Confetti> with SingleTickerProviderStateMixi
 
   @override
   Widget build(BuildContext context) =>
-      AnimatedBuilder(animation: _c, builder: (context, _) => CustomPaint(size: Size.infinite, painter: _ConfettiPainter(_pieces, _c.value * 4)));
+      // RepaintBoundary: mảnh giấy rơi không bắt cả lớp overlay (bảng kết quả, nền mờ) vẽ lại mỗi khung hình.
+      RepaintBoundary(child: CustomPaint(size: Size.infinite, painter: _ConfettiPainter(_pieces, _c)));
 }
 
 class _ConfettiPainter extends CustomPainter {
-  _ConfettiPainter(this.pieces, this.t);
+  _ConfettiPainter(this.pieces, this.anim) : super(repaint: anim);
   final List<_Piece> pieces;
-  final double t;
+  final Animation<double> anim;
+  static final Paint _paint = Paint();
+  static final RRect _shape = RRect.fromRectAndRadius(const Rect.fromLTWH(-6, -9, 12, 18), const Radius.circular(3));
   @override
   void paint(Canvas canvas, Size size) {
+    final t = anim.value * 4;
     for (final p in pieces) {
       final k = ((t - p.delay) / p.dur).clamp(0.0, 1.0);
       if (k <= 0 || k >= 1) continue;
@@ -279,13 +283,13 @@ class _ConfettiPainter extends CustomPainter {
       canvas.save();
       canvas.translate(x, y);
       canvas.rotate(p.rot * k);
-      canvas.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(-6, -9, 12, 18), const Radius.circular(3)), Paint()..color = p.color);
+      canvas.drawRRect(_shape, _paint..color = p.color);
       canvas.restore();
     }
   }
 
   @override
-  bool shouldRepaint(covariant _ConfettiPainter old) => true;
+  bool shouldRepaint(covariant _ConfettiPainter old) => old.pieces != pieces;
 }
 
 /// Hộp xác nhận Có/Không (thay confirm() của web).

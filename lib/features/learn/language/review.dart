@@ -317,6 +317,8 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> with SingleTickerPr
     audio.sfx('win');
     confetti(context: context);
     audio.sayPhrase('reviewDone');
+    // Web: chỉ ăn mừng mốc khi bảng kết quả còn mở (ov.isConnected) — bé bấm Ôn tiếp thì thôi.
+    var resultOpen = true;
     final again = await showPanel<bool>(
       context: context,
       builder: (c) => _ReviewResult(
@@ -335,12 +337,15 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> with SingleTickerPr
         onStarsDone: () async {
           if (ms.isEmpty) return;
           await wait(1400);
-          if (mounted) celebrate(context, ref, p, ms);
+          if (mounted && resultOpen) celebrate(context, ref, p, ms);
         },
       ),
     );
+    resultOpen = false;
     if (!mounted) return;
     if (again == true) {
+      // route(true) của web: hết giờ chơi hôm nay thì sang màn nghỉ.
+      if (ref.read(storeProvider).overLimit()) return context.go('/rest');
       setState(() {
         gen++;
         progI = progN = 0;

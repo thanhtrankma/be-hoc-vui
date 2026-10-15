@@ -155,13 +155,16 @@ class Pulse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!on || !Motion.of(context)) return child;
-    return LoopAnim(
+    // LoopAnim.transform: phập phồng ở tầng vẽ, không dựng lại widget mỗi khung (= translate(scale quanh tâm)).
+    return LoopAnim.transform(
       period: Duration(milliseconds: ms * 2),
-      child: child,
-      builder: (context, t, child) {
+      alignment: Alignment.center,
+      transform: (t) {
         final k = .5 - .5 * math.cos(t * 2 * math.pi);
-        return Transform.translate(offset: Offset(0, dy * k), child: Transform.scale(scale: 1 + (scale - 1) * k, child: child));
+        final s = 1 + (scale - 1) * k;
+        return Matrix4.translationValues(0, dy * k, 0)..multiply(Matrix4.diagonal3Values(s, s, 1));
       },
+      child: child,
     );
   }
 }

@@ -128,6 +128,14 @@ Map<String, List<Tone>> sfxRecipes([Random? rnd]) {
   };
 }
 
+/// Toàn bộ hiệu ứng (`sfx_tên`) + 8 nốt đàn (`note_i`) dạng WAV. Hàm thuần, top-level: chạy bằng compute()
+/// ở isolate khác lúc mở app (tổng hợp trên isolate UI mất ~0,5–1,5 s, làm giật màn Bắt đầu).
+Map<String, Uint8List> renderSynthBank([Object? _]) => {
+      for (final e in sfxRecipes().entries) 'sfx_${e.key}': toWav(renderTones(e.value, gain: .5)),
+      // Đàn đi qua bus hiệu ứng .5 như web (audio.js note()).
+      for (var i = 0; i < kNotes.length; i++) 'note_$i': toWav(renderTones(noteRecipe(kNotes[i]), gain: .5)),
+    };
+
 /// Đàn: 8 phím Đô Rê Mi Fa Son La Si Đô (C4–C5), tiếng mộc cầm.
 const List<double> kNotes = [261.6, 293.7, 329.6, 349.2, 392.0, 440.0, 493.9, 523.3];
 List<Tone> noteRecipe(double f, [double dur = .9]) =>
@@ -137,7 +145,11 @@ List<Tone> noteRecipe(double f, [double dur = .9]) =>
 const List<double> _scale = [523, 587, 659, 784, 880, 1047, 1175, 1319];
 const List<List<double>> _chords = [[261, 329, 392], [220, 261, 329], [174, 220, 261], [196, 246, 293]];
 
-/// Một vòng nhạc 64 nhịp (~21,8 giây) dạng WAV, đuôi nốt cuối quấn về đầu để lặp liền.
+/// Nhạc nền dạng WAV: [kMusicMelodies] giai điệu × 64 nhịp (~21,8 giây mỗi giai điệu), như web đổi giai điệu mới
+/// sau mỗi 64 nhịp (schedule(): step % 64 == 0 → makeMelody()). Đuôi nốt cuối quấn về đầu để lặp liền.
+/// Trộn ở gain [kMusicGain] để không vượt 1.0 khi nốt chồng lên hợp âm (bus nhạc bù lại).
+const int kMusicMelodies = 3;
+const double kMusicGain = .8;
 Uint8List renderMusicLoop(int seed) {
   final r = Random(seed);
   const beat = .34;
@@ -152,11 +164,11 @@ Uint8List renderMusicLoop(int seed) {
     return m;
   }
 
-  final melody = makeMelody();
+  final melodies = [for (var k = 0; k < kMusicMelodies; k++) makeMelody()];
   final tones = <Tone>[];
-  for (var step = 0; step < 64; step++) {
+  for (var step = 0; step < 64 * kMusicMelodies; step++) {
     final t = step * beat;
-    final n = melody[step % 32];
+    final n = melodies[step ~/ 64][step % 32];
     if (n > 0) tones.add(Tone(n, t, .5, vol: .5));
     if (step % 4 == 0) {
       for (final f in _chords[(step ~/ 8) % 4]) {
@@ -164,6 +176,6 @@ Uint8List renderMusicLoop(int seed) {
       }
     }
   }
-  // length = đúng 64 nhịp; renderTones cộng phần thừa vào đầu (s % n) nên vòng lặp liền mạch.
-  return toWav(renderTones(tones, length: 64 * beat));
+  // length = đúng số nhịp; renderTones cộng phần thừa vào đầu (s % n) nên vòng lặp liền mạch.
+  return toWav(renderTones(tones, length: 64 * kMusicMelodies * beat, gain: kMusicGain));
 }

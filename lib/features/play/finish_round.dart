@@ -1,4 +1,6 @@
 // Kết thúc một bài (finishRound() của app.js) + ăn mừng mốc tiến bộ (celebrate) + bằng khen (certificate).
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -38,8 +40,10 @@ Future<void> finishRound(
   final funOn = store.funOn;
   final pet = p.pet;
   if (pet != null) {
-    pet['happy'] = (asInt(pet['happy'], 50) + 8).clamp(0, 100);
-    pet['xp'] = asInt(pet['xp']) + 5;
+    // Web: Math.min(100, (happy || 50) + 8), xp = (xp || 0) + 5 — giữ số lẻ (vuốt ve cộng 1.5, 0.4...), happy 0 tính như 50.
+    final h = pet['happy'] is num && pet['happy'] != 0 ? pet['happy'] as num : 50;
+    pet['happy'] = math.min<num>(100, h + 8);
+    pet['xp'] = (pet['xp'] is num ? pet['xp'] as num : 0) + 5;
     p.json['pet'] = pet;
     store.save();
   }

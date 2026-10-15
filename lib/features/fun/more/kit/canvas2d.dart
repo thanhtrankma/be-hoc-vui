@@ -127,13 +127,14 @@ final Map<_TextKey, TextPainter> _textCache = {};
 
 TextPainter _painter(String text, double size, int weight, Color color, double strokeW) {
   final key = _TextKey(text, size, weight, color.toARGB32(), strokeW);
-  final hit = _textCache[key];
-  if (hit != null) return hit;
+  final hit = _textCache.remove(key);
+  if (hit != null) return _textCache[key] = hit; // LRU: đưa lên cuối
   if (_textCache.length > 600) {
-    for (final p in _textCache.values) {
-      p.dispose();
+    // Bỏ 1/4 mục cũ nhất (trước đây xoá sạch → chữ HUD phải layout lại cùng lúc, giật một nhịp).
+    final old = _textCache.keys.take(150).toList();
+    for (final k in old) {
+      _textCache.remove(k)!.dispose();
     }
-    _textCache.clear();
   }
   final fw = FontWeight.values[((weight ~/ 100) - 1).clamp(0, 8)];
   final style = strokeW > 0
@@ -172,8 +173,9 @@ class Ctx2D {
   String filter = 'none';
   List<double> _dash = const [];
   final List<_State> _stack = [];
-  ui.Path _path = ui.Path();
+  final ui.Path _path = ui.Path();
   final Paint _paint = Paint();
+  final Paint _imgPaint = Paint()..filterQuality = FilterQuality.low;
 
   void reset() {
     fillStyle = '#000';
@@ -188,7 +190,7 @@ class Ctx2D {
     filter = 'none';
     _dash = const [];
     _stack.clear();
-    _path = ui.Path();
+    _path.reset();
     _hasPt = false;
   }
 
@@ -222,7 +224,8 @@ class Ctx2D {
   // ---------- path ----------
   bool _hasPt = false;
   void beginPath() {
-    _path = ui.Path();
+    // Dùng lại một Path (drawPath đã chép hình) thay vì tạo Path native mới cho mỗi hạt/chấm mỗi khung.
+    _path.reset();
     _hasPt = false;
   }
 
@@ -305,7 +308,7 @@ class Ctx2D {
 
   /// roundRect() của funcore: bắt đầu path mới hình chữ nhật bo góc.
   void roundRectPath(double x, double y, double w, double h, double r) {
-    _path = ui.Path();
+    _path.reset();
     _hasPt = true;
     if (w < 0) {
       x += w;
@@ -389,9 +392,7 @@ class Ctx2D {
   /// drawImage(im, sx, sy, sw, sh, dx, dy, dw, dh).
   void drawImageRect(ui.Image im, double sx, double sy, double sw, double sh, double dx, double dy, double dw, double dh) {
     if (globalAlpha <= 0) return;
-    final p = Paint()
-      ..filterQuality = FilterQuality.low
-      ..color = Color.fromRGBO(0, 0, 0, globalAlpha.clamp(0.0, 1.0));
+    final p = _imgPaint..color = Color.fromRGBO(0, 0, 0, globalAlpha.clamp(0.0, 1.0));
     canvas.drawImageRect(im, Rect.fromLTWH(sx, sy, sw, sh), Rect.fromLTWH(dx, dy, dw, dh), p);
   }
 
@@ -400,11 +401,17 @@ class Ctx2D {
       drawImageRect(im, 0, 0, im.width.toDouble(), im.height.toDouble(), dx, dy, dw, dh);
 
   // ---------- chữ ----------
+  static final RegExp _reFontW = RegExp(r'(\d+)\s+([\d.]+)px'), _reFontPx = RegExp(r'([\d.]+)px');
+  String? _fontKey;
+  (double, int) _fontVal = (10, 400);
   (double, int) _font() {
-    final m = RegExp(r'(\d+)\s+([\d.]+)px').firstMatch(font);
-    if (m != null) return (double.parse(m[2]!), int.parse(m[1]!));
-    final s = RegExp(r'([\d.]+)px').firstMatch(font);
-    return (s == null ? 10 : double.parse(s[1]!), font.contains('bold') ? 700 : 400);
+    // Ghi nhớ chuỗi font gần nhất (game đặt font mỗi khung, thường không đổi) → không chạy RegExp mỗi lần vẽ chữ.
+    if (identical(font, _fontKey) || font == _fontKey) return _fontVal;
+    _fontKey = font;
+    final m = _reFontW.firstMatch(font);
+    if (m != null) return _fontVal = (double.parse(m[2]!), int.parse(m[1]!));
+    final s = _reFontPx.firstMatch(font);
+    return _fontVal = (s == null ? 10 : double.parse(s[1]!), font.contains('bold') ? 700 : 400);
   }
 
   double measureText(String text) {
@@ -415,7 +422,8 @@ class Ctx2D {
   void _text(String text, double x, double y, Color color, double strokeW) {
     if (globalAlpha <= 0 || text.isEmpty) return;
     final (size, w) = _font();
-    final col = globalAlpha >= 1 ? color : color.withValues(alpha: color.a * globalAlpha.clamp(0.0, 1.0));
+    // Độ mờ làm tròn 1/64 (mắt không phân biệt): chữ mờ dần dùng lại TextPainter thay vì layout mới mỗi khung.
+    final col = globalAlpha >= 1 ? color : color.withValues(alpha: color.a * ((globalAlpha.clamp(0.0, 1.0) * 64).round() / 64));
     final tp = _painter(text, size, w, col, strokeW);
     var dx = x;
     if (textAlign == 'center') {
