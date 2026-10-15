@@ -8,6 +8,7 @@ import 'app_router.dart';
 import 'core/audio/audio_service.dart';
 import 'core/store/store.dart';
 import 'core/ui/ui.dart';
+import 'features/sync/sync.dart';
 
 class BeVuiHocApp extends ConsumerStatefulWidget {
   const BeVuiHocApp({super.key});
@@ -25,6 +26,8 @@ class _BeVuiHocAppState extends ConsumerState<BeVuiHocApp> with WidgetsBindingOb
     WidgetsBinding.instance.addObserver(this);
     // Đếm thời gian chơi (chỉ khi app đang mở và có bé đang chơi), 15 giây một lần như web.
     _usage = Timer.periodic(const Duration(seconds: 15), (_) => _tickUsage());
+    // Đồng bộ mã gia đình (chỉ chạy khi bố mẹ đã bật trong Góc bố mẹ).
+    WidgetsBinding.instance.addPostFrameCallback((_) => ref.read(syncServiceProvider).init());
   }
 
   void _tickUsage() {

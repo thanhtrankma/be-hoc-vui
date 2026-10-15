@@ -211,58 +211,8 @@ void celebrate(BuildContext context, WidgetRef ref, Profile p, List<String> ids)
   );
 }
 
-/// Bằng khen có tên bé (certificate() của app.js). parent = true khi mở từ Báo cáo (đã qua khoá bố mẹ).
-/// Bản này chia sẻ bằng chữ + link (ảnh PNG 1080×1350 của web: agent I có thể thêm).
+/// Bằng khen có tên bé (certificate() của app.js): ảnh PNG 1080×1350 như web, xem features/parents/certificate.dart.
+/// parent = true khi mở từ Báo cáo (đã qua khoá bố mẹ).
 void certificate(BuildContext context, WidgetRef ref, Profile p, String id, {bool parent = false}) {
-  final tracker = ref.read(learnTrackerProvider);
-  final store = ref.read(storeProvider);
-  final i = ref.read(i18nProvider);
-  final info = tracker.msInfo(id, i.lang);
-  final msAt = asMap(store.learn(p)['msAt'])[id] as String? ?? store.today();
-  final when = msAt.split('-').reversed.join('/');
-  ref.read(audioProvider).sayPhrase('cert');
-  showPanel<void>(
-    context: context,
-    builder: (c) => Column(mainAxisSize: MainAxisSize.min, children: [
-      Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Color(0xFFFFF9E6), Color(0xFFFFE8CC)]),
-          borderRadius: BorderRadius.circular(28),
-          border: Border.all(color: const Color(0xFFF59F00), width: 6),
-        ),
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), border: Border.all(color: const Color(0xFFFFD43B), width: 2)),
-          child: Column(spacing: 6, children: [
-            const EmojiImage('Sports medal', size: 70, photo: false),
-            const Text('BẰNG KHEN', style: TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Color(0xFFD9480F), height: 1)),
-            const Text('Bé Vui Học trân trọng tặng bé', style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF495057))),
-            Text(p.name, style: const TextStyle(fontSize: 36, fontWeight: FontWeight.w800, color: Color(0xFF1C7ED6), height: 1.1)),
-            Row(mainAxisAlignment: MainAxisAlignment.center, spacing: 12, children: [
-              Dressed(profile: p, size: 80),
-              EmojiImage(info.img, size: 90, photo: false),
-            ]),
-            Text(info.text, textAlign: TextAlign.center, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w800)),
-            Text('📅 $when · ⭐ ${p.stars} sao', style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.inkSoft)),
-          ]),
-        ),
-      ),
-      PanelRow(children: [
-        AppButton(label: i.t('close'), variant: BtnVariant.ghostPanel, onTap: () => Navigator.pop(c)),
-        AppButton(
-          icon: '📤',
-          label: 'Khoe với người thân',
-          variant: BtnVariant.green,
-          onTap: () async {
-            ref.read(audioProvider).sfx('tap');
-            if (!parent && !await parentGate(c, ref)) return;
-            await SharePlus.instance.share(ShareParams(
-              text: 'Bé ${p.name} vừa được bằng khen: ${info.text} Học miễn phí ở Bé Vui Học: https://datpilot.com/be-vui-hoc?src=giaykhen',
-            ));
-          },
-        ),
-      ]),
-    ]),
-  );
+  showCertificate(context, ref, p, id, parent: parent);
 }

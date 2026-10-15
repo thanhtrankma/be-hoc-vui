@@ -1,2 +1,3 @@
-// Firebase: Crashlytics, Remote Config, App Check, Storage. KHÔNG Analytics/quảng cáo (app trẻ em). Agent I thêm gói vào pubspec trong báo cáo.
-// CHỦ: agent I. Port của reference/web/js/(mới).
+// Firebase: Crashlytics, Remote Config, App Check. KHÔNG Analytics/quảng cáo (app trẻ em).
+// CHỦ: agent I. Mã thật ở firebase_setup.dart (initFirebase, RemoteFlags); file này giữ lại để import cũ vẫn chạy.
+export 'firebase_setup.dart';

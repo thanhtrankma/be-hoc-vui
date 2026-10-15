@@ -1,0 +1,8 @@
+{
+  "code": "ABCD-EFGH-JKMN-PQ23",
+  "sid": "e6d44206b1fc8749be768c895c29e756b73cf1842af7ccfb30662fd75c80fced",
+  "key": "eeda330c94de5d42363521a0c1427851bc19e10d0d4d84bea212f7c14bac44a8",
+  "plain": "{\"profiles\":[{\"id\":\"k1\",\"name\":\"Bé Na 🐰\",\"stars\":12,\"levels\":{\"count:0\":3},\"mt\":1700000000000}],\"settings\":{\"lang\":\"vi\",\"music\":true},\"gone\":{},\"smt\":1700000000001}",
+  "iv": "0102030405060708090a0b0c",
+  "blob": "AQIDBAUGBwgJCgsMnrypz4UA5uqahl5MA4g+Chuv7MtWTlkZxp/a/+ebNg1RN1NeqaoCeItaTdqIOv9V87g5jrYbJwJXBq4M9cTeeNjzsbTHcvwUilWM7Pp3grkRefIZSUvofltJcwKQqokETzou2w2B4uWyviDHgOHLIG4lzURgmeZlakvk2Jdoh6FiKMKQeAgWqr1dtUbBrQ4olgkuBSQ5+Dwo1X2To5vmF0v/ciV7cKZ6Rox6y9rpH+naSO34nPwR8Q=="
+}

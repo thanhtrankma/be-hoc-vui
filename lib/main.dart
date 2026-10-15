@@ -9,9 +9,12 @@ import 'core/audio/audio_service.dart';
 import 'core/audio/soloud_audio.dart';
 import 'core/content/content.dart';
 import 'core/store/store.dart';
+import 'features/sync/firebase_setup.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initFirebase(options: DefaultFirebaseOptions.currentPlatform);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark));
   final results = await Future.wait([SharedPreferences.getInstance(), loadContentBundle()]);
   final prefs = results[0] as SharedPreferences;
