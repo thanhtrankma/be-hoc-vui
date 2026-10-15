@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Bé đọc to để app nghe và khen (chỉ khi bố mẹ đồng ý). Âm thanh không được lưu hay gửi đi.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Nhận ra tiếng bé đọc trong bài Đọc truyện (chỉ khi bố mẹ đồng ý).</string>
 		<key>CADisableMinimumFrameDurationOnPhone</key>
 		<true/>
 		<key>CFBundleDevelopmentRegion</key>
