@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../core/audio/audio_service.dart';
 import '../../core/content/content.dart';
@@ -12,6 +11,7 @@ import '../../core/game/learn_tracking.dart';
 import '../../core/i18n/i18n.dart';
 import '../../core/store/store.dart';
 import '../../core/ui/ui.dart';
+import '../parents/certificate.dart';
 
 /// Ghi kết quả và hiện bảng thưởng. onAgain: dựng lại bài (Chơi lại).
 Future<void> finishRound(
