@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
@@ -626,8 +627,18 @@ class SpeechRecognizer implements Recognizer {
   void Function()? _onError, _onEnd;
   bool _ok = false;
 
+  /// Kênh native (MainActivity.kt / AppDelegate.swift): máy có nhận giọng tiếng Việt ngay trên máy không.
+  static const _native = MethodChannel('bvh/speech');
+
   @override
   Future<bool> init() async {
+    // Chỉ nhận giọng trên máy, không gửi giọng bé lên máy chủ (chính sách app trẻ em). Android thiếu bộ nhận tại chỗ thì
+    // speech_to_text âm thầm dùng bản qua mạng, nên phải hỏi trước; không có thì coi như máy không nghe được (bố mẹ chấm).
+    try {
+      if (await _native.invokeMethod<bool>('onDeviceAvailable') != true) return _ok = false;
+    } catch (_) {
+      return _ok = false;
+    }
     try {
       _ok = await _stt.initialize(
         onError: (SpeechRecognitionError e) => _onError?.call(),
@@ -651,7 +662,7 @@ class SpeechRecognizer implements Recognizer {
           if (!r.finalResult) return;
           onResult(r.alternates.map((a) => a.recognizedWords).toList());
         },
-        listenOptions: SpeechListenOptions(localeId: 'vi_VN', partialResults: false, cancelOnError: true, listenFor: const Duration(seconds: 8), pauseFor: const Duration(seconds: 3)),
+        listenOptions: SpeechListenOptions(localeId: 'vi_VN', onDevice: true, partialResults: false, cancelOnError: true, listenFor: const Duration(seconds: 8), pauseFor: const Duration(seconds: 3)),
       );
     } catch (_) {
       onError();
@@ -755,7 +766,7 @@ class _AloudViewState extends State<AloudView> {
     _word();
   }
 
-  /// Hỏi bố mẹ một lần trước lần bấm micro đầu tiên (giọng bé gửi tới dịch vụ nhận giọng của hãng).
+  /// Hỏi bố mẹ một lần trước lần bấm micro đầu tiên (giọng bé chỉ được nhận ngay trên máy).
   Future<bool> _consent() async {
     if (micPref == '1') return true;
     final en = g.i18n.isEn;
@@ -764,8 +775,8 @@ class _AloudViewState extends State<AloudView> {
       builder: (c) => Column(mainAxisSize: MainAxisSize.min, children: [
         PanelTitle(en ? '🎤 Turn on the microphone?' : '🎤 Bật micro?'),
         NoteText(en
-            ? 'To hear your child read, the device sends the voice to its maker\'s speech service (Google on Android, Apple on iPhone/iPad). Bé Vui Học does not record or keep your child\'s voice.'
-            : 'Để nghe bé đọc, máy gửi giọng của bé tới dịch vụ nhận giọng của hãng (Android gửi Google, iPhone/iPad gửi Apple). Bé Vui Học không ghi âm và không lưu giọng của bé.'),
+            ? 'Your child\'s voice is recognized right on this device and is never sent anywhere. Bé Vui Học does not record or keep your child\'s voice.'
+            : 'Giọng của bé được nhận ngay trên máy này, không gửi đi đâu. Bé Vui Học không ghi âm và không lưu giọng của bé.'),
         const SizedBox(height: 8),
         NoteText(en ? 'If you say no, listen to your child and tap “Correct”.' : 'Không bật thì bố mẹ nghe bé đọc rồi bấm “Đúng rồi”.'),
         PanelRow(children: [

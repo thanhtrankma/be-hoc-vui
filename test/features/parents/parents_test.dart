@@ -240,6 +240,7 @@ void main() {
     final (_, io, _, _, _) = await pump(tester, store);
     await tapKey(tester, 'link-zalo');
     await tapKey(tester, 'link-about');
+    await tapKey(tester, 'link-privacy');
     await tapKey(tester, 'mic-reset');
     expect(store.getKv('bvh.micOK'), isNull);
     await settle(tester);
@@ -248,7 +249,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.textContaining('Tiếng thú cưng: test'), findsOneWidget);
     await tapKey(tester, 'link-credits');
-    expect(io.opened, ['https://zalo.me/0888998098', 'https://datpilot.com/be-vui-hoc', 'https://datpilot.com/be-vui-hoc/ghi-cong']);
+    expect(io.opened, ['https://zalo.me/0888998098', 'https://datpilot.com/be-vui-hoc', 'https://datpilot.com/chinh-sach-bao-mat', 'https://datpilot.com/be-vui-hoc/ghi-cong']);
     expect(io.shared.single, contains('https://datpilot.com/be-vui-hoc?src=app'));
   });
 

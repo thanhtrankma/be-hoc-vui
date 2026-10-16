@@ -1,5 +1,6 @@
 import AVFoundation
 import Flutter
+import Speech
 import UIKit
 
 @main
@@ -16,5 +17,11 @@ import UIKit
 
   func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
     GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
+    // Bài Đọc to chỉ nhận giọng ngay trên máy (read.dart): hỏi máy có nhận tiếng Việt tại chỗ không.
+    guard let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "BvhSpeech") else { return }
+    FlutterMethodChannel(name: "bvh/speech", binaryMessenger: registrar.messenger()).setMethodCallHandler { call, result in
+      guard call.method == "onDeviceAvailable" else { return result(FlutterMethodNotImplemented) }
+      result(SFSpeechRecognizer(locale: Locale(identifier: "vi-VN"))?.supportsOnDeviceRecognition ?? false)
+    }
   }
 }

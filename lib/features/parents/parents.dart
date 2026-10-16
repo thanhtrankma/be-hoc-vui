@@ -31,6 +31,7 @@ const String kAppVersion = '1.0.0';
 const String kZaloUrl = 'https://zalo.me/0888998098';
 const String kAboutUrl = 'https://datpilot.com/be-vui-hoc';
 const String kCreditsUrl = 'https://datpilot.com/be-vui-hoc/ghi-cong';
+const String kPrivacyUrl = 'https://datpilot.com/chinh-sach-bao-mat';
 
 /// Lưu / mở file sao lưu và link ngoài. Test override bằng bản giả.
 class ParentsIo {
@@ -278,6 +279,7 @@ class FeedbackCard extends ConsumerWidget {
       Wrap(spacing: 8, runSpacing: 8, children: [
         SmallBtn(key: const Key('link-zalo'), label: '💬 Nhắn Zalo', onTap: () => io.openUrl(kZaloUrl)),
         SmallBtn(key: const Key('link-about'), label: 'ℹ️ Giới thiệu', onTap: () => io.openUrl(kAboutUrl)),
+        SmallBtn(key: const Key('link-privacy'), label: '🔒 Quyền riêng tư', onTap: () => io.openUrl(kPrivacyUrl)),
         SmallBtn(
           key: const Key('mic-reset'),
           label: '🎤 Hỏi lại về micro',
