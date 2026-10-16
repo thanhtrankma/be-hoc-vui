@@ -1,4 +1,4 @@
-// Âm thanh thật bằng flutter_soloud: giọng đọc mp3, hiệu ứng tổng hợp sẵn (synth.dart), tiếng thật sfx/*.mp3,
+// Âm thanh thật bằng flutter_soloud: giọng đọc Opus (.ogg), hiệu ứng tổng hợp sẵn (synth.dart), tiếng thật sfx/*.mp3,
 // đàn, động cơ xe, nhạc nền lặp. Lỗi engine (máy không có loa, simulator lạ) → im lặng, không làm hỏng app.
 import 'dart:async';
 import 'dart:math';

@@ -1,4 +1,4 @@
-// Port của js/audio.js: giọng đọc (mp3 tạo sẵn), hiệu ứng và nhạc nền.
+// Port của js/audio.js: giọng đọc (Opus .ogg tạo sẵn, web dùng mp3), hiệu ứng và nhạc nền.
 // AudioService là hợp đồng chung; SoloudAudio (soloud_audio.dart) phát thật, SilentAudio dùng cho test (không tiếng,
 // say() xong ngay). Game lấy qua ref.read(audioProvider) hoặc ctx.audio.
 //
@@ -45,7 +45,7 @@ abstract class AudioService {
   /// Gọi ở lần chạm đầu (nút Bắt đầu): bật nhạc nếu cài đặt cho phép.
   void unlock() {}
 
-  /// Phát một file giọng (assets/audio/x.mp3); Future xong khi phát hết hoặc bị stopVoice(). isCurrent() = còn là câu hiện tại.
+  /// Phát một file giọng (assets/audio/x.ogg); Future xong khi phát hết hoặc bị stopVoice(). isCurrent() = còn là câu hiện tại.
   @protected
   Future<void> playVoiceAsset(String asset, bool Function() isCurrent);
 

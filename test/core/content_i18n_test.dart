@@ -71,7 +71,7 @@ void main() {
     expect(levelUnlocked(lockOrder: false, isl: isl, content: b.content, i: lv[3].i, starsOf: (_) => 0), true);
   });
 
-  test('voice: phrase, tpl có fx, tra file mp3', () {
+  test('voice: phrase, tpl có fx, tra file giọng', () {
     final v = b.voice;
     expect(v.phrase('praise1', 'vi').text, 'Giỏi quá!');
     final m = b.data.mascots.first;

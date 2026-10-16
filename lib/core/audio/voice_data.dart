@@ -1,7 +1,7 @@
 // Dữ liệu giọng đọc (port phần thuần dữ liệu của js/audio.js): voice.json (câu cố định + mẫu câu) và audio.json
-// (bảng "lang|text" → tên file mp3 trong assets/audio/). Không phụ thuộc engine âm thanh nên test được.
+// (bảng "lang|text" → tên file .ogg (Opus 24 kbps) trong assets/audio/). Không phụ thuộc engine âm thanh nên test được.
 
-/// Một câu đọc: [lang, text] như web. File mp3 tra theo khoá "lang|text".
+/// Một câu đọc: [lang, text] như web. File giọng tra theo khoá "lang|text".
 class VoiceLine {
   const VoiceLine(this.lang, this.text);
 
@@ -73,7 +73,7 @@ class VoiceData {
   final Map<String, Map<String, String>> phrases;
   final Map<String, VoiceTemplate> templates;
 
-  /// "lang|text" → "abcd1234.mp3"
+  /// "lang|text" → "abcd1234.ogg"
   final Map<String, String> index;
 
   /// Câu cố định theo khoá (welcome, praise1...) ở ngôn ngữ lg.
@@ -94,7 +94,7 @@ class VoiceData {
     return VoiceLine(t.lang, text);
   }
 
-  /// File mp3 của câu (null nếu thiếu: web chỉ cảnh báo, không lỗi).
+  /// File giọng của câu (null nếu thiếu: web chỉ cảnh báo, không lỗi).
   String? fileOf(VoiceLine? line) => line == null ? null : index[line.key];
   String? assetOf(VoiceLine? line) {
     final f = fileOf(line);

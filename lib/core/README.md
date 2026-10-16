@@ -117,7 +117,7 @@ audio.sfx('correct'|'wrong'|'tap'|'win'|'star'|'pop'|'flip'|'count'|'coin'|'boom
 final stop = await audio.clip('dog-bark1', rate: 1, vol: 1, loop: false);  // assets/sfx/*.mp3
 audio.note(0..7);  audio.engine(0..1);  audio.preload([...]);  await audio.clipDuration(line);
 ```
-`VoiceLine(lang, text)` = web `[lang, text]`; mp3 lookup via audio.json. `say()` interrupts the current line
+`VoiceLine(lang, text)` = web `[lang, text]`; voice file (.ogg Opus) lookup via audio.json. `say()` interrupts the current line
 (same semantics as web). Sound setting off → silent. Tests use `SilentAudio` (logs calls, completes immediately).
 
 ## 5. Store (`ref.watch(storeProvider)` / `ctx.store`) — same JSON as web localStorage `bvh.v1`

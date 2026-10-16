@@ -52,7 +52,7 @@ void main() {
     }
   });
 
-  test('Câu đọc: mọi câu/mẫu câu JS web gọi tên đều có trong voice.json, có file mp3 và được app dùng', () {
+  test('Câu đọc: mọi câu/mẫu câu JS web gọi tên đều có trong voice.json, có file giọng và được app dùng', () {
     final v = bundle.voice;
     final calls = <String>{};
     for (final m in RegExp(r"""(?:sayPhrase|phrase)\(['"](\w+)['"]""").allMatches(_allJs)) {

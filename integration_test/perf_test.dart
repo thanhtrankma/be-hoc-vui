@@ -278,7 +278,7 @@ void main() {
     router().go('/map');
     await wait(1500);
 
-    // ---------- Âm thanh: nạp (giải mã) mp3 giọng đọc theo yêu cầu ----------
+    // ---------- Âm thanh: nạp (giải mã) file Opus giọng đọc theo yêu cầu ----------
     if (_only.isEmpty || _only.split(',').contains('audio')) {
       try {
         final assets = bundle.voice.index.values.toList()..shuffle(math.Random(3));
