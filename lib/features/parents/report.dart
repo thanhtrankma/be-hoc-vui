@@ -1,5 +1,5 @@
 // Báo cáo của con (/report/<id>): 7 ngày, kỹ năng, chỗ hay nhầm, mốc tiến bộ & bằng khen. Dữ liệu: store.learn(p), LearnTracker.
-// CHỦ: agent I. Port của reference/web/js/app.js report() (+ skillRows, weakList, nextGoal).
+// CHỦ: agent I. Port của web js/app.js report() (+ skillRows, weakList, nextGoal).
 // Đã qua khoá bố mẹ trước khi vào (từ Góc bố mẹ).
 import 'dart:math';
 

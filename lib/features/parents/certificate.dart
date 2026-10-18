@@ -16,10 +16,10 @@ import 'package:be_vui_hoc/core/i18n/i18n.dart';
 import 'package:be_vui_hoc/core/store/store.dart';
 import 'package:be_vui_hoc/core/ui/ui.dart';
 
-const String kShareUrl = 'https://datpilot.com/be-vui-hoc';
+/// Trang giới thiệu công khai của app (Firebase Hosting), dùng khi chia sẻ (không gắn tham số theo dõi).
+const String kShareUrl = 'https://bevuihoc-app.web.app/';
 const String kAppPitch =
     'Bé Vui Học: ứng dụng học mà chơi miễn phí cho bé 3–6 tuổi. Ghép vần, đếm số, toán, tiếng Anh, có lộ trình theo thứ tự bài sách lớp 1. Không quảng cáo, không cần tài khoản.';
-String shareLink(String src) => '$kShareUrl?src=$src';
 
 /// 'YYYY-MM-DD' → 'DD/MM/YYYY' (fmtDate của web).
 String fmtDate(String? d) => d == null || d.isEmpty ? '' : d.split('-').reversed.join('/');
@@ -116,8 +116,8 @@ void paintCertificate(Canvas c, CertData d, {ui.Image? medal, ui.Image? pic}) {
   }
   _centerText(c, 'Ngày ${d.when} · ${d.stars} sao', y += 72, 40, FontWeight.w600, const Color(0xFF868E96));
   c.drawRRect(RRect.fromLTRBR(110, h - 230, w - 110, h - 90, const Radius.circular(70)), Paint()..color = const Color(0xFFF59F00));
-  _centerText(c, 'Học miễn phí tại datpilot.com/kids', h - 165, 50, FontWeight.w800, Colors.white);
-  _centerText(c, 'Bé Vui Học · học mà chơi cho bé 3–6 tuổi', h - 118, 34, FontWeight.w600, Colors.white);
+  _centerText(c, 'Bé Vui Học', h - 165, 50, FontWeight.w800, Colors.white);
+  _centerText(c, 'Học mà chơi cho bé 3–6 tuổi', h - 118, 34, FontWeight.w600, Colors.white);
 }
 
 /// Vẽ bằng khen ra ui.Image 1080×1350.
@@ -143,7 +143,7 @@ Future<Uint8List?> certificatePng(CertData d) async {
 
 /// Lời giới thiệu kèm ảnh khi khoe.
 String certShareText(CertData d) =>
-    '${d.showName ? 'Bé ${d.name}' : 'Bé nhà mình'} vừa được bằng khen: ${d.text} Học miễn phí ở Bé Vui Học: ${shareLink('giaykhen')}';
+    '${d.showName ? 'Bé ${d.name}' : 'Bé nhà mình'} vừa được bằng khen: ${d.text} Học miễn phí ở Bé Vui Học: $kShareUrl';
 
 /// Mở bảng chia sẻ của máy với ảnh PNG; không tạo được ảnh thì chia sẻ chữ.
 Future<void> shareCertificate(CertData d, {Rect? origin}) async {

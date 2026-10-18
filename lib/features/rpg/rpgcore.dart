@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 // Lõi RPG: vẽ (Pen), hiệu ứng, rung màn, cảm ứng nhiều ngón, nút tròn, joystick, HUD, thú đồng đội,
 // động cơ đấu trường (arena) và khung Flame chạy một màn.
-// CHỦ: agent H. Port của reference/web/js/games/rpgcore.js (+ phần cần dùng của funcore.js, funvs1.js, motionb.js:
+// CHỦ: agent H. Port của web js/games/rpgcore.js (+ phần cần dùng của funcore.js, funvs1.js, motionb.js:
 // bản sao riêng trong thư mục này theo luật "không import helper của agent khác").
 //
 // Z (ngữ cảnh một màn, ZoneCtx) do rpg.dart truyền vào: chỉ số nhân vật, hình linh vật, vũ khí, đồng đội, bình máu, vùng/màn.

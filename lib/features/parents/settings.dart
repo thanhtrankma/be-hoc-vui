@@ -1,5 +1,5 @@
 // Cài đặt: store.setSetting(k, v) (lang, music, sound, limit, lockOrder, fun, ticketsPer) + tặng vé. Nhạc nền tự bật/tắt theo setting.
-// CHỦ: agent I. Port của reference/web/js/app.js parent() phần Cài đặt (thẻ đầu tiên của Góc bố mẹ).
+// CHỦ: agent I. Port của web js/app.js parent() phần Cài đặt (thẻ đầu tiên của Góc bố mẹ).
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

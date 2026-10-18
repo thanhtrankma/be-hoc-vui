@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, library_private_types_in_public_api
 // Đối kháng 1: võ đài, khúc côn cầu, kéo co, bóng đá đầu to, bóng chuyền (đấu máy hoặc bố/mẹ).
-// CHỦ: agent G. Port của reference/web/js/games/funvs1.js.
+// CHỦ: agent G. Port của web js/games/funvs1.js.
 // "Đấu với máy" (60 cấp, máy giỏi dần) hoặc "Hai người" chung một màn hình (trái/dưới là bé - xanh, phải/trên là đối thủ - đỏ;
 // chạm nhiều ngón cùng lúc). Quán tính, đòn có khung lấy đà/ra đòn/thu về, bật lùi, dừng hình + rung màn khi trúng,
 // số sát thương nảy, bụi chân, bóng có xoáy/dẹt khi nảy, lưới gôn rung, cảnh nền vẽ sẵn.

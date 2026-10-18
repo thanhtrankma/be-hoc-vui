@@ -3,7 +3,7 @@
 // sóng đất), mỗi chưởng 5 cấp; giày tên lửa, khiên, nam châm, siêu chưởng nạp năng lượng; trùm có đòn dậm đất (nhảy qua sóng).
 // Kho đồ giữ qua màn (ctx.carry): chưởng đã mở + cấp cao nhất, chưởng đang dùng, nâng cấp vĩnh viễn, xu, tên lửa/khiên còn lại, siêu chưởng đã nạp.
 // Màn "Kho chưởng" (lớp Flutter phủ canvas) trước cấp đầu của lượt: chọn chưởng mang vào, dùng xu mua/nâng cấp.
-// CHỦ: agent F. Port của reference/web/js/games/funhero.js.
+// CHỦ: agent F. Port của web js/games/funhero.js.
 // Hợp đồng: lib/core/game/fun_games.dart (FunGameModule, FunGameContext, FunResult) — xem lib/core/README.md.
 import 'dart:math' as math;
 

@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, library_private_types_in_public_api, constant_identifier_names
 // Đối kháng 2: ném tuyết, mô tô ánh sáng, sumo, cờ caro, nối bốn.
-// CHỦ: agent G. Port của reference/web/js/games/funvs2.js.
+// CHỦ: agent G. Port của web js/games/funvs2.js.
 // Tường tuyết bằng khối tuyết Kenney, bóng tuyết có bóng đổ + vỡ tung; mô tô Kenney chạy mượt giữa các ô, nổ khi đâm;
 // sumo nhìn nghiêng 2.5D trên võ đài đất; cờ caro/nối bốn dùng quân cờ (chip) Kenney rơi có nảy.
 import 'dart:math' as math;

@@ -1,4 +1,4 @@
-// Lõi chung cho game canvas ở Khu vui chơi (port reference/web/js/games/funcore.js).
+// Lõi chung cho game canvas ở Khu vui chơi (port web js/games/funcore.js).
 // CHỦ: agent E. API CÔNG KHAI, ỔN ĐỊNH — agent F/G có thể import (giữ nguyên chữ ký).
 //
 // Cách dùng (tương đương canvasIn + loop({update, draw}) của web):

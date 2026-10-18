@@ -1,4 +1,4 @@
-// Khoá bố mẹ (gate() của app.js): phép nhân bé 5 tuổi chưa làm được. Mọi chỗ dành cho bố mẹ (Góc bố mẹ, chơi miễn phí,
+// Khoá bố mẹ: phép nhân số có hai chữ số với số có một chữ số (vd. 23 × 4) — bé 3–6 tuổi chưa làm được. Mọi chỗ dành cho bố mẹ (Góc bố mẹ, chơi miễn phí,
 // mua hàng/link ngoài, chia sẻ) phải qua đây — yêu cầu của App Store/Google Play cho app trẻ em.
 import 'dart:math';
 
@@ -10,6 +10,13 @@ import '../i18n/i18n.dart';
 import 'overlay.dart';
 import 'theme.dart';
 import 'widgets.dart';
+
+/// Thừa số thứ nhất 12–49, thứ hai 3–9 (kết quả 36–441, tối đa 3 chữ số).
+const int kGateAMin = 12, kGateAMax = 49, kGateBMin = 3, kGateBMax = 9;
+
+/// Test thay nguồn ngẫu nhiên để biết trước phép tính.
+@visibleForTesting
+Random? debugGateRandom;
 
 /// Hỏi phép nhân; true nếu bố mẹ trả lời đúng, false nếu huỷ.
 Future<bool> parentGate(BuildContext context, WidgetRef ref) async {
@@ -24,8 +31,8 @@ class _Gate extends ConsumerStatefulWidget {
 }
 
 class _GateState extends ConsumerState<_Gate> {
-  final _r = Random();
-  late final int a = 3 + _r.nextInt(7), b = 3 + _r.nextInt(7);
+  final _r = debugGateRandom ?? Random();
+  late final int a = kGateAMin + _r.nextInt(kGateAMax - kGateAMin + 1), b = kGateBMin + _r.nextInt(kGateBMax - kGateBMin + 1);
   String typed = '';
 
   void press(String k) {

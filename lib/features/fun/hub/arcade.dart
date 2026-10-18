@@ -1,5 +1,5 @@
 // Đảo Trò chơi nhanh (đảo học, mở từ bản đồ): bắn bóng bay (chữ, số, dấu thanh, tiếng Anh) và đua xe tính nhẩm.
-// CHỦ: agent E. Port của reference/web/js/games/arcade.js. Hợp đồng: GameModule/GameContext (lib/core/game/game_module.dart).
+// CHỦ: agent E. Port của web js/games/arcade.js. Hợp đồng: GameModule/GameContext (lib/core/game/game_module.dart).
 import 'dart:async';
 import 'dart:math' as math;
 

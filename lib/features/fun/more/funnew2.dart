@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names
 // Khủng long chạy, ếch qua đường, bóng bàn, ăn đậu né ma, ghép 3.
-// CHỦ: agent F. Port của reference/web/js/games/funnew2.js. Mỗi lượt một cấp (ctx.level), 60 cấp.
+// CHỦ: agent F. Port của web js/games/funnew2.js. Mỗi lượt một cấp (ctx.level), 60 cấp.
 // Hợp đồng: lib/core/game/fun_games.dart (FunGameModule, FunGameContext, FunResult) — xem lib/core/README.md.
 import 'dart:math' as math;
 

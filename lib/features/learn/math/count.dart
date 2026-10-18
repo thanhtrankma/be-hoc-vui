@@ -1,5 +1,5 @@
 // Đảo Số đếm: chạm từng hình để đếm (bé nghe "một, hai, ba…"), rồi chọn số đúng.
-// CHỦ: agent B. Port của reference/web/js/games/count.js.
+// CHỦ: agent B. Port của web js/games/count.js.
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';

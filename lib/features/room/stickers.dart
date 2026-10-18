@@ -1,5 +1,5 @@
 // Album hình dán + huy hiệu (/album). Huy hiệu: kBadges + LearnTracker.badgeEarned (core/game/learn_tracking.dart).
-// CHỦ: agent D. Port của reference/web/js/app.js album().
+// CHỦ: agent D. Port của web js/app.js album().
 // Chỉ sửa file trong thư mục của mình; giữ nguyên tên công khai (StickersScreen) vì router/registry trỏ tới.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

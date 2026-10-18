@@ -1,5 +1,6 @@
-// Đối chiếu store: phát lại đúng các thao tác mà store.js THẬT của web đã chạy (fixtures/web_store_trace.json, sinh bằng
-// `node test/parity/tool/web_store_trace.mjs`) trên AppStore và so kết quả + toàn bộ JSON lưu sau từng bước.
+// Đối chiếu store: phát lại đúng các thao tác mà store.js THẬT của web đã chạy (fixtures/web_store_trace.json, ghi lại bằng
+// Node lúc mã web còn trong repo; mã web và công cụ sinh đã gỡ, bản ghi giữ nguyên) trên AppStore và so kết quả + toàn bộ
+// JSON lưu sau từng bước.
 // Bỏ qua các dấu giờ tuyệt đối (mt, smt, created, giá trị gone) vì phụ thuộc múi giờ máy chạy; ngày (YYYY-MM-DD, dayNum) vẫn so.
 import 'dart:convert';
 import 'dart:io';

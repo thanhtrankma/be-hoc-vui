@@ -23,19 +23,19 @@ dependencies:
   flutter_soloud: ^5.2.1
   # game hành động (đua xe, bắn súng, xe tăng, RPG)
   flame: ^1.38.2
-  # đồng bộ mã gia đình (PBKDF2 + AES-GCM) qua datpilot.com
+  # đồng bộ mã gia đình: mã hoá đầu-cuối (PBKDF2 + AES-GCM), bản mã lưu trên Cloud Firestore
   cryptography: ^2.9.0
-  http: ^1.6.0
   # hình vector (dấu thanh, biểu tượng), mở link / chia sẻ, đọc to (micro), sao lưu file
   flutter_svg: ^2.3.0
   url_launcher: ^6.3.3
   share_plus: ^13.3.1
   speech_to_text: ^7.5.0
   file_picker: ^13.1.0
+  # Firebase: chỉ core + Remote Config (cờ tính năng) + Firestore (bản đồng bộ đã mã hoá).
+  # KHÔNG Analytics, Crashlytics, App Check, quảng cáo (app trẻ em).
   firebase_core: ^4.15.0
-  firebase_crashlytics: ^5.4.0
   firebase_remote_config: ^6.7.0
-  firebase_app_check: ^0.4.8
+  cloud_firestore: ^6.10.0
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +55,7 @@ flutter:
 
   assets:
     - assets/data/
+    - assets/legal/
     - assets/audio/
     - assets/img/
     - assets/photo/

@@ -3,13 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../app_router.dart';
 import '../../core/audio/audio_service.dart';
 import '../../core/i18n/i18n.dart';
 import '../../core/store/store.dart';
 import '../../core/ui/ui.dart';
+import '../parents/info_pages.dart';
 
 class StartScreen extends ConsumerWidget {
   const StartScreen({super.key});
@@ -32,10 +32,11 @@ class StartScreen extends ConsumerWidget {
     }
   }
 
-  Future<void> _link(BuildContext context, WidgetRef ref, String path) async {
-    // Link ra ngoài app phải qua khoá bố mẹ (chính sách app trẻ em).
-    if (!await parentGate(context, ref)) return;
-    await launchUrl(Uri.parse('https://datpilot.com$path'), mode: LaunchMode.externalApplication);
+  /// Giới thiệu / Ghi công: trang trong app (có link ra ngoài) dành cho người lớn → qua khoá bố mẹ trước (chính sách app trẻ em).
+  Future<void> _info(BuildContext context, WidgetRef ref, Widget page) async {
+    ref.read(audioProvider).sfx('tap');
+    if (!await parentGate(context, ref) || !context.mounted) return;
+    await openInfoPage(context, page);
   }
 
   @override
@@ -106,9 +107,9 @@ class StartScreen extends ConsumerWidget {
             DefaultTextStyle.merge(
               style: const TextStyle(color: AppColors.inkSoft, fontWeight: FontWeight.w600, decoration: TextDecoration.underline, decorationColor: AppColors.inkSoft),
               child: Wrap(alignment: WrapAlignment.center, children: [
-                GestureDetector(onTap: () => _link(context, ref, '/be-vui-hoc'), child: const Text('Giới thiệu')),
+                GestureDetector(key: const Key('start-about'), onTap: () => _info(context, ref, const AboutScreen()), child: Text(i.isEn ? 'About' : 'Giới thiệu')),
                 const Text(' · ', style: TextStyle(decoration: TextDecoration.none)),
-                GestureDetector(onTap: () => _link(context, ref, '/be-vui-hoc/ghi-cong'), child: const Text('Ghi công')),
+                GestureDetector(key: const Key('start-credits'), onTap: () => _info(context, ref, const CreditsScreen()), child: Text(i.isEn ? 'Credits' : 'Ghi công')),
               ]),
             ),
           ]),

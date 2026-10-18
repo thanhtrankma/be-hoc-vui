@@ -1,4 +1,4 @@
-// Game trí tuệ: lập trình robot, nối dây màu, dẫn nước, bảng số thần tốc (port reference/web/js/games/funlogic.js).
+// Game trí tuệ: lập trình robot, nối dây màu, dẫn nước, bảng số thần tốc (port web js/games/funlogic.js).
 // CHỦ: agent E. Đề sinh ngẫu nhiên theo cấp, luôn có lời giải. Mỗi lượt 3 câu đố (bảng số: 2 bảng); mỗi câu là một cấp:
 // giải xong lên cấp ngay (ctx.levelUp()), câu sau khó hơn. Không "leveled": tự trả FunResult(lvUp:, ups:).
 import 'dart:async';

@@ -1,4 +1,4 @@
-// Mô phỏng phòng thú cưng (phần logic + vẽ của petScreen() trong reference/web/js/games/pet.js).
+// Mô phỏng phòng thú cưng (phần logic + vẽ của petScreen() trong web js/games/pet.js).
 // Con vật động (vẽ bằng petrig.dart) tự đi lại trong phòng, có tiếng kêu thật. Bé chạm để chơi, vuốt để cưng nựng,
 // chạm sàn để gọi lại; cho ăn/uống vào bát, ném bóng, tắm, đưa đi ngủ, đeo đồ.
 // Chỉ số giảm theo giờ thật (kể cả khi tắt app) nhưng không bao giờ về 0: thú cưng chỉ buồn và cần bé, không ốm, không chết.

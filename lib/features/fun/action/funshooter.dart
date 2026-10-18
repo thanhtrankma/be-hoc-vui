@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, library_private_types_in_public_api
 // Phi thuyền diệt quái (Flame).
-// CHỦ: agent G. Port của reference/web/js/games/funshooter.js.
+// CHỦ: agent G. Port của web js/games/funshooter.js.
 // 8 loại súng (laser, toả, plasma xuyên, tên lửa đuổi, tia sét nảy, chùm laser liên tục, đạn băng làm chậm, lốc xoáy bumerang),
 // mỗi loại lên 5 sao; máy bay phụ, bom, 3 chiêu có nút (khiên năng lượng, mưa sao băng, phi thuyền khổng lồ) nạp khi hạ quái;
 // trùm giữa trận và trùm cuối 2 giai đoạn. Kho đồ giữ qua màn (ctx.carry), Xưởng phi thuyền ở cấp đầu của vé.

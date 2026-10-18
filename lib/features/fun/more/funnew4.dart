@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names
 // Tiệm pizza, nông trại, lính cứu hoả, tìm đồ vật.
-// CHỦ: agent F. Port của reference/web/js/games/funnew4.js. Mỗi lượt một cấp (ctx.level), 60 cấp.
+// CHỦ: agent F. Port của web js/games/funnew4.js. Mỗi lượt một cấp (ctx.level), 60 cấp.
 // Người/con vật là sprite Kenney CC0 có hoạt ảnh (gói play/), đồ vật là hình Fluent Emoji 3D.
 // Hợp đồng: lib/core/game/fun_games.dart (FunGameModule, FunGameContext, FunResult) — xem lib/core/README.md.
 import 'dart:math' as math;

@@ -97,7 +97,7 @@ void main() {
     expect(vi.t('hi', {'name': 'Na'}), 'Chào Na!');
     expect(en.t('hi', {'name': 'Na'}), 'Hi Na!');
     expect(vi.t('khong-co'), 'khong-co');
-    expect(en.tList('installSteps').length, 4);
+    expect(en.tList('installSteps'), isEmpty); // hướng dẫn cài PWA chỉ dành cho bản web, đã bỏ
     expect(vi.L({'vi': 'Con vật', 'en': 'Animals'}), 'Con vật');
     expect(en.L({'vi': 'Con vật', 'en': 'Animals'}), 'Animals');
     expect(en.L({'vi': 'Chỉ có tiếng Việt'}), 'Chỉ có tiếng Việt');

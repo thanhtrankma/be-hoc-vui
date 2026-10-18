@@ -1,4 +1,4 @@
-// Hiệu ứng chuyển động dùng chung cho game Khu vui chơi (port reference/web/js/games/funfx.js).
+// Hiệu ứng chuyển động dùng chung cho game Khu vui chơi (port web js/games/funfx.js).
 // CHỦ: agent E. API CÔNG KHAI, ỔN ĐỊNH — agent F/G có thể import.
 //
 // - Sprite sheet an toàn (null = bỏ qua): spr / anim / sprW / sprBox / aspect, stripX / stripPart / tile.

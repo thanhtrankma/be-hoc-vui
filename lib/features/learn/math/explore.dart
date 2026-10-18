@@ -1,5 +1,5 @@
 // Đảo Khám phá (Tự nhiên & Xã hội): xếp từng hình vào đúng nhóm. Kéo thả hoặc chạm vào giỏ đều được.
-// CHỦ: agent B. Port của reference/web/js/games/explore.js.
+// CHỦ: agent B. Port của web js/games/explore.js.
 import 'dart:async';
 
 import 'package:flutter/material.dart';

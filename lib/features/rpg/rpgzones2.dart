@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 // Thế giới phiêu lưu: 5 vùng có cách chơi riêng.
 // Vùng 3 Hang Mỏ (mê cung), 4 Xứ Tuyết (đánh theo lượt), 5 Sa Mạc (đào kho báu), 7 Rừng Kẹo (giữ bánh), 8 Núi Lửa (nhảy qua dung nham).
-// CHỦ: agent H. Port của reference/web/js/games/rpgzones2.js.
+// CHỦ: agent H. Port của web js/games/rpgzones2.js.
 import 'dart:collection';
 import 'dart:math' as math;
 import 'dart:ui' as ui;

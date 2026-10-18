@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chính sách quyền riêng tư — Bé Vui Học</title>
+<meta name="description" content="Chính sách quyền riêng tư của ứng dụng Bé Vui Học.">
+<meta name="referrer" content="no-referrer">
+<style>
+:root{--ink:#23324d;--soft:#5b6b88;--line:#e3ecf7;--card:#fff;--bg1:#8fd3ff;--bg2:#e6f7ff;--accent:#e86a3a;--link:#1c6fb8;--mark:#fff3bf}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans","Helvetica Neue",Arial,sans-serif;
+  color:var(--ink);line-height:1.6;background:linear-gradient(180deg,var(--bg1),var(--bg2) 320px,var(--bg2));min-height:100vh}
+header{padding:28px 16px 8px;text-align:center}
+.logo{font-size:2.2rem;font-weight:800;color:#fff;text-shadow:0 3px 0 var(--accent);letter-spacing:.5px;text-decoration:none}
+.logo b{color:#ffc93c;text-shadow:0 3px 0 #e0a800}
+nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 4px}
+nav a{background:rgba(255,255,255,.85);color:var(--ink);text-decoration:none;font-weight:700;padding:6px 14px;border-radius:999px;font-size:.95rem}
+nav a[aria-current=page]{background:var(--ink);color:#fff}
+main{max-width:820px;margin:12px auto 32px;padding:0 16px}
+.card{background:var(--card);border-radius:22px;padding:22px 20px;box-shadow:0 6px 24px rgba(35,50,77,.10);margin-bottom:18px;overflow-wrap:anywhere}
+h1{font-size:1.6rem;line-height:1.25;margin:.2em 0 .6em}
+h2{font-size:1.2rem;margin:1.4em 0 .4em}
+ul{padding-left:1.3em}
+li{margin:.3em 0}
+a{color:var(--link)}
+mark{background:var(--mark);padding:0 4px;border-radius:4px;font-weight:700}
+.muted{color:var(--soft);font-size:.92rem}
+.lang{float:right;font-size:.9rem;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{text-align:left;padding:6px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:800}
+pre{white-space:pre-wrap;font:inherit;font-size:.88rem;margin:0}
+footer{text-align:center;color:var(--soft);font-size:.85rem;padding:0 16px 28px}
+@media (max-width:520px){.card{padding:18px 14px}h1{font-size:1.35rem}table{font-size:.8rem}}
+</style>
+</head>
+<body>
+<header><a class="logo" href="/">Bé <b>Vui</b> Học</a><nav><a href="/">Giới thiệu</a><a href="/privacy" aria-current="page">Quyền riêng tư</a><a href="/credits">Ghi công</a></nav></header>
+<main>
+<div class="card"><a class="lang" href="/privacy/en" hreflang="en">English</a><h1>Chính sách quyền riêng tư — Bé Vui Học</h1>
+<p>Ngày hiệu lực: 18/10/2026</p>
+<p>Bé Vui Học là ứng dụng học mà chơi cho bé 3–6 tuổi. Chính sách này giải thích ứng dụng xử lý những dữ liệu nào, ở đâu và bố mẹ xoá chúng ra sao. Tóm tắt: <strong>không tài khoản, không email, không quảng cáo, không phân tích hành vi, không mua trong ứng dụng, không theo dõi, không bán hay chia sẻ dữ liệu</strong>. Tiến độ học nằm trên máy của gia đình.</p>
+<h2>1. Dữ liệu lưu trên máy</h2>
+<ul><li>Hồ sơ của bé: <strong>chỉ một tên gọi</strong> do bố mẹ hoặc bé tự nhập (tối đa 20 ký tự, nên dùng tên ở nhà, không cần họ tên thật) và linh vật bé chọn. Không có ngày sinh, ảnh, email, số điện thoại hay địa chỉ.</li><li>Tiến độ học: sao, bài đã học, câu trả lời đúng/sai và lỗi hay nhầm (để gợi ý ôn tập), số phút học mỗi ngày, vé chơi, đồ vật và thú cưng trong game.</li><li>Cài đặt: ngôn ngữ, âm thanh, nhạc nền, giới hạn thời gian, các lựa chọn khác trong Góc bố mẹ.</li></ul>
+<p>Những dữ liệu này lưu trong bộ nhớ riêng của ứng dụng trên máy (shared_preferences) và <strong>không được gửi đi đâu</strong>, trừ khi bố mẹ tự bật "Dùng trên nhiều máy" (mục 2).</p>
+<h2>2. Đồng bộ nhiều máy bằng mã gia đình (tuỳ chọn, mặc định tắt)</h2>
+<p>Bố mẹ có thể bật đồng bộ trong Góc bố mẹ (sau khoá bố mẹ) hoặc nhập mã gia đình khi tạo hồ sơ trên máy mới.</p>
+<ul><li>Ứng dụng tạo ngay trên máy một <strong>mã gia đình</strong> 16 ký tự ngẫu nhiên. Không cần email, mật khẩu hay tài khoản.</li><li>Từ mã này, máy tính ra một khoá mã hoá (PBKDF2-SHA-256) và một tên ngăn lưu trữ (giá trị băm SHA-256 của mã). Mã gia đình <strong>không bao giờ được gửi đi</strong>.</li><li>Dữ liệu ở mục 1 được <strong>mã hoá đầu-cuối trên máy</strong> (AES-256-GCM) rồi mới gửi lên <strong>Google Cloud Firestore</strong> (dịch vụ Firebase của Google, máy chủ đặt tại Singapore, vùng asia-southeast1). Trên máy chủ chỉ có: tên ngăn (giá trị băm), số phiên bản, khối dữ liệu đã mã hoá và thời điểm cập nhật cuối.</li><li>Không ai đọc được khối dữ liệu này nếu không có mã gia đình — kể cả nhà phát triển và Google. Chúng tôi không có mã của gia đình bạn và không thể liên kết ngăn lưu trữ với một người cụ thể.</li><li>Bản trên máy chủ được giữ đến khi bố mẹ xoá. Bấm <strong>"Xoá bản trên máy chủ"</strong> trong Góc bố mẹ để xoá ngay. Quên mã thì không ai khôi phục được dữ liệu trên máy chủ.</li></ul>
+<h2>3. Cấu hình từ xa (Firebase Remote Config)</h2>
+<p>Khi mở, ứng dụng tải một số cài đặt chung từ Firebase Remote Config của Google (ví dụ bật/tắt tính năng đồng bộ, thông báo ngắn cho bố mẹ). Để làm việc này, thư viện Firebase tạo một <strong>mã cài đặt Firebase (Firebase installation ID)</strong>: một chuỗi ngẫu nhiên gắn với lần cài ứng dụng trên máy, không chứa và không gắn với tên, email hay tài khoản nào. Cùng với mã này, Google nhận các thông tin kỹ thuật cần cho việc tải cấu hình (phiên bản ứng dụng và hệ điều hành, phiên bản thư viện Firebase, ngôn ngữ/vùng của máy) và địa chỉ IP khi kết nối. Chúng tôi chỉ dùng Remote Config để gửi cấu hình giống nhau cho mọi máy, <strong>không dùng để phân tích, quảng cáo hay nhận diện người dùng</strong>. Ứng dụng không dùng Google Analytics, Crashlytics hay bất kỳ công cụ báo lỗi, đo lường nào. Mã cài đặt bị xoá khi gỡ ứng dụng.</p>
+<h2>4. Đọc to và micro</h2>
+<ul><li>Trò "Bé đọc to" chỉ bật micro sau khi <strong>bố mẹ đồng ý và trả lời đúng khoá bố mẹ</strong>. Bố mẹ có thể chọn "Không bật" và tự chấm, hoặc bấm "Hỏi lại về micro" trong Góc bố mẹ.</li><li>Khi bật, tiếng bé đọc được <strong>dịch vụ nhận dạng giọng nói của hệ điều hành</strong> xử lý để chuyển thành chữ: Apple trên iPhone/iPad, Google trên Android (có thể xử lý trên máy hoặc trên máy chủ của hãng, theo chính sách của Apple/Google).</li><li>Bé Vui Học <strong>không ghi âm, không lưu và không gửi</strong> âm thanh tới máy chủ của chúng tôi; chỉ dùng chữ nhận được ngay lúc đó để khen bé.</li><li>Quyền micro (và quyền nhận dạng giọng nói trên iOS) chỉ được hỏi vào lúc này; bố mẹ có thể tắt bất cứ lúc nào trong Cài đặt của máy.</li></ul>
+<h2>5. Sao lưu, chia sẻ và liên kết ngoài</h2>
+<ul><li><strong>Sao lưu tiến độ</strong> tạo một file trên máy; bố mẹ tự chọn nơi lưu hoặc gửi file. Ứng dụng không tải file này lên đâu.</li><li><strong>Bằng khen</strong> là ảnh vẽ ngay trên máy. Chia sẻ bằng khen, giới thiệu ứng dụng hay mở trang web (ví dụ chính sách này, trang tác giả ảnh trên Wikimedia Commons) đều <strong>phải qua khoá bố mẹ</strong> và dùng bảng chia sẻ / trình duyệt của máy.</li></ul>
+<h2>6. Những gì chúng tôi không làm</h2>
+<ul><li>Không quảng cáo, không mua trong ứng dụng, không đăng nhập mạng xã hội.</li><li>Không thu thập vị trí, danh bạ, ảnh, mã quảng cáo hay định danh thiết bị để theo dõi.</li><li>Không phân tích hành vi, không theo dõi qua ứng dụng/trang web khác.</li><li>Không bán, cho thuê hay chia sẻ dữ liệu với bên thứ ba. Bên duy nhất xử lý dữ liệu cho chúng tôi là Google (Firebase) như mô tả ở mục 2 và 3; nhận dạng giọng nói (mục 4) do hệ điều hành của máy cung cấp.</li></ul>
+<h2>7. Trẻ em</h2>
+<p>Ứng dụng dành cho trẻ em và được thiết kế theo yêu cầu của COPPA (Hoa Kỳ), GDPR (EU) và chính sách dành cho trẻ em của App Store và Google Play (Families). Chúng tôi không yêu cầu và không cố ý thu thập thông tin cá nhân của trẻ. Tên gọi của bé chỉ nằm trên máy; nếu bố mẹ bật đồng bộ thì chỉ nằm trong khối dữ liệu đã mã hoá mà chúng tôi không đọc được. Mọi phần dành cho người lớn (Góc bố mẹ, micro, chia sẻ, liên kết ngoài) đều có khoá bố mẹ.</p>
+<h2>8. Bố mẹ xem và xoá dữ liệu</h2>
+<ul><li>Xem tiến độ: Góc bố mẹ → Báo cáo của con.</li><li>Xoá một bé: Góc bố mẹ → Các bé → Xoá.</li><li>Xoá bản đồng bộ: Góc bố mẹ → Dùng trên nhiều máy → Xoá bản trên máy chủ.</li><li>Xoá tất cả trên máy: gỡ ứng dụng (xoá cả dữ liệu học và mã cài đặt Firebase).</li></ul>
+<h2>9. Bảo mật</h2>
+<p>Kết nối tới Firebase dùng mã hoá TLS. Bản đồng bộ được mã hoá đầu-cuối bằng khoá chỉ có trên các máy biết mã gia đình. Luật truy cập của máy chủ chỉ cho đọc/ghi đúng một ngăn khi biết tên ngăn, không cho liệt kê các ngăn.</p>
+<h2>10. Thay đổi chính sách</h2>
+<p>Khi chính sách thay đổi, chúng tôi cập nhật trang này và ngày hiệu lực ở đầu trang; thay đổi quan trọng sẽ được ghi trong ghi chú phiên bản của ứng dụng.</p>
+<h2>11. Liên hệ</h2>
+<p>Nhà phát triển Bé Vui Học — email: <mark>[EMAIL LIÊN HỆ]</mark></p>
+<p>Bản trên web: <a href="https://bevuihoc-app.web.app/privacy">https://bevuihoc-app.web.app/privacy</a></p></div>
+</main>
+<footer>Bé Vui Học · học mà chơi cho bé 3–6 tuổi · Không quảng cáo, không theo dõi</footer>
+</body>
+</html>

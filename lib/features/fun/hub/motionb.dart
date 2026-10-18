@@ -1,4 +1,4 @@
-// Chuyển động dùng chung cho game đối kháng / phiêu lưu (port reference/web/js/games/motionb.js).
+// Chuyển động dùng chung cho game đối kháng / phiêu lưu (port web js/games/motionb.js).
 // CHỦ: agent E. API công khai, ổn định (agent G/H có thể dùng hoặc tự viết bản riêng).
 //
 // - Ease.outCubic/inCubic/inOut/outBack/outElastic/bump (E của web), clamp01, motionLerp, motionApproach.

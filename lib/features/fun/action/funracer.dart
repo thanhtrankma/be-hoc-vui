@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, library_private_types_in_public_api
 // Đua xe tốc độ (Flame). Tiếng động cơ: ctx.audio.engine(0..1).
-// CHỦ: agent G. Port của reference/web/js/games/funracer.js.
+// CHỦ: agent G. Port của web js/games/funracer.js.
 // Gara (chọn xe, nâng cấp, mở xe mới, sơn, dán hình, nâng sức mạnh hộp quà), hộp quà bí ẩn (tên lửa, khiên, nam châm,
 // tăng tốc, biến hình robot, sấm sét, bom dầu, khiên vàng, xe bay), bình nitro, giáp, ô đồ giữ qua màn.
 // Bệ tăng tốc, dốc nhảy, rào chắn, dầu trơn; xe máy cấp cao biết thả dầu và bắn tên lửa. Nhìn từ trên xuống, 6 xe, xếp hạng.

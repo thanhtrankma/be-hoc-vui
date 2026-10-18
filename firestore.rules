@@ -1,0 +1,40 @@
+rules_version = '2';
+
+// Bé Vui Học — Cloud Firestore (project bevuihoc-app).
+// Chỉ có một bộ sưu tập: syncs/{sid} — bản đồng bộ "mã gia đình" đã mã hoá đầu-cuối trên máy
+// (lib/features/sync/sync.dart, firestore_sync_backend.dart).
+//   sid  = hex SHA-256 (64 ký tự 0-9a-f) suy từ mã gia đình — biết sid mới đọc/ghi được ngăn đó.
+//   v    = số phiên bản (int), mỗi lần ghi tăng đúng 1 (khoá lạc quan, giao dịch trên máy).
+//   blob = base64(iv + ciphertext + tag) AES-GCM, máy chủ không đọc được.
+//   at   = request.time (serverTimestamp) lúc ghi.
+// Không đăng nhập (không tài khoản), không cho liệt kê (list) để không ai dò được các ngăn.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Mặc định: cấm hết.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    match /syncs/{sid} {
+      function validSid() {
+        return sid.matches('^[0-9a-f]{64}$');
+      }
+
+      function validDoc() {
+        let d = request.resource.data;
+        return d.keys().hasOnly(['v', 'blob', 'at'])
+          && d.keys().hasAll(['v', 'blob', 'at'])
+          && d.v is int
+          && d.blob is string
+          && d.blob.size() <= 900000
+          && d.at == request.time;
+      }
+
+      allow get: if validSid();
+      allow list: if false;
+      allow create: if validSid() && validDoc();
+      allow update: if validSid() && validDoc() && request.resource.data.v == resource.data.v + 1;
+      allow delete: if validSid();
+    }
+  }
+}

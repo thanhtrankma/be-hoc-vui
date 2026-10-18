@@ -1,7 +1,8 @@
 # Bé Vui Học — Kế hoạch chuyển web sang app Flutter
 
-Nguồn: https://datpilot.com/kids/ (PWA, JS thuần). Bản tải về nằm ở `reference/web/` (mã JS/CSS/HTML),
-tài nguyên (giọng đọc, hình, dữ liệu) đã chuyển vào `assets/`.
+Nguồn: bản web PWA cũ (JS thuần). Tài nguyên (giọng đọc, hình, dữ liệu) đã chuyển vào `assets/`. Mã web gốc
+(`reference/web/`) đã được gỡ khỏi repo sau khi port xong (18/10/2026); những gì test cần đối chiếu đã trích sẵn thành
+fixture trong `test/parity/fixtures/` (`web_sources.json`, `web_store_trace.json`). App không còn phụ thuộc trang web cũ.
 
 ## 1. Hiện trạng web
 
@@ -20,13 +21,13 @@ tài nguyên (giọng đọc, hình, dữ liệu) đã chuyển vào `assets/`.
 | Framework | Flutter 3.47 / Dart 3 | iOS + Android từ một mã nguồn |
 | State | `flutter_riverpod` | Đơn giản, dễ test |
 | Điều hướng | `go_router` | Tương ứng các route `#/...` của web |
-| Lưu trữ | `shared_preferences` (JSON giống `store.js`) | Giữ nguyên định dạng dữ liệu → đồng bộ được với web |
+| Lưu trữ | `shared_preferences` (JSON giống `store.js`) | Giữ nguyên định dạng dữ liệu (sao lưu / đồng bộ) |
 | Âm thanh | `flutter_soloud` | Độ trễ thấp cho hiệu ứng, phát mp3 giọng đọc, tạo sóng âm thay Web Audio |
 | Game hành động | `flame` | Đua xe, bắn súng, xe tăng, RPG cần game loop |
 | Vẽ / tập viết / tô màu | `CustomPainter` | Không cần thư viện ngoài |
 | Font | Baloo 2 (TTF, OFL) | Giống web |
-| Đồng bộ | Giữ API `datpilot.com/api/bvh/sync` + mã hoá PBKDF2/AES-GCM (`cryptography`) | Dùng chung mã gia đình giữa web và app |
-| Firebase | Crashlytics, Remote Config, App Check, Storage (gói nội dung sau này) | **Không** dùng Analytics/quảng cáo: app thuộc nhóm Kids/Families của App Store & Google Play |
+| Đồng bộ | Cloud Firestore `syncs/{sid}` (asia-southeast1) + mã hoá đầu-cuối PBKDF2/AES-GCM (`cryptography`), luật ở `firestore.rules` | Không tài khoản; máy chủ chỉ giữ khối byte đã mã hoá |
+| Firebase | `firebase_core`, Remote Config, Cloud Firestore; Hosting cho trang giới thiệu / chính sách (`hosting/`) | **Không** Analytics, Crashlytics, App Check, quảng cáo: app thuộc nhóm Kids/Families của App Store & Google Play |
 | CI/Test | `flutter analyze`, `flutter test` (unit + widget), chạy thử trên iOS Simulator | |
 
 ## 3. Kiến trúc thư mục
@@ -48,7 +49,8 @@ lib/
     fun/ rpg/                  # khu vui chơi + RPG (Flame)
     parents/ sync/             # góc bố mẹ, đồng bộ
 assets/ audio img photo sprites sfx fonts data icon
-reference/web/                 # mã web gốc để đối chiếu
+hosting/                       # trang web tĩnh (Firebase Hosting): giới thiệu, chính sách, ghi công
+firestore.rules, firestore-tests/  # luật Firestore + test trên emulator
 ```
 
 ## 4. Các giai đoạn & phân công agent
@@ -89,11 +91,15 @@ chính sách quyền riêng tư cho trẻ em, ảnh chụp cửa hàng.
 
 - [x] Giai đoạn 0–2: toàn bộ 48 module web đã port sang Flutter (15 đảo học, phòng của bé, thú cưng, bố con thi tài,
       học cùng lớp, ôn tập, ~48 game khu vui chơi, RPG 10 vùng, góc bố mẹ, báo cáo, bằng khen, đồng bộ mã gia đình).
-- [x] Firebase project `bevuihoc-app` (Crashlytics, Remote Config, App Check; không Analytics). Bundle ID `com.iping.bevuihoc`.
+- [x] Firebase project `bevuihoc-app` (Remote Config, Cloud Firestore cho đồng bộ, Hosting; không Analytics/Crashlytics/App Check). Bundle ID `com.iping.bevuihoc`.
+- [x] 18/10/2026: bỏ mọi liên kết tới trang web cũ; đồng bộ chuyển sang Firestore; bỏ Crashlytics + App Check; khoá bố mẹ
+      khó hơn (2 chữ số × 1 chữ số); chính sách quyền riêng tư / giới thiệu / ghi công trong app và trên
+      https://bevuihoc-app.web.app/ ; câu trả lời khai báo cửa hàng ở `docs/STORE_PRIVACY.md`; gỡ `reference/web/`.
 - [x] Kiểm thử: 366 test tự động (gồm quét tràn bố cục ở 320/360dp và màn ngang), chạy thử trên iPhone simulator,
-      iPad (ngang) và Android emulator; đồng bộ đã đối chiếu byte-với-byte với mã hoá của web.
+      iPad (ngang) và Android emulator; mã hoá đồng bộ kiểm bằng vector WebCrypto cố định.
 - [ ] Phát hành — cần chủ app:
-  - iOS: tài khoản Apple Developer (Team ID) để ký app, tạo app trên App Store Connect, bật App Attest.
-  - Android: tạo khoá ký upload (keystore) và lưu giữ cẩn thận, tạo app trên Google Play Console, bật Play Integrity.
-  - Trang chính sách quyền riêng tư cho trẻ em, ảnh chụp cửa hàng, mô tả, phân loại độ tuổi (Kids / Families).
+  - iOS: tài khoản Apple Developer (Team ID) để ký app, tạo app trên App Store Connect.
+  - Android: tạo khoá ký upload (keystore) và lưu giữ cẩn thận, tạo app trên Google Play Console.
+  - Điền email liên hệ vào chỗ `[EMAIL LIÊN HỆ]` (assets/legal/*.md, chạy lại `python3 hosting/build_pages.py`), deploy
+    `firebase deploy --only firestore:rules,hosting`, khai báo theo `docs/STORE_PRIVACY.md`, ảnh chụp cửa hàng, mô tả.
   - Chạy thử trên máy thật (iPhone + Android) bản release.

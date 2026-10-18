@@ -102,7 +102,7 @@ class _SyncCardState extends ConsumerState<SyncCard> {
                 ]
               : [
                   const LeftNote(
-                      'Bé học trên nhiều máy? Bật đồng bộ để sao, bài đã học, đồ trong game đi theo bé. Không cần email hay mật khẩu: app tạo một mã gia đình 16 ký tự. Dữ liệu được mã hoá ngay trên máy bằng mã này rồi mới gửi lên máy chủ datpilot.com, nên máy chủ không đọc được. Giữ mã như giữ chìa khoá nhà.'),
+                      'Bé học trên nhiều máy? Bật đồng bộ để sao, bài đã học, đồ trong game đi theo bé. Không cần email hay mật khẩu: app tạo một mã gia đình 16 ký tự. Dữ liệu được mã hoá ngay trên máy bằng mã này rồi mới gửi lên máy chủ (Google Cloud Firestore), nên máy chủ và nhà phát triển không đọc được. Giữ mã như giữ chìa khoá nhà.'),
                   const SizedBox(height: 10),
                   Wrap(spacing: 8, runSpacing: 8, children: [
                     SmallBtn(key: const Key('sync-create'), label: _working ? '⏳ …' : '✨ Tạo mã gia đình', onTap: () => _run(sync.create)),

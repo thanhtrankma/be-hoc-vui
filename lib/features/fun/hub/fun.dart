@@ -1,5 +1,5 @@
 // Khu vui chơi (/fun): danh sách game theo nhóm, thẻ "Nhân vật của bé" (p.look), nút bố mẹ chơi miễn phí; game Ná thần kỳ.
-// CHỦ: agent E. Port của reference/web/js/games/fun.js + app.js funZone()/lookCard()/fillGrids().
+// CHỦ: agent E. Port của web js/games/fun.js + app.js funZone()/lookCard()/fillGrids().
 // Mở game: context.go('/fun/<id>') — khung FunPlayScreen (Foundation) lo trừ vé, chơi 3 cấp/vé, bảng kết quả, kỷ lục.
 import 'dart:math' as math;
 

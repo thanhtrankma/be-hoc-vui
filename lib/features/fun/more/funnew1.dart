@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 // Rắn săn mồi, bắn bia, xếp gạch, nhảy lên mây (tank nằm ở funtank.dart của agent G).
-// CHỦ: agent F. Port của reference/web/js/games/funnew1.js. Mỗi lượt một cấp (ctx.level), 60 cấp.
+// CHỦ: agent F. Port của web js/games/funnew1.js. Mỗi lượt một cấp (ctx.level), 60 cấp.
 // Hợp đồng: lib/core/game/fun_games.dart (FunGameModule, FunGameContext, FunResult) — xem lib/core/README.md.
 import 'dart:math' as math;
 

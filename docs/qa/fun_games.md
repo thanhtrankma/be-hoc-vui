@@ -91,7 +91,7 @@ Note: hunt/hero agent had not finished at hand-off; its table (if written) is pa
 <!-- part_funmore_funlogic.md -->
 # Parity audit: funmore + funlogic (web → Flutter)
 
-Web: `reference/web/js/games/funmore.js` (M), `funlogic.js` (L), `funcore.js` (C), `fun.js` (F).
+Web: `web js/games/funmore.js` (M), `funlogic.js` (L), `funcore.js` (C), `fun.js` (F).
 Dart: `lib/features/fun/hub/funmore.dart` (m), `funlogic.dart` (l), `funcore.dart` (c), `lib/core/game/fun_games.dart` (g).
 
 | file | game id | feature | web ref | flutter ref | status | note |
@@ -156,7 +156,7 @@ Dart: `lib/features/fun/hub/funmore.dart` (m), `funlogic.dart` (l), `funcore.dar
 <!-- part_funnew45.md -->
 # Feature-parity audit: funnew4 / funnew5 (web → Flutter)
 
-Web: `reference/web/js/games/funnew4.js` (W4), `funnew5.js` (W5), helpers in `funcore.js`, `funnew3.js`, `fun.js`.
+Web: `web js/games/funnew4.js` (W4), `funnew5.js` (W5), helpers in `funcore.js`, `funnew3.js`, `fun.js`.
 Dart: `lib/features/fun/more/funnew4.dart` (D4), `funnew5.dart` (D5), helpers in `kit/funkit.dart` (K).
 
 None of these 7 games has a 2-player mode, keyboard controls or voice prompts (`say`) on the web, so the port has nothing to match there. Records, score totals and the 3-levels-per-ticket loop belong to the frame: web `leveled()` (fun.js:144-161), Flutter FunPlayScreen via `ctx.finish(FunResult)` (K:826). All 7 ids are registered as leveled in `kFunGames` (fun_games.dart:191-200) and `registry.dart:75-76`.
@@ -254,7 +254,7 @@ None of these 7 games has a 2-player mode, keyboard controls or voice prompts (`
 <!-- part_funnew3.md -->
 # Feature-parity audit: funnew3 (lanes, swim, hoops, hurdles, dance, golf)
 
-Web: `reference/web/js/games/funnew3.js` (W:line). Flutter: `lib/features/fun/more/funnew3.dart` (D:line), kit `lib/features/fun/more/kit/funkit.dart` (K:line).
+Web: `web js/games/funnew3.js` (W:line). Flutter: `lib/features/fun/more/funnew3.dart` (D:line), kit `lib/features/fun/more/kit/funkit.dart` (K:line).
 Method: line-by-line comparison of formulas, constants, branches, HUD strings, sfx names and sprite frame names. I also checked that every sprite frame and anim used exists in `assets/sprites/play/*.json`, and that every sfx name exists in `audio_service.dart`.
 
 | file | game id | feature | web ref | flutter ref | status | note |
@@ -341,7 +341,7 @@ Method: line-by-line comparison of formulas, constants, branches, HUD strings, s
 <!-- part_funnew12.md -->
 # Audit: funnew1.js / funnew2.js vs funnew1.dart / funnew2.dart
 
-Web files: `reference/web/js/games/funnew1.js` (W1) and `reference/web/js/games/funnew2.js` (W2). Dart files: `lib/features/fun/more/funnew1.dart` (D1), `lib/features/fun/more/funnew2.dart` (D2) and `lib/features/fun/more/kit/funkit.dart` (K).
+Web files: `web js/games/funnew1.js` (W1) and `web js/games/funnew2.js` (W2). Dart files: `lib/features/fun/more/funnew1.dart` (D1), `lib/features/fun/more/funnew2.dart` (D2) and `lib/features/fun/more/kit/funkit.dart` (K).
 Tank is out of scope (it is re-exported from funtank at W1:287).
 
 **How this was checked:** each formula was compared line by line. None of these 9 games has keyboard input, tilt, a 2-player mode or a records mode in the web version. Records and the 3-levels-per-ticket loop are handled by the frame, through `leveled` at web fun.js:144 and FunPlayScreen in Dart. All 9 games are registered in `lib/core/game/registry.dart:72-73` and `kFunGames` (`fun_games.dart:164-173`) with leveled=true.

@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names
 // Chạy 3 làn, cá con, bóng rổ, vượt rào, nhảy theo nhạc, golf mini (sprite Kenney).
-// CHỦ: agent F. Port của reference/web/js/games/funnew3.js. Mỗi lượt một cấp (ctx.level 0..59).
+// CHỦ: agent F. Port của web js/games/funnew3.js. Mỗi lượt một cấp (ctx.level 0..59).
 // Nhân vật/con vật là sprite Kenney CC0 có khung hoạt ảnh (assets/sprites/play), vẽ bằng drawFrame/drawAnimC.
 // g.bot = tự chơi (chỉ dùng khi test).
 // Hợp đồng: lib/core/game/fun_games.dart (FunGameModule, FunGameContext, FunResult) — xem lib/core/README.md.

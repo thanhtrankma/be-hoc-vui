@@ -1,43 +1,15 @@
-// SyncService: luồng create / join / tự đồng bộ / xung đột 409 / mất mạng / leave — máy chủ giả (MockClient), không gọi mạng thật.
+// SyncService: luồng create / join / tự đồng bộ / xung đột phiên bản / mất mạng / leave — nơi lưu giả trong bộ nhớ
+// (MemorySyncBackend, cùng ngữ nghĩa giao dịch Firestore + firestore.rules), không gọi mạng thật.
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:be_vui_hoc/core/store/store.dart';
 import 'package:be_vui_hoc/features/sync/sync.dart';
 import 'package:be_vui_hoc/features/sync/sync_crypto.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
-import 'package:http/testing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Máy chủ giả theo hợp đồng sync.js: GET → {v, blob} | 404; PUT {base, blob} → {v} | 409 {v, blob}; DELETE.
-class FakeServer {
-  final Map<String, Map<String, dynamic>> boxes = {};
-  final List<String> log = [];
-  bool offline = false;
-
-  late final MockClient client = MockClient((req) async {
-    if (offline) throw http.ClientException('no network');
-    final sid = req.url.pathSegments.last;
-    log.add('${req.method} $sid');
-    expect(req.url.toString(), startsWith('https://datpilot.com/api/bvh/sync/'));
-    final cur = boxes[sid];
-    switch (req.method) {
-      case 'GET':
-        return cur == null ? http.Response('{"error":"notfound"}', 404) : http.Response(jsonEncode(cur), 200);
-      case 'PUT':
-        expect(req.headers['content-type'], startsWith('application/json'));
-        final body = jsonDecode(req.body) as Map<String, dynamic>;
-        final v = (cur?['v'] as int?) ?? 0;
-        if (body['base'] != v) return http.Response(jsonEncode(cur), 409);
-        boxes[sid] = {'v': v + 1, 'blob': body['blob']};
-        return http.Response(jsonEncode({'v': v + 1}), 200);
-      case 'DELETE':
-        boxes.remove(sid);
-        return http.Response('{"ok":true}', 200);
-    }
-    return http.Response('', 405);
-  });
-}
+typedef FakeServer = MemorySyncBackend;
 
 final Map<String, SyncKeys> _keyCache = {};
 Future<SyncKeys> cachedDerive(String code) async => _keyCache[normalizeCode(code)] ??= await deriveSyncKeysDirect(code);
@@ -51,14 +23,14 @@ void main() {
   }
 
   SyncService svc(AppStore s, FakeServer srv, {Duration debounce = const Duration(seconds: 20)}) =>
-      SyncService(s, client: srv.client, derive: cachedDerive, debounce: debounce);
+      SyncService(s, backend: srv, derive: cachedDerive, debounce: debounce);
 
   Future<Map<String, dynamic>> serverData(FakeServer srv, String code) async {
     final k = await cachedDerive(code);
-    return (await openJson(k, srv.boxes[k.sid]!['blob'] as String)) as Map<String, dynamic>;
+    return (await openJson(k, srv.boxes[k.sid]!.blob)) as Map<String, dynamic>;
   }
 
-  test('create: tạo mã, đẩy bản mã hoá lên, lưu trạng thái bvh.sync như web', () async {
+  test('create: tạo mã, đẩy bản mã hoá lên, lưu trạng thái bvh.sync', () async {
     final srv = FakeServer();
     final a = await newStore();
     a.addProfile('Na', 'cat');
@@ -154,7 +126,7 @@ void main() {
     sa.dispose();
   });
 
-  test('PUT bị 409 thật (máy chủ đổi giữa GET và PUT)', () async {
+  test('xung đột thật (máy chủ đổi giữa GET và PUT): gộp rồi đẩy lại', () async {
     final srv = FakeServer();
     final a = await newStore();
     a.addProfile('Na', 'cat');
@@ -165,27 +137,36 @@ void main() {
     final other = await newStore();
     other.addProfile('Mít', 'bear');
     var injected = true;
-    final client = MockClient((req) async {
-      final res = await srv.client.send(http.Request(req.method, req.url)
-        ..headers.addAll(req.headers)
-        ..bodyBytes = req.bodyBytes);
-      final out = await http.Response.fromStream(res);
-      if (req.method == 'GET' && !injected) {
-        injected = true;
-        srv.boxes[k.sid] = {'v': 7, 'blob': await sealJson(k, other.snapshot())};
-      }
-      return out;
-    });
-    final s2 = SyncService(a, client: client, derive: cachedDerive);
+    srv.afterGet = (sid) async {
+      if (injected) return;
+      injected = true;
+      srv.boxes[k.sid] = SyncDoc(7, await sealJson(k, other.snapshot()));
+    };
+    final s2 = SyncService(a, backend: srv, derive: cachedDerive);
     s2.init();
     await s2.syncNow();
     injected = false;
     a.addTickets(1);
+    srv.log.clear();
     final r = await s2.syncNow();
     expect(r, 'ok');
+    expect(srv.log.map((e) => e.split(' ').first), ['GET', 'PUT', 'PUT']);
     expect(a.profiles.map((p) => p.name).toSet(), {'Na', 'Mít'});
-    expect(srv.boxes[k.sid]!['v'], 8);
+    expect(srv.boxes[k.sid]!.v, 8);
+    expect(s2.version, 8);
     s2.dispose();
+  });
+
+  test('xung đột mãi (máy khác ghi liên tục): thử 3 lần rồi báo lỗi conflict, giữ dirty', () async {
+    final srv = _AlwaysConflict();
+    final a = await newStore();
+    a.addProfile('Na', 'cat');
+    a.setKv('bvh.sync', jsonEncode({'code': 'ABCD-EFGH-JKMN-PQ23', 'v': 1, 'dirty': true}));
+    final s = SyncService(a, backend: srv, derive: cachedDerive);
+    expect(await s.syncNow(), 'offline');
+    expect(s.lastErr, 'conflict');
+    expect(srv.puts, 3);
+    expect(s.dirty, isTrue);
   });
 
   test('mất mạng: trả offline, ghi lastErr, giữ cờ dirty để đẩy lại', () async {
@@ -216,16 +197,37 @@ void main() {
     expect(s.code, isNull);
   });
 
-  test('lỗi máy chủ 500: lastErr = http 500', () async {
+  test('lỗi máy chủ (vd. bị luật từ chối): lastErr = thông điệp lỗi', () async {
     final a = await newStore();
     a.setKv('bvh.sync', jsonEncode({'code': 'ABCD-EFGH-JKMN-PQ23', 'v': 1}));
-    final s = SyncService(a, client: MockClient((_) async => http.Response('oops', 500)), derive: cachedDerive);
+    final s = SyncService(a, backend: FakeServer()..serverError = 'firestore permission-denied', derive: cachedDerive);
     expect(s.code, 'ABCD-EFGH-JKMN-PQ23');
     expect(await s.syncNow(), 'offline');
-    expect(s.lastErr, 'http 500');
+    expect(s.lastErr, 'firestore permission-denied');
   });
 
-  test('leave: ngắt máy (giữ dữ liệu); wipeServer gửi DELETE', () async {
+  test('máy chủ không trả lời: quá giờ → offline', () async {
+    final a = await newStore();
+    a.setKv('bvh.sync', jsonEncode({'code': 'ABCD-EFGH-JKMN-PQ23', 'v': 1}));
+    final s = SyncService(a, backend: _Hang(), derive: cachedDerive, timeout: const Duration(milliseconds: 50));
+    expect(await s.syncNow(), 'offline');
+    expect(s.lastErr, 'offline');
+  });
+
+  test('ngăn bị xoá trên máy chủ: máy đang bật tạo lại ngăn từ dữ liệu của mình', () async {
+    final srv = FakeServer();
+    final a = await newStore();
+    a.addProfile('Na', 'cat');
+    final s = svc(a, srv);
+    await s.create();
+    final sid = (await cachedDerive(s.code!)).sid;
+    srv.boxes.remove(sid);
+    expect(await s.syncNow(), 'ok');
+    expect(srv.boxes[sid]!.v, 1);
+    expect(((await serverData(srv, s.code!))['profiles'] as List).single['name'], 'Na');
+  });
+
+  test('leave: ngắt máy (giữ dữ liệu); wipeServer xoá ngăn trên máy chủ', () async {
     final srv = FakeServer();
     final a = await newStore();
     a.addProfile('Na', 'cat');
@@ -258,9 +260,9 @@ void main() {
     expect(srv.log.length, 1);
   });
 
-  test('trạng thái đọc lại từ bvh.sync (định dạng web)', () async {
+  test('trạng thái đọc lại từ bvh.sync', () async {
     final a = await newStore({'bvh.sync': jsonEncode({'code': 'ABCD-EFGH-JKMN-PQ23', 'v': 4, 'at': 123, 'err': 'offline', 'dirty': true})});
-    final s = SyncService(a, client: MockClient((_) async => http.Response('', 500)));
+    final s = SyncService(a, backend: FakeServer());
     expect(s.code, 'ABCD-EFGH-JKMN-PQ23');
     expect(s.lastAt, 123);
     expect(s.lastErr, 'offline');
@@ -268,4 +270,22 @@ void main() {
     expect(s.version, 4);
     expect(s.supported, isTrue);
   });
+}
+
+/// Lần nào đẩy cũng thấy máy khác vừa ghi (v tăng mãi).
+class _AlwaysConflict extends MemorySyncBackend {
+  int puts = 0;
+  @override
+  Future<SyncDoc?> get(String sid) async => null;
+  @override
+  Future<SyncPut> put(String sid, {required int base, required String blob}) async {
+    puts++;
+    return SyncPut.conflict(base + 5, null);
+  }
+}
+
+/// Không bao giờ trả lời.
+class _Hang extends MemorySyncBackend {
+  @override
+  Future<SyncDoc?> get(String sid) => Completer<SyncDoc?>().future;
 }

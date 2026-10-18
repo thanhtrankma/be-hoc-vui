@@ -2,7 +2,7 @@
 
 # Feature parity audit: store.js / sync.js / audio.js -> Flutter core
 
-Web root: reference/web/js/. Dart: lib/. Statuses: OK, PARTIAL, MISSING, OMITTED-OK.
+Web root: web js/. Dart: lib/. Statuses: OK, PARTIAL, MISSING, OMITTED-OK.
 Mechanical sfx/clip scan: kiểm tra tự động tương đương ở test/parity/web_sources_test.dart (results summarized in section E).
 
 ## A. Store: state, keys, settings, profiles
@@ -81,7 +81,7 @@ Mechanical sfx/clip scan: kiểm tra tự động tương đương ở test/pari
 
 | area | feature | web ref | flutter ref | status | note |
 |---|---|---|---|---|---|
-| sync | endpoint `/api/bvh/sync/<sid>`; GET (no-store) / PUT {base, blob} / DELETE; 404 / 409 semantics | sync.js:6,53-81,117 | sync.dart:25,117-152,215-223 | OK | absolute https://datpilot.com URL; 20 s request timeout added |
+| sync | endpoint `/api/bvh/sync/<sid>`; GET (no-store) / PUT {base, blob} / DELETE; 404 / 409 semantics | sync.js:6,53-81,117 | sync.dart `_round`, sync_backend.dart, firestore_sync_backend.dart | CHANGED | 18/10/2026: backend is Cloud Firestore `syncs/{sid}` {v, blob, at}; GET → doc or null (notfound), PUT → Firestore transaction (v != base → conflict with remote blob, else write v+1), DELETE → delete doc; same semantics, offline persistence disabled; 20 s timeout kept |
 | sync | state key `bvh.sync` {code, v, at, err, dirty} | sync.js:7,11-12 | sync.dart:26,69-83 | OK | |
 | sync | family code: ALPHA 31 chars (no I L O 0 1), 16 random bytes, byte%31, pretty XXXX-XXXX-XXXX-XXXX; normalize | sync.js:8,20-25 | sync_crypto.dart:15,21-30 | OK | |
 | crypto | sid = hex SHA-256('bvh-sync-id\|'+norm) | sync.js:31 | sync_crypto.dart:48 | OK | |
@@ -122,7 +122,7 @@ Mechanical sfx/clip scan: kiểm tra tự động tương đương ở test/pari
 
 ## E. Mechanical sfx/clip scan (sfx_scan.py)
 
-- Every sfx name used anywhere in reference/web/js/**/*.js (audio.sfx('x'), imported sfx('x'), rpgcore re-export) exists in synth.dart sfxRecipes: bark, boom, coin, correct, count, eat, flip, hit, jump, laser, pop, power, shoot, snore, splash, squeak, star, tap, win, wrong. The scan's "plasma"/"vortex" hits are false positives: they are string comparisons inside `sfx(me.gun === 'plasma' || me.gun === 'vortex' ? 'shoot' : 'laser')` (funshooter.js:365).
+- Every sfx name used anywhere in web js/**/*.js (audio.sfx('x'), imported sfx('x'), rpgcore re-export) exists in synth.dart sfxRecipes: bark, boom, coin, correct, count, eat, flip, hit, jump, laser, pop, power, shoot, snore, splash, squeak, star, tap, win, wrong. The scan's "plasma"/"vortex" hits are false positives: they are string comparisons inside `sfx(me.gun === 'plasma' || me.gun === 'vortex' ? 'shoot' : 'laser')` (funshooter.js:365).
 - Dynamic sfx: pet.js:105,652 `sfx(kind.sound)` -> app.json pets[].sound in {bark, meow, squeak}; all present ('meow' is used only this way).
 - clip() names: pet.js VOICE map (pet.js:19-25): dog-bark1/2/3, dog-whine, cat-meow1/2/3, cat-purr, rabbit-1/2/3. All 11 exist in assets/sfx/*.mp3, and pubspec lists assets/sfx/. The Dart pet_sim.dart:66-71 map is identical. Other `clip()` matches (funvs2, figure, rpgzones2, funmore, funvs1) are canvas ctx.clip(), not audio.
 - Dart sfx names used in lib/ are all in kSfxNames.

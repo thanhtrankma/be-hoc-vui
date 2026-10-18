@@ -1,4 +1,4 @@
-// Game vui nhộn: hứng trái cây, đập quái vật, câu cá, xây tháp, phá gạch, chim bay (port reference/web/js/games/funmore.js).
+// Game vui nhộn: hứng trái cây, đập quái vật, câu cá, xây tháp, phá gạch, chim bay (port web js/games/funmore.js).
 // CHỦ: agent E. Mỗi lượt là một cấp (ctx.level): đạt mục tiêu thì thắng (khung lên cấp); cấp cao nhanh hơn, mục tiêu cao hơn,
 // đổi cảnh mỗi 10 cấp. Vẽ bằng canvas (FunCanvas của funcore.dart), hiệu ứng ở funfx.dart.
 import 'dart:math' as math;

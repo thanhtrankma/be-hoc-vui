@@ -1,5 +1,6 @@
 // Góc bố mẹ, Báo cáo của con, bằng khen PNG. Không gọi mạng / file thật: ParentsIo và máy chủ đồng bộ đều là bản giả.
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:be_vui_hoc/core/audio/audio_service.dart';
 import 'package:be_vui_hoc/core/content/content.dart';
@@ -16,8 +17,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
-import 'package:http/http.dart' as http;
-import 'package:http/testing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FakeIo extends ParentsIo {
@@ -39,7 +38,8 @@ class FakeIo extends ParentsIo {
   @override
   Future<void> shareText(String text, {String? subject}) async => shared.add(text);
   @override
-  Future<String> loadAssetText(String path) async => 'Tiếng thú cưng: test';
+  // Trang trong app: đọc thẳng file (rootBundle cần IO thật, không chạy trong FakeAsync của testWidgets).
+  Future<String> loadAssetText(String path) async => path.startsWith('assets/legal/') ? File(path).readAsStringSync() : 'Tiếng thú cưng: test';
 }
 
 void main() {
@@ -56,20 +56,9 @@ void main() {
     return AppStore(await SharedPreferences.getInstance(), clock: () => now);
   }
 
-  // Máy chủ đồng bộ giả (không gọi datpilot.com thật).
-  final boxes = <String, Map<String, dynamic>>{};
-  final mock = MockClient((req) async {
-    final sid = req.url.pathSegments.last;
-    if (req.method == 'GET') return boxes[sid] == null ? http.Response('', 404) : http.Response(jsonEncode(boxes[sid]), 200);
-    if (req.method == 'PUT') {
-      final b = jsonDecode(req.body) as Map;
-      final v = ((boxes[sid]?['v'] as int?) ?? 0) + 1;
-      boxes[sid] = {'v': v, 'blob': b['blob']};
-      return http.Response(jsonEncode({'v': v}), 200);
-    }
-    boxes.remove(sid);
-    return http.Response('{}', 200);
-  });
+  // Nơi lưu đồng bộ giả trong bộ nhớ (không gọi Firestore thật).
+  final server = MemorySyncBackend();
+  final boxes = server.boxes;
   final keyCache = <String, SyncKeys>{};
   Future<SyncKeys> derive(String c) async => keyCache[normalizeCode(c)] ??= await deriveSyncKeysDirect(c);
 
@@ -79,7 +68,7 @@ void main() {
     addTearDown(tester.view.reset);
     final io = FakeIo();
     final audio = SilentAudio(voice: bundle.voice, store: store);
-    final sync = SyncService(store, client: mock, derive: derive);
+    final sync = SyncService(store, backend: server, derive: derive);
     Widget stub(String name) => Scaffold(body: Text('route:$name'));
     final router = GoRouter(navigatorKey: rootNavigatorKey, initialLocation: at, routes: [
       GoRoute(path: '/parent', builder: (c, s) => const ParentsScreen()),
@@ -125,7 +114,7 @@ void main() {
     store.addProfile('Na', mascotId());
     final (_, _, router, audio, _) = await pump(tester, store);
     expect(find.text('Góc bố mẹ'), findsOneWidget);
-    for (final t in ['Cài đặt', 'Các bé', 'Sao lưu tiến độ', '📱 Dùng trên nhiều máy', '💬 Góp ý, báo lỗi', '📣 Giới thiệu cho bạn bè', 'Nguồn ảnh và âm thanh', 'Phiên bản']) {
+    for (final t in ['Cài đặt', 'Các bé', 'Sao lưu tiến độ', '📱 Dùng trên nhiều máy', '💬 Góp ý, báo lỗi', '📣 Giới thiệu cho bạn bè', '🔒 Chính sách quyền riêng tư', 'Nguồn ảnh và âm thanh', 'Phiên bản']) {
       await tester.scrollUntilVisible(find.text(t), 200, scrollable: find.byType(Scrollable).first);
       expect(find.text(t), findsOneWidget, reason: t);
     }
@@ -233,24 +222,64 @@ void main() {
     expect(boxes.isNotEmpty, isTrue); // bản trên máy chủ vẫn giữ
   });
 
-  testWidgets('Góp ý, chia sẻ, ghi công: link ra ngoài qua ParentsIo', (tester) async {
+  testWidgets('Góp ý, chia sẻ, ghi công: không còn link Zalo/trang web cũ; chia sẻ link trang của app', (tester) async {
     final store = await newStore();
     store.addProfile('Na', mascotId());
     store.setKv('bvh.micOK', '1');
     final (_, io, _, _, _) = await pump(tester, store);
-    await tapKey(tester, 'link-zalo');
-    await tapKey(tester, 'link-about');
-    await tapKey(tester, 'link-privacy');
+    expect(find.byKey(const Key('link-zalo')), findsNothing);
+    expect(find.textContaining('0888 998 098'), findsNothing);
+    expect(find.textContaining('gửi tự động'), findsNothing); // không còn Crashlytics
     await tapKey(tester, 'mic-reset');
     expect(store.getKv('bvh.micOK'), isNull);
     await settle(tester);
     await tapKey(tester, 'share-app');
+    expect(io.shared.single, contains('https://bevuihoc-app.web.app/'));
+    expect(io.shared.single, isNot(contains('?src')));
     await tapKey(tester, 'credits-show');
     await tester.pumpAndSettle();
     expect(find.textContaining('Tiếng thú cưng: test'), findsOneWidget);
+    expect(io.opened, isEmpty);
+  });
+
+  testWidgets('Giới thiệu, Ghi công: trang trong app; link web chỉ khi bố mẹ bấm', (tester) async {
+    final store = await newStore();
+    store.addProfile('Na', mascotId());
+    final (_, io, router, _, _) = await pump(tester, store);
+    await tapKey(tester, 'link-about');
+    expect(find.byKey(const Key('legal-about')), findsOneWidget);
+    expect(find.text('Giới thiệu Bé Vui Học'), findsOneWidget);
+    await tapKey(tester, 'about-credits');
+    expect(find.byKey(const Key('credits-list')), findsOneWidget);
+    expect(find.text('Hình trong game:'), findsOneWidget);
+    await tapKey(tester, 'credits-web');
+    expect(io.opened, ['https://bevuihoc-app.web.app/credits']);
+    await tapKey(tester, 'info-back');
+    await tapKey(tester, 'info-back');
+    expect(find.byKey(const Key('legal-about')), findsNothing);
+    expect(router.routerDelegate.currentConfiguration.uri.path, '/parent');
     await tapKey(tester, 'link-credits');
-    expect(io.opened, ['https://zalo.me/0888998098', 'https://datpilot.com/be-vui-hoc', 'https://datpilot.com/chinh-sach-bao-mat', 'https://datpilot.com/be-vui-hoc/ghi-cong']);
-    expect(io.shared.single, contains('https://datpilot.com/be-vui-hoc?src=app'));
+    expect(find.byKey(const Key('credits-list')), findsOneWidget);
+  });
+
+  testWidgets('Chính sách quyền riêng tư: hiện ngay trong app (vi/en), nút mở bản web', (tester) async {
+    final store = await newStore();
+    store.addProfile('Na', mascotId());
+    final (_, io, _, _, _) = await pump(tester, store);
+    await tapKey(tester, 'privacy-open');
+    expect(find.byKey(const Key('legal-privacy')), findsOneWidget);
+    expect(find.text('Chính sách quyền riêng tư — Bé Vui Học'), findsOneWidget);
+    expect(find.textContaining('asia-southeast1', findRichText: true), findsWidgets);
+    expect(find.textContaining('[EMAIL LIÊN HỆ]', findRichText: true), findsOneWidget);
+    await tapKey(tester, 'privacy-web');
+    expect(io.opened, ['https://bevuihoc-app.web.app/privacy']);
+    await tapKey(tester, 'info-back');
+    store.setSetting('lang', 'en');
+    await tester.pumpAndSettle();
+    await tapKey(tester, 'privacy-open');
+    expect(find.text('Privacy Policy — Bé Vui Học'), findsOneWidget);
+    await tapKey(tester, 'privacy-web');
+    expect(io.opened.last, 'https://bevuihoc-app.web.app/privacy/en');
   });
 
   group('Báo cáo', () {
@@ -343,7 +372,7 @@ void main() {
     final bd = ByteData.sublistView(b);
     expect(bd.getUint32(16), 1080);
     expect(bd.getUint32(20), 1350);
-    expect(certShareText(d), 'Bé Nguyễn Thị Na vừa được bằng khen: Con đã đọc đúng 10 tiếng! Học miễn phí ở Bé Vui Học: https://datpilot.com/be-vui-hoc?src=giaykhen');
+    expect(certShareText(d), 'Bé Nguyễn Thị Na vừa được bằng khen: Con đã đọc đúng 10 tiếng! Học miễn phí ở Bé Vui Học: https://bevuihoc-app.web.app/');
     expect(certShareText(d.withName(false)), startsWith('Bé nhà mình vừa được bằng khen'));
     expect(wrapWords('a bb ccc dddd', 6, (s) => s.length.toDouble()), ['a bb', 'ccc', 'dddd']);
   });

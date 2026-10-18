@@ -1,4 +1,4 @@
-// Săn quái vật (port reference/web/js/games/funhunt.js): kiểu "survivor" nhìn từ trên xuống. Kéo ngón tay để chạy
+// Săn quái vật (port web js/games/funhunt.js): kiểu "survivor" nhìn từ trên xuống. Kéo ngón tay để chạy
 // (cần điều khiển ảo hiện ở chỗ chạm), bé TỰ BẮN quái gần nhất. Quái đến theo đợt, hết giờ thì trùm ra. Quái chết rơi ngọc;
 // đầy thanh ngọc → dừng game, chọn 1 trong 3 thẻ skill (12 skill × 5 cấp).
 // Mọi skill + cấp skill lưu vào carry (ctx.saveGear / FunResult.carry), mang sang cấp sau/lượt sau (trần tổng cấp kHuntCap).

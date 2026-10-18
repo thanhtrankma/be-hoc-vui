@@ -1,5 +1,5 @@
 // Đảo Toán đời sống: siêu thị mini, dài–ngắn, cao–thấp, nặng–nhẹ, đo bằng kẹp giấy và thước, thứ trong tuần, xem lịch.
-// CHỦ: agent B. Port của reference/web/js/games/life.js.
+// CHỦ: agent B. Port của web js/games/life.js.
 import 'dart:async';
 import 'dart:math' as math;
 

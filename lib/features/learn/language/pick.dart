@@ -1,5 +1,5 @@
 // Đảo Chữ cái và Tiếng Anh: nghe rồi chọn đúng chữ / hình.
-// CHỦ: agent A. Port của reference/web/js/games/pick.js.
+// CHỦ: agent A. Port của web js/games/pick.js.
 import 'package:flutter/material.dart';
 
 import 'package:be_vui_hoc/core/audio/audio_service.dart';

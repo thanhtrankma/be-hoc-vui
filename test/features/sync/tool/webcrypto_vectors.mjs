@@ -1,4 +1,4 @@
-// Sinh / kiểm tra vector đồng bộ bằng WebCrypto của Node — đúng thuật toán của reference/web/js/sync.js.
+// Sinh / kiểm tra vector đồng bộ bằng WebCrypto của Node — cài đặt độc lập của thuật toán trong lib/features/sync/sync_crypto.dart.
 //   node webcrypto_vectors.mjs make                 → in JSON vector (IV cố định để so từng byte)
 //   node webcrypto_vectors.mjs open <code> <blob>   → giải mã blob (do Dart tạo), in JSON gốc
 import {webcrypto as crypto} from 'node:crypto';
@@ -12,7 +12,7 @@ const hex = u8 => [...new Uint8Array(u8)].map(x => x.toString(16).padStart(2, '0
 async function deriveKeys(c) {
   const sid = hex(await crypto.subtle.digest('SHA-256', enc.encode('bvh-sync-id|' + normalize(c))));
   const base = await crypto.subtle.importKey('raw', enc.encode(normalize(c)), 'PBKDF2', false, ['deriveKey']);
-  // extractable = true chỉ để in khoá ra so (web dùng false, khoá giống hệt).
+  // extractable = true chỉ để in khoá ra so (khoá giống hệt khi không xuất được).
   const key = await crypto.subtle.deriveKey({name: 'PBKDF2', salt: enc.encode('bvh-sync-key-v1'), iterations: 150000, hash: 'SHA-256'},
     base, {name: 'AES-GCM', length: 256}, true, ['encrypt', 'decrypt']);
   return {sid, key, raw: hex(await crypto.subtle.exportKey('raw', key))};

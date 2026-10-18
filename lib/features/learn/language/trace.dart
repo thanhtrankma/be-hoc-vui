@@ -1,5 +1,5 @@
 // Đảo Tập viết: bé tô chữ/số bằng ngón tay trên dòng kẻ ô li. Mực chỉ chảy khi ngón tay đi đúng nét, đúng chiều.
-// CHỦ: agent A. Port của reference/web/js/games/trace.js (SVG → CustomPainter, getPointAtLength → PathMetric).
+// CHỦ: agent A. Port của web js/games/trace.js (SVG → CustomPainter, getPointAtLength → PathMetric).
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 

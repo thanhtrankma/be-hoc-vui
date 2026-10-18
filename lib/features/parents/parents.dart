@@ -1,8 +1,9 @@
-// Góc bố mẹ (/parent): cài đặt, các bé, sao lưu/khôi phục (store.exportData/importData), đồng bộ, góp ý, giới thiệu, ghi công.
-// Đã qua khoá bố mẹ trước khi vào (ParentButton). Link ra ngoài app chỉ có ở đây (chính sách app trẻ em).
-// CHỦ: agent I. Port của reference/web/js/app.js parent().
+// Góc bố mẹ (/parent): cài đặt, các bé, sao lưu/khôi phục (store.exportData/importData), đồng bộ, góp ý, giới thiệu,
+// quyền riêng tư, ghi công. Đã qua khoá bố mẹ trước khi vào (ParentButton). Link ra ngoài app chỉ có sau khoá bố mẹ
+// (chính sách app trẻ em). CHỦ: agent I. Port của parent() trong app.js bản web cũ (mã web đã gỡ khỏi repo).
 // Khác web: bỏ thẻ "Ủng hộ cà phê" (QR chuyển khoản — App Store/Google Play không cho nhận tiền ngoài IAP trong app trẻ em)
-// và thẻ "Cài lên màn hình chính" (chỉ dành cho PWA); thêm thẻ Phiên bản.
+// và thẻ "Cài lên màn hình chính" (chỉ dành cho PWA); thêm thẻ Quyền riêng tư và Phiên bản. Giới thiệu, Quyền riêng tư,
+// Ghi công là trang trong app (info_pages.dart).
 import 'dart:convert';
 
 import 'package:file_picker/file_picker.dart';
@@ -23,15 +24,12 @@ import 'package:be_vui_hoc/features/sync/firebase_setup.dart';
 import 'package:be_vui_hoc/features/tiers/tier_picker.dart';
 
 import 'certificate.dart';
+import 'info_pages.dart';
 import 'settings.dart';
 import 'sync_card.dart';
 
 /// Phiên bản hiển thị (khớp pubspec.yaml `version`).
 const String kAppVersion = '1.0.0';
-const String kZaloUrl = 'https://zalo.me/0888998098';
-const String kAboutUrl = 'https://datpilot.com/be-vui-hoc';
-const String kCreditsUrl = 'https://datpilot.com/be-vui-hoc/ghi-cong';
-const String kPrivacyUrl = 'https://datpilot.com/chinh-sach-bao-mat';
 
 /// Lưu / mở file sao lưu và link ngoài. Test override bằng bản giả.
 class ParentsIo {
@@ -98,6 +96,7 @@ class ParentsScreen extends ConsumerWidget {
         const SyncCard(),
         const FeedbackCard(),
         const ShareCard(),
+        const PrivacyCard(),
         const CreditsCard(),
         ParentsSection(title: i.t('version'), children: [LeftNote('Bé Vui Học $kAppVersion')]),
       ]),
@@ -271,15 +270,12 @@ class FeedbackCard extends ConsumerWidget {
   const FeedbackCard({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final io = ref.read(parentsIoProvider);
     return ParentsSection(title: '💬 Góp ý, báo lỗi', children: [
       const LeftNote(
-          'Bố mẹ thấy bài sai, game lỗi hay muốn thêm bài gì thì nhắn Zalo DatPilot 0888 998 098 (ghi máy đang dùng, ví dụ iPad, Android). Lỗi làm app thoát đột ngột được gửi tự động (không kèm tên bé hay dữ liệu học).'),
+          'Bố mẹ thấy bài sai, game lỗi hay muốn thêm bài gì thì gửi góp ý ở trang của Bé Vui Học trên App Store hoặc Google Play (mục đánh giá / liên hệ nhà phát triển), nhớ ghi máy đang dùng, ví dụ iPad, Android. App không tự gửi báo lỗi hay dữ liệu học của bé đi đâu.'),
       const SizedBox(height: 10),
       Wrap(spacing: 8, runSpacing: 8, children: [
-        SmallBtn(key: const Key('link-zalo'), label: '💬 Nhắn Zalo', onTap: () => io.openUrl(kZaloUrl)),
-        SmallBtn(key: const Key('link-about'), label: 'ℹ️ Giới thiệu', onTap: () => io.openUrl(kAboutUrl)),
-        SmallBtn(key: const Key('link-privacy'), label: '🔒 Quyền riêng tư', onTap: () => io.openUrl(kPrivacyUrl)),
+        SmallBtn(key: const Key('link-about'), label: 'ℹ️ Giới thiệu', onTap: () => openInfoPage(context, const AboutScreen())),
         SmallBtn(
           key: const Key('mic-reset'),
           label: '🎤 Hỏi lại về micro',
@@ -303,15 +299,33 @@ class ShareCard extends ConsumerWidget {
       const LeftNote('Bé Vui Học miễn phí. Bố mẹ thấy có ích thì gửi giúp vào nhóm Zalo của lớp hoặc bạn bè có con nhỏ nhé.'),
       const SizedBox(height: 10),
       Wrap(spacing: 8, runSpacing: 8, children: [
-        SmallBtn(key: const Key('share-app'), label: '📤 Chia sẻ Zalo, Facebook, Messenger…', onTap: () => io.shareText('$kAppPitch ${shareLink('app')}', subject: 'Bé Vui Học')),
+        SmallBtn(key: const Key('share-app'), label: '📤 Chia sẻ Zalo, Facebook, Messenger…', onTap: () => io.shareText('$kAppPitch $kShareUrl', subject: 'Bé Vui Học')),
         SmallBtn(
           key: const Key('copy-link'),
           label: '📋 Chép link',
           onTap: () async {
-            await Clipboard.setData(ClipboardData(text: '$kAppPitch ${shareLink('link')}'));
+            await Clipboard.setData(ClipboardData(text: '$kAppPitch $kShareUrl'));
             toast('Đã chép link, dán vào Zalo hoặc Facebook nhé');
           },
         ),
+      ]),
+    ]);
+  }
+}
+
+// ---------------------------------------------------------------- Quyền riêng tư
+class PrivacyCard extends ConsumerWidget {
+  const PrivacyCard({super.key});
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final en = ref.watch(i18nProvider).isEn;
+    return ParentsSection(title: en ? '🔒 Privacy policy' : '🔒 Chính sách quyền riêng tư', children: [
+      LeftNote(en
+          ? 'No account, no ads, no analytics. Progress stays on this device; sync (if on) stores only an end-to-end encrypted copy.'
+          : 'Không tài khoản, không quảng cáo, không đo lường. Tiến độ nằm trên máy; đồng bộ (nếu bật) chỉ lưu một bản đã mã hoá đầu-cuối.'),
+      const SizedBox(height: 10),
+      Wrap(spacing: 8, runSpacing: 8, children: [
+        SmallBtn(key: const Key('privacy-open'), label: en ? '📄 Read the policy' : '📄 Xem chính sách', onTap: () => openInfoPage(context, const PrivacyScreen())),
       ]),
     ]);
   }
@@ -326,61 +340,21 @@ class CreditsCard extends ConsumerStatefulWidget {
 
 class _CreditsCardState extends ConsumerState<CreditsCard> {
   bool _open = false;
-  String? _sfx;
-
-  Future<void> _toggle() async {
-    setState(() => _open = !_open);
-    if (_open && _sfx == null) {
-      try {
-        final t = await ref.read(parentsIoProvider).loadAssetText('assets/sfx/CREDITS.txt');
-        if (mounted) setState(() => _sfx = t);
-      } catch (_) {
-        if (mounted) setState(() => _sfx = '');
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     final i = ref.watch(i18nProvider);
     final photos = ref.watch(contentBundleProvider).photos;
-    final io = ref.read(parentsIoProvider);
-    const small = TextStyle(fontSize: 13, color: AppColors.inkSoft);
     return ParentsSection(title: i.t('credits'), children: [
       LeftNote(i.t('creditsNote', {'n': photos.length})),
       const SizedBox(height: 10),
       Wrap(spacing: 8, runSpacing: 8, children: [
-        SmallBtn(key: const Key('credits-show'), label: '${_open ? '▾' : '▸'} ${i.t('creditsShow')}', onTap: _toggle),
-        SmallBtn(key: const Key('link-credits'), label: '🌐 Ghi công (web)', onTap: () => io.openUrl(kCreditsUrl)),
+        SmallBtn(key: const Key('credits-show'), label: '${_open ? '▾' : '▸'} ${i.t('creditsShow')}', onTap: () => setState(() => _open = !_open)),
+        SmallBtn(key: const Key('link-credits'), label: i.isEn ? '🖼️ All credits' : '🖼️ Ghi công đầy đủ', onTap: () => openInfoPage(context, const CreditsScreen())),
       ]),
       if (_open) ...[
         const SizedBox(height: 10),
-        for (final e in photos.entries)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: Text.rich(
-              TextSpan(children: [
-                TextSpan(text: e.key, style: const TextStyle(fontWeight: FontWeight.w800, color: AppColors.ink)),
-                TextSpan(text: ' — ${e.value.by ?? '?'} — ${e.value.lic ?? ''} — '),
-                // Như web: mỗi ảnh dẫn tới trang tệp gốc trên Wikimedia (ghi công CC BY / BY-SA). Đã qua khoá bố mẹ.
-                if (e.value.src != null)
-                  WidgetSpan(
-                    alignment: PlaceholderAlignment.baseline,
-                    baseline: TextBaseline.alphabetic,
-                    child: GestureDetector(
-                      onTap: () => io.openUrl(e.value.src!),
-                      child: Text('Wikimedia Commons', style: small.copyWith(color: AppColors.blueDark, decoration: TextDecoration.underline)),
-                    ),
-                  )
-                else
-                  const TextSpan(text: 'Wikimedia Commons'),
-              ]),
-              style: small,
-            ),
-          ),
-        const SizedBox(height: 8),
-        Text(i.t('creditsSfx'), style: const TextStyle(fontWeight: FontWeight.w800)),
-        if (_sfx != null) SelectableText(_sfx!, style: small),
+        const CreditsList(sprites: false),
       ],
     ]);
   }

@@ -1,5 +1,7 @@
-// Firebase cho bản app: Crashlytics (báo lỗi), Remote Config (cờ tính năng), App Check (chống gọi giả API).
-// KHÔNG Analytics, KHÔNG quảng cáo (app thuộc nhóm Kids/Families của App Store & Google Play).
+// Firebase cho bản app: chỉ Remote Config (cờ tính năng) và Cloud Firestore (bản đồng bộ đã mã hoá, xem sync.dart).
+// KHÔNG Analytics, KHÔNG Crashlytics, KHÔNG App Check, KHÔNG quảng cáo (app thuộc nhóm Kids/Families của App Store &
+// Google Play). Lưu ý: Remote Config dùng Firebase Installations (một mã cài đặt ngẫu nhiên, không gắn với người dùng)
+// để tải cấu hình — đã khai trong chính sách quyền riêng tư và docs/STORE_PRIVACY.md.
 // Cấu hình: lib/firebase_options.dart (project bevuihoc-app, id com.iping.bevuihoc). An toàn: chạy test, nền tảng chưa
 // cấu hình hoặc khởi động lỗi thì initFirebase() chỉ ghi log rồi bỏ qua, app vẫn chạy bình thường (không chặn khi mất mạng).
 // CHỦ: agent I.
@@ -11,9 +13,7 @@
 import 'dart:async';
 import 'dart:io' show Platform;
 
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
@@ -23,8 +23,6 @@ import 'package:be_vui_hoc/firebase_options.dart';
 const Map<String, Object> kRemoteDefaults = {
   // Bật/tắt đồng bộ mã gia đình từ xa (vd. khi máy chủ bảo trì).
   'sync_enabled': true,
-  // Địa chỉ API đồng bộ (đổi máy chủ không cần ra bản mới).
-  'sync_api': 'https://datpilot.com/api/bvh/sync/',
   // Khu vui chơi / RPG có hiện không (bố mẹ vẫn tắt được trong Góc bố mẹ).
   'fun_zone_enabled': true,
   // Ôn tập thông minh.
@@ -77,7 +75,6 @@ class RemoteFlags {
   }
 
   static bool get syncEnabled => getBool('sync_enabled');
-  static String get syncApi => getString('sync_api');
   static bool get funZoneEnabled => getBool('fun_zone_enabled');
   static bool get reviewEnabled => getBool('review_enabled');
   static String parentNotice(String lang) => getString(lang == 'en' ? 'parent_notice_en' : 'parent_notice_vi');
@@ -103,34 +100,6 @@ Future<bool> initFirebase({FirebaseOptions? options}) async {
     return _skip('Firebase init failed ($e)');
   }
   FirebaseState.ready = true;
-
-  // ----- Crashlytics: bắt lỗi Flutter và lỗi bất đồng bộ. Tắt thu thập khi debug. -----
-  try {
-    final c = FirebaseCrashlytics.instance;
-    await c.setCrashlyticsCollectionEnabled(!kDebugMode);
-    final prevFlutter = FlutterError.onError;
-    FlutterError.onError = (details) {
-      c.recordFlutterFatalError(details);
-      prevFlutter?.call(details);
-    };
-    final prevPlatform = PlatformDispatcher.instance.onError;
-    PlatformDispatcher.instance.onError = (error, stack) {
-      c.recordError(error, stack, fatal: true);
-      return prevPlatform?.call(error, stack) ?? true;
-    };
-  } catch (e) {
-    debugPrint('[firebase] crashlytics: $e');
-  }
-
-  // ----- App Check: Play Integrity / App Attest (DeviceCheck dự phòng); debug provider khi debug. -----
-  try {
-    await FirebaseAppCheck.instance.activate(
-      providerAndroid: kDebugMode ? const AndroidDebugProvider() : const AndroidPlayIntegrityProvider(),
-      providerApple: kDebugMode ? const AppleDebugProvider() : const AppleAppAttestWithDeviceCheckFallbackProvider(),
-    );
-  } catch (e) {
-    debugPrint('[firebase] app check: $e');
-  }
 
   // ----- Remote Config: mặc định trước, tải bản mới ở nền (không chặn khởi động). -----
   try {

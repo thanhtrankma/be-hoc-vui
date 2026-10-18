@@ -1,5 +1,5 @@
 // Đảo Toán vui: cộng trừ có hình, so sánh, số đến 20, cộng trừ nhẩm, xem đồng hồ, hình học, số đến 100, lớp 1 nâng cao.
-// CHỦ: agent B. Port của reference/web/js/games/math.js.
+// CHỦ: agent B. Port của web js/games/math.js.
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';

@@ -1,6 +1,6 @@
 > **Bảng kiểm chi tiết (tiếng Anh) — trạng thái lúc kiểm tra, TRƯỚC khi sửa.** Các dòng PARTIAL/MISSING đã sửa được liệt kê ở `docs/QA_FEATURES.md` mục 4. Số dòng Flutter có thể lệch vài dòng sau khi sửa.
 
-# Parity audit: hunt + hero (web reference/web/js/games → Flutter lib/)
+# Parity audit: hunt + hero (web web js/games → Flutter lib/)
 
 Web: `W:funhunt.js`, `W:funhero.js`, `W:fun.js` (leveled loop), `W:app.js`, `W:funcore.js`, `W:figure.js`.
 Flutter: `D:funhunt.dart` = lib/features/fun/hub/funhunt.dart, `D:funhero.dart` = lib/features/fun/more/funhero.dart, `D:funkit.dart` = lib/features/fun/more/kit/funkit.dart, `D:hubcore` = lib/features/fun/hub/funcore.dart, `D:play` = lib/features/play/fun_play_screen.dart, `D:games` = lib/core/game/fun_games.dart.

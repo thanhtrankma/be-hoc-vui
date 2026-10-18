@@ -9,7 +9,6 @@ void main() {
     expect(FirebaseState.ready, isFalse);
     expect(FirebaseState.skippedReason, isNotNull);
     expect(RemoteFlags.syncEnabled, isTrue);
-    expect(RemoteFlags.syncApi, 'https://datpilot.com/api/bvh/sync/');
     expect(RemoteFlags.parentNotice('vi'), '');
     expect(RemoteFlags.minBuild, 0);
   });

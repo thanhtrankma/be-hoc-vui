@@ -24,7 +24,7 @@ class I18n {
     return s;
   }
 
-  /// Chữ dạng danh sách (vd. installSteps).
+  /// Chữ dạng danh sách (hiện chưa có khoá nào; không có thì trả danh sách rỗng).
   List<String> tList(String key) {
     final v = kStrings[lang]?[key] ?? kStrings['vi']![key];
     return v is List ? v.cast<String>() : const [];

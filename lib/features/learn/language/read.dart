@@ -1,5 +1,5 @@
 // Đảo Đọc truyện: truyện tranh chữ sáng theo giọng đọc (chạm từ để nghe), nghe – viết chính tả, bé đọc to.
-// CHỦ: agent A. Port của reference/web/js/games/read.js. Đọc to dùng speech_to_text (hỏi bố mẹ + khoá bố mẹ trước lần bật micro đầu).
+// CHỦ: agent A. Port của web js/games/read.js. Đọc to dùng speech_to_text (hỏi bố mẹ + khoá bố mẹ trước lần bật micro đầu).
 import 'dart:async';
 import 'dart:math' as math;
 

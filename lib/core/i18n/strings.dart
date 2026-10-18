@@ -1,4 +1,4 @@
-// Chữ trên giao diện (port nguyên bảng T của web js/i18n.js). Câu đọc to nằm ở data/voice.json.
+// Chữ trên giao diện (port bảng T của js/i18n.js bản web cũ, bỏ phần "Cài lên màn hình chính" chỉ dành cho web). Câu đọc to nằm ở data/voice.json.
 // File sinh từ i18n.js: muốn thêm chữ cho game riêng thì để trong thư mục của game, không sửa ở đây.
 // ignore_for_file: prefer_single_quotes
 
@@ -61,10 +61,6 @@ const Map<String, Map<String, Object>> kStrings = {
     'restore': 'Khôi phục từ file',
     'restored': 'Đã khôi phục tiến độ',
     'badFile': 'File không đúng',
-    'install': 'Cài lên màn hình chính',
-    'installBanner': 'Thêm vào màn hình chính để bé mở như app và giữ tiến độ.',
-    'installSteps': ['Mở trang này bằng Safari.', 'Bấm nút Chia sẻ (ô vuông có mũi tên lên).', 'Chọn "Thêm vào MH chính".', 'Mở Bé Vui Học từ biểu tượng ngôi sao.'],
-    'installWhy': 'Trên iPad, Safari tự xoá dữ liệu trang web sau 7 ngày không mở. Cài lên màn hình chính sẽ giữ tiến độ của bé.',
     'gotIt': 'Đã hiểu',
     'restTitle': 'Nghỉ mắt thôi!',
     'restText': 'Bé đã chơi đủ hôm nay. Uống nước, vận động rồi mai chơi tiếp nhé!',
@@ -211,10 +207,6 @@ const Map<String, Map<String, Object>> kStrings = {
     'restore': 'Restore from file',
     'restored': 'Progress restored',
     'badFile': 'Invalid file',
-    'install': 'Add to Home Screen',
-    'installBanner': 'Add to your Home Screen to open it like an app and keep progress.',
-    'installSteps': ['Open this page in Safari.', 'Tap the Share button (square with arrow).', 'Choose "Add to Home Screen".', 'Open Bé Vui Học from the star icon.'],
-    'installWhy': 'On iPad, Safari clears website data after 7 days without a visit. Installing keeps progress safe.',
     'gotIt': 'Got it',
     'restTitle': 'Rest your eyes!',
     'restText': 'You\'ve played enough today. Drink water, move around and come back tomorrow!',

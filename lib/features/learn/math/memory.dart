@@ -1,5 +1,5 @@
 // Đảo Trí nhớ: lật thẻ tìm cặp giống nhau. Mỗi lần lật, bé nghe tên con vật/đồ vật.
-// CHỦ: agent B. Port của reference/web/js/games/memory.js.
+// CHỦ: agent B. Port của web js/games/memory.js.
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';

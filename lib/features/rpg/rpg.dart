@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 // Thế giới phiêu lưu (/rpg): làng, cửa hàng, đồng đội, chọn vùng/màn, chơi một màn (/rpg/<vùng>/<màn>), bảng kết quả.
-// CHỦ: agent H. Port của reference/web/js/games/rpg.js + app.js rpgTown()/rpgPlay().
+// CHỦ: agent H. Port của web js/games/rpg.js + app.js rpgTown()/rpgPlay().
 // Một nhân vật đi qua 10 vùng đất, mỗi vùng một kiểu chơi, 5 màn + 1 trùm. Cấp, kinh nghiệm, vàng, trang bị, đồng đội
 // lưu ở p.rpg (cùng định dạng JSON với web). Mỗi màn tốn 1 vé (bố mẹ chơi thử: không tốn vé, không lưu).
 import 'dart:math' as math;

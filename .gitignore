@@ -48,3 +48,10 @@ app.*.map.json
 .widget_preview/
 
 .DS_Store
+
+# Firebase CLI / kiểm luật Firestore
+.firebase/
+firebase-debug*.log
+firestore-debug*.log
+ui-debug*.log
+firestore-tests/node_modules/

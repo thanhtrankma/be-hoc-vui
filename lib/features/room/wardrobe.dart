@@ -1,5 +1,5 @@
 // Tủ đồ (mua/đeo đồ cho linh vật). Store: store.buy(item), store.equip(slot, id), store.wallet(p). Widget linh vật mặc đồ: Dressed (core/ui/dressed.dart).
-// CHỦ: agent D. Port của reference/web/js/app.js room() / SLOTS.
+// CHỦ: agent D. Port của web js/app.js room() / SLOTS.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

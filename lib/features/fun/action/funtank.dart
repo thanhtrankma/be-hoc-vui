@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, library_private_types_in_public_api, constant_identifier_names
 // Xe tăng dũng cảm (Flame).
-// CHỦ: agent G. Port của reference/web/js/games/funtank.js.
+// CHỦ: agent G. Port của web js/games/funtank.js.
 // Lái tới chỗ chạm, tháp pháo tự ngắm. 8 loại đạn nhặt từ hộp (rơi từ địch/thùng gỗ), mỗi loại 5 sao; đổi đạn bằng nút bên trái.
 // Chiêu bên phải nạp năng lượng khi hạ địch: khiên điện, sửa xe, gọi không kích, xe tăng đồng minh (tối đa 2).
 // Kho đồ giữ qua màn (ctx.carry): {v, coins, wp: {loại: sao cao nhất}, cur, body, up: {hp, spd, rate, rng, ally}, allies, en}.

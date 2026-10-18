@@ -1,5 +1,5 @@
 // Đảo Âm nhạc: đàn mộc cầm 8 phím, học bài hát theo phím sáng, trò nhắc lại giai điệu.
-// CHỦ: agent B. Port của reference/web/js/games/music.js. Âm thanh: ctx.audio.note(i).
+// CHỦ: agent B. Port của web js/games/music.js. Âm thanh: ctx.audio.note(i).
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';

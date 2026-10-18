@@ -1,6 +1,11 @@
 # Bé Vui Học — Kiểm tra đủ tính năng so với bản web (QA parity)
 
-Ngày kiểm tra: 15/10/2026. Nguồn gốc so sánh: mã web `reference/web/` (index.html, css/app.css, js/app.js, store.js, audio.js,
+> **Cập nhật 18/10/2026:** mã web `reference/web/` đã được gỡ khỏi repo. Các test đối chiếu vẫn giữ nguyên ý nghĩa nhưng đọc
+> dữ liệu đã trích sẵn từ mã web (`test/parity/fixtures/web_sources.json`, `web_store_trace.json`) thay vì đọc mã web. Các số
+> dòng `*.js` trong `docs/qa/` là của bản web cũ. App không còn liên kết tới trang web cũ; đồng bộ chuyển sang Cloud Firestore;
+> 4 khoá chữ "Cài lên màn hình chính" (install*, chỉ dành cho web) đã bỏ khỏi `kStrings`.
+
+Ngày kiểm tra: 15/10/2026. Nguồn gốc so sánh: mã web `reference/web/` lúc đó (index.html, css/app.css, js/app.js, store.js, audio.js,
 i18n.js, ui.js, sync.js và 42 file `js/games/*.js` — tổng 48 module, 16.935 dòng JS) và dữ liệu `assets/data/`.
 Bản app: `lib/` (Flutter).
 
@@ -43,14 +48,14 @@ Ghi chú về cách đếm:
    chỗ tương ứng trong Dart (file:dòng) và so logic. Kết quả: các bảng ở `docs/qa/`.
 2. **Trích xuất máy móc** bằng script (node/python) ngay trên mã web: route, đảo, kiểu bài, danh sách game, khoá câu đọc,
    khoá chữ giao diện, tên hiệu ứng, tên hình (mục 3).
-3. **Test đối chiếu tự động** `test/parity/` (chạy trong `flutter test`) — đọc thẳng mã web trong `reference/web/` nên nếu web
-   đổi mà app chưa theo thì test hỏng:
+3. **Test đối chiếu tự động** `test/parity/` (chạy trong `flutter test`) — trước đọc thẳng mã web trong `reference/web/`; từ
+   18/10/2026 đọc dữ liệu đã trích từ mã web (`test/parity/fixtures/web_sources.json`) nên nếu app lệch khỏi bản web thì test hỏng:
 
 | File | Kiểm tra |
 |---|---|
 | `test/parity/web_sources_test.dart` | 48 game của `FUN_GAMES` (fun.js) = `kFunGames` (cùng thứ tự, kind, hình, tên vi/en, màu, hot, leveled) và đều có module; mọi câu `sayPhrase/phrase/tpl` web gọi có trong voice.json + có file mp3 + app cũng dùng; 21 hiệu ứng `sfx()` = các `case` của audio.js; tiếng thật thú cưng có file; mọi khoá `i18n.js` (vi + en) có trong `kStrings` với **cùng nội dung**; mọi tên hình trong content.json / `img('…')` của web / `EmojiImage('…')` của app đều có file; 17 màn của `route()` có trong router; danh sách màn được nhớ để mở lại = `RESUME` của web |
 | `test/parity/levels_render_test.dart` | Số bài từng đảo = dữ liệu web (647 bài); **từng bài một** của 15 đảo mở được game thật (không phải "Đang xây dựng") và chạy 1,2 giây không lỗi |
-| `test/parity/store_parity_test.dart` | Chạy **store.js thật của web** trong Node (`node test/parity/tool/web_store_trace.mjs`, đồng hồ + Math.random cố định) qua 186 thao tác (lượt chơi, giờ chơi, ví sao, thử thách ngày + chuỗi ngày, huy hiệu, vé, kỷ lục, cấp game, kho đồ, trả lời + nhầm lẫn + ôn tập ngắt quãng qua nhiều ngày, mốc, gộp dữ liệu máy khác, xoá bé, sao lưu/khôi phục); phát lại trên `AppStore` và so **kết quả + toàn bộ JSON lưu** sau từng bước |
+| `test/parity/store_parity_test.dart` | Bản ghi **store.js thật của web** chạy trong Node (đồng hồ + Math.random cố định; ghi sẵn trong `fixtures/web_store_trace.json`, công cụ sinh đã gỡ cùng mã web) qua 186 thao tác (lượt chơi, giờ chơi, ví sao, thử thách ngày + chuỗi ngày, huy hiệu, vé, kỷ lục, cấp game, kho đồ, trả lời + nhầm lẫn + ôn tập ngắt quãng qua nhiều ngày, mốc, gộp dữ liệu máy khác, xoá bé, sao lưu/khôi phục); phát lại trên `AppStore` và so **kết quả + toàn bộ JSON lưu** sau từng bước |
 | `test/parity/resume_route_test.dart` | Nhớ màn để mở lại (resumeRoute) và dừng câu đọc khi đổi màn |
 
 ---

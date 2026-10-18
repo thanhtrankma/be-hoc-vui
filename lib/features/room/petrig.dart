@@ -1,5 +1,5 @@
 // Khung xương thú cưng (vẽ thú có tư thế).
-// CHỦ: agent D. Port của reference/web/js/games/petrig.js.
+// CHỦ: agent D. Port của web js/games/petrig.js.
 //
 // Vẽ thú cưng động bằng Canvas (cún, mèo, thỏ, hamster, gấu trúc, cáo): thân, chân bước theo nhịp, đầu, tai, đuôi, mắt chớp.
 // Gốc toạ độ là điểm giữa hai chân trên mặt đất; u = chiều dài thân (px). Hướng mặt sang phải, f = -1 thì lật.

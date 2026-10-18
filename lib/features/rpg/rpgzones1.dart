@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 // Thế giới phiêu lưu: 5 vùng kiểu đấu trường (động cơ Arena trong rpgcore.dart).
 // Vùng 1 Rừng Xanh, 2 Biển Ngọc, 6 Thành Mây, 9 Đầm Lầy Ma, 10 Lâu Đài Rồng.
-// CHỦ: agent H. Port của reference/web/js/games/rpgzones1.js.
+// CHỦ: agent H. Port của web js/games/rpgzones1.js.
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 

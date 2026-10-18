@@ -2,7 +2,7 @@
 
 # Learn-island games — web vs Flutter parity audit
 
-Scope: reference/web/js/games/{pick,quiz,sheets,spell,trace,read,count,math,life,memory,explore,music,logic,code,art,figure}.js
+Scope: web js/games/{pick,quiz,sheets,spell,trace,read,count,math,life,memory,explore,music,logic,code,art,figure}.js
 vs lib/features/learn/{language,math,creative}/*.dart + lib/core/game/registry.dart.
 Level data: assets/data/app.json islands × assets/data/content.json (key resolved like app.js levelsOf():
 letters→letterLevels, english→englishLevels, else LEVEL_KEY[game]). (Script tạm lúc kiểm tra; kiểm tra tự động tương đương: test/parity/levels_render_test.dart.)

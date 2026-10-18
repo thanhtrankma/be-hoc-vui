@@ -1,5 +1,5 @@
 // Phòng thú cưng (/pet): nhận nuôi, cho ăn, tắm, chơi, ngủ. Khi bé học xong một bài, khung màn chơi đã cộng p.pet.happy/xp (như web).
-// CHỦ: agent D. Port của reference/web/js/games/pet.js (petScreen + adopt). Logic/vẽ phòng ở pet_sim.dart, vẽ con vật ở petrig.dart.
+// CHỦ: agent D. Port của web js/games/pet.js (petScreen + adopt). Logic/vẽ phòng ở pet_sim.dart, vẽ con vật ở petrig.dart.
 // Chỉ sửa file trong thư mục của mình; giữ nguyên tên công khai (PetScreen) vì router/registry trỏ tới.
 import 'dart:async';
 import 'dart:math' as math;

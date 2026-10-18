@@ -1,5 +1,5 @@
 // Đảo Ghép vần: dấu thanh, âm đầu, vần, ghép tiếng, nghe đánh vần, đọc từ, xếp câu, chính tả, đọc câu, điền từ.
-// CHỦ: agent A. Port của reference/web/js/games/spell.js. placeTone() ở core/content/vn_text.dart.
+// CHỦ: agent A. Port của web js/games/spell.js. placeTone() ở core/content/vn_text.dart.
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';

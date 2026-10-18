@@ -1,6 +1,6 @@
 // Ôn tập (/review, /review/all, /review/x/<mục>): dựng câu hỏi cho mục tới ngày ôn (store.dueItems), chạy bằng QuizView.
 // Xong: store.recordReview(stars), +1 vé nếu bật Khu vui chơi, mốc tiến bộ.
-// CHỦ: agent A. Port của reference/web/js/app.js reviewPlay()/reviewQ()/wordQ().
+// CHỦ: agent A. Port của web js/app.js reviewPlay()/reviewQ()/wordQ().
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';

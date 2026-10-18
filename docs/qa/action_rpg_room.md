@@ -4,7 +4,7 @@
 
 Method: I read every web file in scope and the matching Dart code. I also ran `numdiff.py` (in this folder), which pulls every numeric literal and quoted string out of each web game function and checks it against the Dart class. After excluding CSS, DOM class names, rgba colours, ms-to-seconds conversions and HUD pixel offsets, no gameplay constant is missing from any Dart port. I then checked logic flows by hand: shop/garage gating per ticket, AI, item effects, scoring, end banners, controls and voice lines.
 
-Paths: web = `reference/web/js/games/*.js` (app.js = `reference/web/js/app.js`); flutter = `lib/features/...`.
+Paths: web = `web js/games/*.js` (app.js = `web js/app.js`); flutter = `lib/features/...`.
 
 | # | file | game / feature | web ref | flutter ref | status | note |
 |---|------|----------------|---------|-------------|--------|------|

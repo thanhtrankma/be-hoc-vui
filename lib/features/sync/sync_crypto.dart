@@ -1,8 +1,8 @@
-// Mã hoá đồng bộ — port y hệt phần crypto của reference/web/js/sync.js để mã gia đình dùng chung giữa web và app:
+// Mã hoá đồng bộ (đầu-cuối: chỉ máy có mã gia đình mới giải được). Định dạng giữ nguyên như bản đầu tiên:
 //   sid  = hex(SHA-256('bvh-sync-id|' + normalize(code)))                 (tên ngăn trên máy chủ)
 //   key  = PBKDF2-HMAC-SHA256(normalize(code), salt 'bvh-sync-key-v1', 150000 vòng) → AES-GCM 256
 //   blob = base64(iv 12 byte + ciphertext + tag 16 byte), nội dung = JSON.stringify(store.snapshot())
-// Kiểm chứng tương thích: test/features/sync/sync_crypto_test.dart (vector sinh bằng WebCrypto của Node).
+// Tự kiểm: test/features/sync/sync_crypto_test.dart (vector AES-GCM / PBKDF2 cố định đã ghi lại từ WebCrypto).
 // CHỦ: agent I.
 import 'dart:convert';
 import 'dart:isolate';
@@ -11,7 +11,7 @@ import 'dart:typed_data';
 
 import 'package:cryptography/cryptography.dart';
 
-/// Bỏ I, L, O, 0, 1 cho khỏi nhầm khi đọc cho nhau (ALPHA của web).
+/// Bỏ I, L, O, 0, 1 cho khỏi nhầm khi đọc cho nhau .
 const String kSyncAlphabet = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
 const String kSyncSalt = 'bvh-sync-key-v1';
 const String kSyncIdPrefix = 'bvh-sync-id|';
@@ -23,7 +23,7 @@ String normalizeCode(String? s) => (s ?? '').toUpperCase().replaceAll(RegExp(r'[
 /// pretty(): nhóm 4 ký tự, nối bằng '-' (ABCD-EFGH-JKMN-PQRS).
 String prettyCode(String? c) => normalizeCode(c).replaceAllMapped(RegExp(r'(.{4})(?=.)'), (m) => '${m[1]}-');
 
-/// newCode(): 16 byte ngẫu nhiên an toàn, mỗi byte % 31 → 1 ký tự (giống hệt web, kể cả độ lệch nhẹ của phép %).
+/// newCode(): 16 byte ngẫu nhiên an toàn, mỗi byte % 31 → 1 ký tự (kể cả độ lệch nhẹ của phép %, giữ như bản đầu).
 String newFamilyCode([Random? rnd]) {
   final r = rnd ?? Random.secure();
   return prettyCode(List.generate(16, (_) => kSyncAlphabet[r.nextInt(256) % kSyncAlphabet.length]).join());
@@ -42,7 +42,7 @@ class SyncKeys {
 
 final AesGcm _aes = AesGcm.with256bits();
 
-/// deriveKeys(c) của web. Chạy thẳng trên isolate hiện tại (PBKDF2 150000 vòng tốn chừng 1 giây).
+/// Suy sid + khoá từ mã. Chạy thẳng trên isolate hiện tại (PBKDF2 150000 vòng tốn chừng 1 giây).
 Future<SyncKeys> deriveSyncKeysDirect(String code) async {
   final n = normalizeCode(code);
   final sid = _hex((await Sha256().hash(utf8.encode('$kSyncIdPrefix$n'))).bytes);

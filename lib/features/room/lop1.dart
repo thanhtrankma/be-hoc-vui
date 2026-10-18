@@ -1,5 +1,5 @@
 // Học cùng lớp (/lop1): lộ trình theo tuần học (content.kntt). Mở hoạt động: context.go("/play/<đảo>/<bài>/lop1") — khung màn chơi đã xử lý "bài tiếp"/thưởng vé theo bài sách (classDone).
-// CHỦ: agent D. Port của reference/web/js/app.js classScreen()/pickClassWeek().
+// CHỦ: agent D. Port của web js/app.js classScreen()/pickClassWeek().
 // Chỉ sửa file trong thư mục của mình; giữ nguyên tên công khai (Lop1Screen) vì router/registry trỏ tới.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -1,1 +1,66 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"bevuihoc-app","appId":"1:256849716805:android:adf2c1c6a1f9a7cface52c","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"bevuihoc-app","appId":"1:256849716805:ios:37f668da14631c28ace52c","uploadDebugSymbols":true,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"bevuihoc-app","configurations":{"android":"1:256849716805:android:adf2c1c6a1f9a7cface52c","ios":"1:256849716805:ios:37f668da14631c28ace52c"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "bevuihoc-app",
+          "appId": "1:256849716805:android:adf2c1c6a1f9a7cface52c",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "bevuihoc-app",
+          "appId": "1:256849716805:ios:37f668da14631c28ace52c",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "bevuihoc-app",
+          "configurations": {
+            "android": "1:256849716805:android:adf2c1c6a1f9a7cface52c",
+            "ios": "1:256849716805:ios:37f668da14631c28ace52c"
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "hosting": {
+    "public": "hosting/public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "Content-Security-Policy",
+            "value": "default-src 'none'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+          },
+          {
+            "key": "X-Content-Type-Options",
+            "value": "nosniff"
+          },
+          {
+            "key": "Referrer-Policy",
+            "value": "no-referrer"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=3600"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,7 +1,9 @@
 # lib/core — contracts for feature agents
 
-Foundation layer of the Flutter port of Bé Vui Học (`reference/web/` is the source of truth for behavior).
-Read this before porting a web module.
+Foundation layer of the Flutter port of Bé Vui Học. The original web source (`reference/web/`) was the source of truth
+during the port and has since been removed from the repo (18/10/2026); the facts the parity tests compare against are kept as
+fixtures in `test/parity/fixtures/` (`web_sources.json`, `web_store_trace.json`). "Web" below refers to that old version.
+Sync now uses Cloud Firestore through `SyncBackend` (`lib/features/sync/sync_backend.dart`; rules in `/firestore.rules`).
 
 ## 0. Folder ownership (hard rule)
 

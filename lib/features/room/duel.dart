@@ -1,5 +1,5 @@
 // Bố con thi tài (/duel): hai người chơi trên một máy.
-// CHỦ: agent D. Port của reference/web/js/games/duel.js.
+// CHỦ: agent D. Port của web js/games/duel.js.
 // Chỉ sửa file trong thư mục của mình; giữ nguyên tên công khai (DuelScreen) vì router/registry trỏ tới.
 //
 // Chia đôi màn hình, cùng một câu hỏi, ai bấm đúng trước được điểm.
