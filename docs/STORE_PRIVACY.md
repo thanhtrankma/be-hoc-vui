@@ -14,7 +14,7 @@ deploy `firebase deploy --only firestore:rules,hosting`, rồi mới dán URL ch
 | Tên gọi của bé (≤ 20 ký tự), linh vật, tiến độ học, thời gian học, cài đặt | Chỉ trên máy (`shared_preferences`) | Không tài khoản, không email, không ngày sinh, không ảnh |
 | Đồng bộ "mã gia đình" (tuỳ chọn, mặc định TẮT, bật ở Góc bố mẹ sau khoá bố mẹ) | Cloud Firestore `syncs/{sid}`, vùng asia-southeast1 | Chỉ khối dữ liệu **mã hoá đầu-cuối** AES-256-GCM (khoá suy từ mã 16 ký tự, PBKDF2 150.000 vòng, mã không bao giờ gửi đi) + số phiên bản + giờ cập nhật; sid = SHA-256 của mã. Nhà phát triển không đọc được. Xoá được ngay: "Xoá bản trên máy chủ" |
 | Firebase Remote Config | Google (Firebase) | Mỗi lần mở app (tối đa 6 giờ/lần) tải cấu hình chung. Thư viện Firebase Installations tạo **Firebase installation ID** (FID, ngẫu nhiên theo lần cài) + token; gửi kèm phiên bản app/OS/SDK, ngôn ngữ/vùng; Google thấy IP. Không dùng để phân tích/quảng cáo. **Không thể tắt** nếu giữ Remote Config |
-| Đọc to (speech_to_text) | Dịch vụ nhận giọng của hệ điều hành (Apple / Google) | Chỉ khi bố mẹ đồng ý + qua khoá bố mẹ; app không ghi âm, không lưu, không gửi âm thanh tới máy chủ của nhà phát triển |
+| Đọc to (speech_to_text, `onDevice: true`) | Bộ nhận giọng của hệ điều hành, **chạy trên máy** | Chỉ khi bố mẹ đồng ý + qua khoá bố mẹ; máy không có bộ nhận tại chỗ thì micro tắt. Không ghi âm, không lưu, không gửi âm thanh đi đâu |
 | Sao lưu file, bằng khen, chia sẻ, link ngoài | Bảng chia sẻ / trình duyệt của máy, do bố mẹ chọn | Tất cả sau khoá bố mẹ; link chia sẻ là https://bevuihoc-app.web.app/ (không tham số theo dõi) |
 | Quảng cáo, Analytics, Crashlytics, App Check, mua trong app, đăng nhập | **Không có** | Đã gỡ khỏi pubspec, gradle, Xcode |
 | Quyền máy | Android: `INTERNET`, `RECORD_AUDIO`, `ACCESS_NETWORK_STATE` (Firestore tự thêm). iOS: micro + nhận dạng giọng nói (hỏi lúc dùng) | Không có `AD_ID`, vị trí, danh bạ, ảnh, thông báo |
@@ -45,7 +45,7 @@ Không khai (lý do):
   ở dạng **mã hoá đầu-cuối** (chỉ máy có mã gia đình giải được) — theo hướng dẫn Data safety, dữ liệu mã hoá đầu-cuối mà
   nhà phát triển không đọc được không tính là "collected". (Nếu muốn khai thận trọng hơn: App activity → "Other user-generated
   content", Collected, Optional, App functionality, không shared.)
-- **Audio → Voice or sound recordings**: app không truyền âm thanh; việc nhận giọng do dịch vụ của hệ điều hành (Google) thực hiện
+- **Audio → Voice or sound recordings**: không thu — nhận giọng chạy trên máy (on-device), âm thanh không rời khỏi máy
   theo chính sách của Google. (Khai thận trọng: Collected, **Ephemeral = Yes**, Optional, App functionality.)
 - **Crash logs / Diagnostics / Analytics**: không có (đã gỡ Crashlytics).
 - **Location, Contacts, Photos, Financial, Messages, Web browsing**: không có.
@@ -79,7 +79,7 @@ Không khai (lý do):
 - **User Content / Usage Data / Contact Info / Health / Location…**: không thu. Bản đồng bộ là dữ liệu mã hoá đầu-cuối; theo định
   nghĩa của Apple, dữ liệu mà nhà phát triển và đối tác không truy cập được (không đọc được) không tính là "collect".
   (Khai thận trọng nếu muốn: User Content → Other User Content, App Functionality, Not linked, No tracking.)
-- **Audio Data**: không thu; nhận giọng do Apple Speech framework xử lý theo chính sách của Apple.
+- **Audio Data**: không thu; nhận giọng bằng Apple Speech framework ở chế độ trên máy (on-device), âm thanh không rời khỏi máy.
 - **Diagnostics (Crash Data, Performance Data)**: không có (đã gỡ Crashlytics).
 
 **Tracking (ATT)**: Không theo dõi → không cần App Tracking Transparency; không có IDFA.
@@ -96,8 +96,8 @@ Không khai (lý do):
 - **Privacy Policy URL**: https://bevuihoc-app.web.app/privacy . **Support URL**: https://bevuihoc-app.web.app/ (cần email liên hệ).
 - **Privacy manifest**: các SDK Firebase và plugin Flutter (shared_preferences…) tự kèm `PrivacyInfo.xcprivacy`; app không dùng
   API "required reason" nào khác. Kiểm bằng Xcode → Product → Archive → Generate Privacy Report trước khi nộp.
-- `NSMicrophoneUsageDescription` / `NSSpeechRecognitionUsageDescription` (Info.plist) đã ghi rõ: chỉ khi bố mẹ đồng ý, Apple xử
-  lý tiếng đọc, app không lưu âm thanh.
+- `NSMicrophoneUsageDescription` / `NSSpeechRecognitionUsageDescription` (Info.plist) đã ghi rõ: chỉ khi bố mẹ đồng ý, nhận giọng
+  ngay trên máy, app không lưu hay gửi âm thanh.
 
 ## 4. Remote Config và Firebase Installations — cân nhắc
 

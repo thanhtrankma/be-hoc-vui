@@ -29,8 +29,8 @@ Khi mở, ứng dụng tải một số cài đặt chung từ Firebase Remote C
 ## 4. Đọc to và micro
 
 - Trò "Bé đọc to" chỉ bật micro sau khi **bố mẹ đồng ý và trả lời đúng khoá bố mẹ**. Bố mẹ có thể chọn "Không bật" và tự chấm, hoặc bấm "Hỏi lại về micro" trong Góc bố mẹ.
-- Khi bật, tiếng bé đọc được **dịch vụ nhận dạng giọng nói của hệ điều hành** xử lý để chuyển thành chữ: Apple trên iPhone/iPad, Google trên Android (có thể xử lý trên máy hoặc trên máy chủ của hãng, theo chính sách của Apple/Google).
-- Bé Vui Học **không ghi âm, không lưu và không gửi** âm thanh tới máy chủ của chúng tôi; chỉ dùng chữ nhận được ngay lúc đó để khen bé.
+- Khi bật, tiếng bé đọc được **bộ nhận dạng giọng nói có sẵn của hệ điều hành xử lý ngay trên máy** (Apple trên iPhone/iPad, Google trên Android) để chuyển thành chữ. Ứng dụng yêu cầu chế độ nhận giọng **trên máy**: nếu máy không có bộ nhận giọng tiếng Việt chạy tại chỗ, micro không được bật và bố mẹ tự chấm — tiếng bé không bị gửi qua mạng.
+- Bé Vui Học **không ghi âm, không lưu và không gửi** âm thanh đi đâu; chỉ dùng chữ nhận được ngay lúc đó để khen bé.
 - Quyền micro (và quyền nhận dạng giọng nói trên iOS) chỉ được hỏi vào lúc này; bố mẹ có thể tắt bất cứ lúc nào trong Cài đặt của máy.
 
 ## 5. Sao lưu, chia sẻ và liên kết ngoài
@@ -43,7 +43,7 @@ Khi mở, ứng dụng tải một số cài đặt chung từ Firebase Remote C
 - Không quảng cáo, không mua trong ứng dụng, không đăng nhập mạng xã hội.
 - Không thu thập vị trí, danh bạ, ảnh, mã quảng cáo hay định danh thiết bị để theo dõi.
 - Không phân tích hành vi, không theo dõi qua ứng dụng/trang web khác.
-- Không bán, cho thuê hay chia sẻ dữ liệu với bên thứ ba. Bên duy nhất xử lý dữ liệu cho chúng tôi là Google (Firebase) như mô tả ở mục 2 và 3; nhận dạng giọng nói (mục 4) do hệ điều hành của máy cung cấp.
+- Không bán, cho thuê hay chia sẻ dữ liệu với bên thứ ba. Bên duy nhất xử lý dữ liệu cho chúng tôi là Google (Firebase) như mô tả ở mục 2 và 3; nhận dạng giọng nói (mục 4) chạy ngay trên máy, do hệ điều hành cung cấp.
 
 ## 7. Trẻ em
 

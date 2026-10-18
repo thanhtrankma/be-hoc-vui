@@ -29,8 +29,8 @@ When it starts, the app downloads a few general settings from Google's Firebase 
 ## 4. Read-aloud and the microphone
 
 - The "Read aloud" activity only turns on the microphone after **a parent agrees and passes the parental gate**. Parents can choose "Not now" and mark answers themselves, or tap "Ask about the microphone again" ("Hỏi lại về micro") in the Parents area.
-- When enabled, the child's voice is processed by the **operating system's speech recognition service** to turn it into text: Apple on iPhone/iPad, Google on Android (on the device or on the provider's servers, under Apple's/Google's own policies).
-- Bé Vui Học **does not record, store or send** audio to our servers; it only uses the recognized text at that moment to praise the child.
+- When enabled, the child's voice is turned into text by the **operating system's built-in speech recognizer running on the device** (Apple on iPhone/iPad, Google on Android). The app requires **on-device** recognition: if the device has no on-device Vietnamese recognizer, the microphone stays off and parents mark answers themselves — the child's voice is never sent over the network.
+- Bé Vui Học **does not record, store or send** audio anywhere; it only uses the recognized text at that moment to praise the child.
 - The microphone permission (and speech recognition permission on iOS) is only requested at that point; parents can revoke it at any time in the device Settings.
 
 ## 5. Backup, sharing and external links
@@ -43,7 +43,7 @@ When it starts, the app downloads a few general settings from Google's Firebase 
 - No ads, no in-app purchases, no social login.
 - No collection of location, contacts, photos, advertising IDs or device identifiers for tracking.
 - No behavioural analytics and no tracking across other apps or websites.
-- No selling, renting or sharing of data with third parties. The only party processing data for us is Google (Firebase) as described in sections 2 and 3; speech recognition (section 4) is provided by the device's operating system.
+- No selling, renting or sharing of data with third parties. The only party processing data for us is Google (Firebase) as described in sections 2 and 3; speech recognition (section 4) runs on the device, provided by its operating system.
 
 ## 7. Children
 

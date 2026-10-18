@@ -3,7 +3,7 @@
 <plist version="1.0">
 	<dict>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Bé đọc to để app nghe và khen (chỉ khi bố mẹ đồng ý). Tiếng đọc do dịch vụ nhận giọng nói của Apple xử lý; Bé Vui Học không ghi âm hay lưu âm thanh.</string>
+	<string>Bé đọc to để app nghe và khen (chỉ khi bố mẹ đồng ý). Tiếng đọc được nhận dạng ngay trên máy, không gửi đi đâu; Bé Vui Học không ghi âm hay lưu âm thanh.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Nhận ra tiếng bé đọc trong bài Đọc truyện (chỉ khi bố mẹ đồng ý).</string>
 		<key>CADisableMinimumFrameDurationOnPhone</key>
