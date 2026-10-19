@@ -1,10 +1,10 @@
 # Khai báo quyền riêng tư cho cửa hàng — Bé Vui Học
 
-Cập nhật: 18/10/2026. Khớp với mã nguồn sau khi bỏ trang web cũ, bỏ Crashlytics + App Check, đồng bộ chuyển sang Cloud
-Firestore. Chính sách đầy đủ: `assets/legal/privacy_vi.md` / `privacy_en.md` (trong app: Góc bố mẹ → 🔒 Chính sách quyền
+Cập nhật: 19/10/2026. Khớp với mã nguồn sau khi bỏ trang web cũ, bỏ Crashlytics, App Check và Remote Config; đồng bộ
+chuyển sang Cloud Firestore. Chính sách đầy đủ: `assets/legal/privacy_vi.md` / `privacy_en.md` (trong app: Góc bố mẹ → 🔒 Chính sách quyền
 riêng tư; trên web: https://bevuihoc-app.web.app/privacy và https://bevuihoc-app.web.app/privacy/en).
 
-Trước khi gửi duyệt: điền email ở `[EMAIL LIÊN HỆ]` (4 file `assets/legal/*.md`), chạy `python3 hosting/build_pages.py`,
+Trước khi gửi duyệt: điền email ở `beatgone2503@gmail.com` (4 file `assets/legal/*.md`), chạy `python3 hosting/build_pages.py`,
 deploy `firebase deploy --only firestore:rules,hosting`, rồi mới dán URL chính sách vào hai cửa hàng.
 
 ## 0. Hành vi thật của app (căn cứ để trả lời)
@@ -13,53 +13,32 @@ deploy `firebase deploy --only firestore:rules,hosting`, rồi mới dán URL ch
 |---|---|---|
 | Tên gọi của bé (≤ 20 ký tự), linh vật, tiến độ học, thời gian học, cài đặt | Chỉ trên máy (`shared_preferences`) | Không tài khoản, không email, không ngày sinh, không ảnh |
 | Đồng bộ "mã gia đình" (tuỳ chọn, mặc định TẮT, bật ở Góc bố mẹ sau khoá bố mẹ) | Cloud Firestore `syncs/{sid}`, vùng asia-southeast1 | Chỉ khối dữ liệu **mã hoá đầu-cuối** AES-256-GCM (khoá suy từ mã 16 ký tự, PBKDF2 150.000 vòng, mã không bao giờ gửi đi) + số phiên bản + giờ cập nhật; sid = SHA-256 của mã. Nhà phát triển không đọc được. Xoá được ngay: "Xoá bản trên máy chủ" |
-| Firebase Remote Config | Google (Firebase) | Mỗi lần mở app (tối đa 6 giờ/lần) tải cấu hình chung. Thư viện Firebase Installations tạo **Firebase installation ID** (FID, ngẫu nhiên theo lần cài) + token; gửi kèm phiên bản app/OS/SDK, ngôn ngữ/vùng; Google thấy IP. Không dùng để phân tích/quảng cáo. **Không thể tắt** nếu giữ Remote Config |
 | Đọc to (speech_to_text, `onDevice: true`) | Bộ nhận giọng của hệ điều hành, **chạy trên máy** | Chỉ khi bố mẹ đồng ý + qua khoá bố mẹ; máy không có bộ nhận tại chỗ thì micro tắt. Không ghi âm, không lưu, không gửi âm thanh đi đâu |
 | Sao lưu file, bằng khen, chia sẻ, link ngoài | Bảng chia sẻ / trình duyệt của máy, do bố mẹ chọn | Tất cả sau khoá bố mẹ; link chia sẻ là https://bevuihoc-app.web.app/ (không tham số theo dõi) |
-| Quảng cáo, Analytics, Crashlytics, App Check, mua trong app, đăng nhập | **Không có** | Đã gỡ khỏi pubspec, gradle, Xcode |
+| Quảng cáo, Analytics, Crashlytics, App Check, Remote Config, Firebase Installations, mua trong app, đăng nhập | **Không có** | Đã gỡ khỏi pubspec, gradle, Xcode |
 | Quyền máy | Android: `INTERNET`, `RECORD_AUDIO`, `ACCESS_NETWORK_STATE` (Firestore tự thêm). iOS: micro + nhận dạng giọng nói (hỏi lúc dùng) | Không có `AD_ID`, vị trí, danh bạ, ảnh, thông báo |
 
-Kiểm lại trước mỗi bản phát hành: `grep -rn "firebase_\|cloud_firestore" pubspec.yaml`, `unzip -l app-release.apk | grep -i -E "crashlytics|appcheck|measurement|ads"`
+Kiểm lại trước mỗi bản phát hành: `grep -rn "firebase_\|cloud_firestore" pubspec.yaml`, `./gradlew app:dependencies` không có `firebase-installations`, `crashlytics`, `measurement`, `ads`
 (phải trống), và manifest sau gộp không có `com.google.android.gms.permission.AD_ID`.
 
 ## 1. Google Play — Data safety (An toàn dữ liệu)
 
-**Does your app collect or share any of the required user data types?** → **Yes** (vì Firebase installation ID).
+**Does your app collect or share any of the required user data types?** → **No.**
 
-Nếu sau này gỡ Remote Config (xem mục 4) thì có thể trả lời **No** (đồng bộ là dữ liệu mã hoá đầu-cuối, xem dưới).
+Lý do: dữ liệu học và tên gọi chỉ ở trên máy. Khi bố mẹ tự bật đồng bộ, dữ liệu rời máy ở dạng **mã hoá đầu-cuối** (chỉ
+máy có mã gia đình giải được, nhà phát triển không đọc được). App không có Analytics, Crashlytics, Remote Config, Firebase
+Installations, mã quảng cáo hay định danh thiết bị. Nhận giọng (đọc to) chạy trên máy, âm thanh không rời máy.
 
-**Is all of the user data collected by your app encrypted in transit?** → **Yes** (TLS tới Firebase).
-
-**Do you provide a way for users to request that their data is deleted?** → **Yes** — trong app: Góc bố mẹ → Xoá bé /
-"Xoá bản trên máy chủ"; gỡ app xoá dữ liệu trên máy và FID. (App không có tài khoản nên không cần trang yêu cầu xoá tài khoản;
-nếu Console vẫn hỏi URL, dùng https://bevuihoc-app.web.app/privacy — mục 8 hướng dẫn xoá.)
-
-Kiểu dữ liệu cần khai:
-
-| Nhóm Play | Kiểu | Collected | Shared | Ephemeral | Bắt buộc? | Mục đích |
-|---|---|---|---|---|---|---|
-| Device or other IDs | Firebase installation ID | **Yes** | No (Google xử lý thay nhà phát triển = service provider, không tính "shared") | No | Required | App functionality |
-
-Không khai (lý do):
-- **App activity / App info and performance / Personal info**: tiến độ, tên gọi chỉ ở trên máy. Khi bật đồng bộ, dữ liệu rời máy
-  ở dạng **mã hoá đầu-cuối** (chỉ máy có mã gia đình giải được) — theo hướng dẫn Data safety, dữ liệu mã hoá đầu-cuối mà
-  nhà phát triển không đọc được không tính là "collected". (Nếu muốn khai thận trọng hơn: App activity → "Other user-generated
-  content", Collected, Optional, App functionality, không shared.)
-- **Audio → Voice or sound recordings**: không thu — nhận giọng chạy trên máy (on-device), âm thanh không rời khỏi máy
-  theo chính sách của Google. (Khai thận trọng: Collected, **Ephemeral = Yes**, Optional, App functionality.)
-- **Crash logs / Diagnostics / Analytics**: không có (đã gỡ Crashlytics).
-- **Location, Contacts, Photos, Financial, Messages, Web browsing**: không có.
-
-**Security practices:** encrypted in transit: Yes; deletion request: Yes. Không chọn "Independent security review".
+Nếu muốn khai thận trọng cho phần đồng bộ: App activity → "Other user-generated content": Collected, **Optional**, App
+functionality, không shared, encrypted in transit: Yes, deletion: Yes (Góc bố mẹ → "Xoá bản trên máy chủ").
 
 ## 2. Google Play — Families / Target audience and content
 
 - **Target age group**: **5 tuổi trở xuống** và **6–8 tuổi** (app cho bé 3–6). Không chọn nhóm 13+.
 - **Appeal to children**: Yes — app được thiết kế cho trẻ em → tuân thủ **Families Policy**.
 - **Ads**: Không chứa quảng cáo. **In-app purchases**: không. **Account / login**: không.
-- **SDK**: chỉ Firebase (core, Remote Config, Cloud Firestore) — không phải SDK quảng cáo; không thu AAID / Android ID;
-  không truyền thông tin định danh của trẻ (FID là ID ngẫu nhiên theo lần cài, không gắn người). Ghi rõ điều này nếu Play hỏi về
-  "identifiers from children" — nếu reviewer coi FID là định danh thiết bị, phương án là gỡ Remote Config (mục 4).
+- **SDK**: chỉ Firebase core + Cloud Firestore (dùng cho đồng bộ mã hoá đầu-cuối) — không phải SDK quảng cáo/đo lường;
+  không thu AAID / Android ID / Firebase installation ID; không truyền định danh nào của trẻ.
 - **Parental gate**: Góc bố mẹ, bật micro, chia sẻ, liên kết ngoài, Giới thiệu/Ghi công/Chính sách (kể cả ở màn Bắt đầu) đều
   qua phép nhân 2 chữ số × 1 chữ số (12–49 × 3–9).
 - **Content rating (IARC)**: giáo dục; có mini-game bắn súng / xe tăng / đánh quái kiểu hoạt hình — trả lời trung thực mục
@@ -69,18 +48,11 @@ Không khai (lý do):
 
 ## 3. Apple App Store — App Privacy (nhãn dinh dưỡng) + Kids Category
 
-**Do you or your third-party partners collect data from this app?** → **Yes** (Firebase installation ID của Remote Config).
+**Do you or your third-party partners collect data from this app?** → **No** → nhãn **"Data Not Collected"**.
 
-| Loại Apple | Kiểu | Mục đích | Linked to user? | Used for tracking? |
-|---|---|---|---|---|
-| Identifiers | **Device ID** (Firebase installation ID) | App Functionality | **No** | **No** |
-
-Không khai (lý do):
-- **User Content / Usage Data / Contact Info / Health / Location…**: không thu. Bản đồng bộ là dữ liệu mã hoá đầu-cuối; theo định
-  nghĩa của Apple, dữ liệu mà nhà phát triển và đối tác không truy cập được (không đọc được) không tính là "collect".
-  (Khai thận trọng nếu muốn: User Content → Other User Content, App Functionality, Not linked, No tracking.)
-- **Audio Data**: không thu; nhận giọng bằng Apple Speech framework ở chế độ trên máy (on-device), âm thanh không rời khỏi máy.
-- **Diagnostics (Crash Data, Performance Data)**: không có (đã gỡ Crashlytics).
+Lý do: như mục 1 — dữ liệu ở trên máy; bản đồng bộ (tuỳ chọn) là dữ liệu mã hoá đầu-cuối mà nhà phát triển và Google không
+đọc được; nhận giọng bằng Apple Speech framework ở chế độ trên máy (on-device); không Crashlytics/Analytics/định danh thiết bị.
+(Khai thận trọng nếu muốn: User Content → Other User Content, App Functionality, Not linked, No tracking.)
 
 **Tracking (ATT)**: Không theo dõi → không cần App Tracking Transparency; không có IDFA.
 
@@ -89,23 +61,23 @@ Không khai (lý do):
 - Không quảng cáo, không analytics bên thứ ba, không mua trong app.
 - Link ra ngoài, chia sẻ, xin quyền micro: **sau parental gate** (phép nhân 2×1 chữ số). Trang Giới thiệu / Ghi công / Chính sách
   ở màn Bắt đầu cũng sau gate.
-- Lưu ý rủi ro: Apple yêu cầu app Kids không gửi "personally identifiable information or device information" tới bên thứ ba.
-  Remote Config gửi FID + thông tin phiên bản tới Google. Ghi chú cho reviewer: "Firebase Remote Config is used only to fetch
-  static feature flags; no analytics, no advertising, no user identification. Optional family sync stores only an
-  end-to-end encrypted blob." Nếu bị từ chối vì lý do này → gỡ Remote Config (mục 4).
-- **Privacy Policy URL**: https://bevuihoc-app.web.app/privacy . **Support URL**: https://bevuihoc-app.web.app/ (cần email liên hệ).
-- **Privacy manifest**: các SDK Firebase và plugin Flutter (shared_preferences…) tự kèm `PrivacyInfo.xcprivacy`; app không dùng
+- Không gửi thông tin cá nhân hay thông tin thiết bị tới bên thứ ba. Ghi chú cho reviewer: "No analytics, no advertising,
+  no device identifiers. Optional family sync stores only an end-to-end encrypted blob in Cloud Firestore."
+- **Privacy Policy URL**: https://bevuihoc-app.web.app/privacy . **Support URL**: https://bevuihoc-app.web.app/ (email beatgone2503@gmail.com).
+- **Privacy manifest**: các SDK Firebase (core, Firestore) và plugin Flutter (shared_preferences…) tự kèm `PrivacyInfo.xcprivacy`; app không dùng
   API "required reason" nào khác. Kiểm bằng Xcode → Product → Archive → Generate Privacy Report trước khi nộp.
 - `NSMicrophoneUsageDescription` / `NSSpeechRecognitionUsageDescription` (Info.plist) đã ghi rõ: chỉ khi bố mẹ đồng ý, nhận giọng
   ngay trên máy, app không lưu hay gửi âm thanh.
 
-## 4. Remote Config và Firebase Installations — cân nhắc
+## 4. Remote Config đã gỡ (19/10/2026)
 
-`firebase_remote_config` luôn kéo theo **Firebase Installations** (FID + token, gửi lên `firebaseinstallations.googleapis.com`)
-— đó là lý do duy nhất phải khai "Device or other IDs" / "Device ID". App hiện chỉ dùng Remote Config cho: `sync_enabled`,
-`fun_zone_enabled`, `review_enabled`, `parent_notice_vi/en`, `min_build` (mặc định có sẵn trong app, `kRemoteDefaults`).
+Trước đây app dùng Firebase Remote Config, kéo theo Firebase Installations (gửi mã cài đặt FID lên Google) — buộc phải khai
+"Device ID". Đã gỡ gói `firebase_remote_config`; các cờ tính năng (`sync_enabled`, `fun_zone_enabled`, `review_enabled`,
+`parent_notice_*`, `min_build`) giờ là giá trị cố định trong app (`kRemoteDefaults`, `lib/features/sync/firebase_setup.dart`).
+Muốn đổi thì phát hành bản mới. **Đừng thêm lại** Remote Config, Analytics, Crashlytics, Messaging hay In-App Messaging nếu
+không cập nhật chính sách và khai báo store.
 
-- Giữ Remote Config: khai như mục 1 và 3 (đã soạn sẵn ở trên).
-- Gỡ Remote Config (khuyến nghị nếu muốn nhãn "Data Not Collected" và giảm rủi ro duyệt Kids): xoá gói, để `RemoteFlags` trả
-  `kRemoteDefaults`; khi đó Firestore là thư viện Firebase duy nhất gửi dữ liệu (chỉ khi bật đồng bộ, chỉ bản mã hoá) và có thể
-  trả lời "No data collected" ở cả hai cửa hàng.
+Lưu ý iOS: plugin `firebase_core` (FlutterFire, Swift Package) luôn liên kết sẵn thư viện `FirebaseInstallations`, nhưng
+không plugin nào của app gọi tới nó (Firestore không dùng FID), nên không có mã cài đặt nào được tạo hay gửi đi. Khi Archive,
+mở Xcode → Generate Privacy Report để xem tổng hợp privacy manifest; nếu báo cáo liệt kê "Device ID" do manifest của thư viện
+này, nội dung khai báo ở mục 3 vẫn đúng với hành vi thật (dữ liệu không được thu).

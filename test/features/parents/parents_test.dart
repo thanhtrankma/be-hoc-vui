@@ -270,7 +270,7 @@ void main() {
     expect(find.byKey(const Key('legal-privacy')), findsOneWidget);
     expect(find.text('Chính sách quyền riêng tư — Bé Vui Học'), findsOneWidget);
     expect(find.textContaining('asia-southeast1', findRichText: true), findsWidgets);
-    expect(find.textContaining('[EMAIL LIÊN HỆ]', findRichText: true), findsOneWidget);
+    expect(find.textContaining('beatgone2503@gmail.com', findRichText: true), findsOneWidget);
     await tapKey(tester, 'privacy-web');
     expect(io.opened, ['https://bevuihoc-app.web.app/privacy']);
     await tapKey(tester, 'info-back');

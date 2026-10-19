@@ -1,6 +1,6 @@
 # Privacy Policy — Bé Vui Học
 
-Effective date: 18 October 2026
+Effective date: 19 October 2026
 
 Bé Vui Học is a learn-through-play app for children aged 3–6. This policy explains what data the app handles, where it is kept and how parents can delete it. In short: **no accounts, no email, no ads, no analytics, no in-app purchases, no tracking, and no selling or sharing of data**. Learning progress stays on the family's device.
 
@@ -22,9 +22,9 @@ Parents can turn on sync in the Parents area (behind the parental gate) or enter
 - Nobody can read that data block without the family code — not the developer and not Google. We do not have your family code and cannot link a storage slot to any person.
 - The server copy is kept until a parent deletes it. Tap **"Delete the server copy"** ("Xoá bản trên máy chủ") in the Parents area to delete it immediately. If the code is lost, nobody can recover the server copy.
 
-## 3. Remote configuration (Firebase Remote Config)
+## 3. No analytics or device identifiers
 
-When it starts, the app downloads a few general settings from Google's Firebase Remote Config (for example turning sync on or off, or a short notice for parents). To do this the Firebase library creates a **Firebase installation ID**: a random string tied to this installation of the app on this device, which does not contain and is not linked to any name, email or account. Together with this ID, Google receives the technical information needed to deliver the configuration (app and operating-system version, Firebase library version, device language/region) and the IP address of the connection. We only use Remote Config to send the same configuration to every device and **do not use it for analytics, advertising or identifying users**. The app does not use Google Analytics, Crashlytics or any crash-reporting or measurement tool. The installation ID is removed when the app is uninstalled.
+The app only uses Google's Firebase library for the sync described in section 2. It **does not use** Google Analytics, Crashlytics, Remote Config, App Check or any crash-reporting, measurement or advertising tool, and it **does not create or send any installation ID, advertising ID or device identifier**. If parents do not turn sync on, the app sends no data to any server.
 
 ## 4. Read-aloud and the microphone
 
@@ -43,7 +43,7 @@ When it starts, the app downloads a few general settings from Google's Firebase 
 - No ads, no in-app purchases, no social login.
 - No collection of location, contacts, photos, advertising IDs or device identifiers for tracking.
 - No behavioural analytics and no tracking across other apps or websites.
-- No selling, renting or sharing of data with third parties. The only party processing data for us is Google (Firebase) as described in sections 2 and 3; speech recognition (section 4) runs on the device, provided by its operating system.
+- No selling, renting or sharing of data with third parties. The only party processing data for us is Google (Firebase) as described in section 2; speech recognition (section 4) runs on the device, provided by its operating system.
 
 ## 7. Children
 
@@ -54,7 +54,7 @@ The app is made for children and is designed around the requirements of COPPA (U
 - Review progress: Parents → Child report ("Báo cáo của con").
 - Delete a child: Parents → Children → Delete.
 - Delete the sync copy: Parents → "Dùng trên nhiều máy" (Use on several devices) → "Xoá bản trên máy chủ" (Delete the server copy).
-- Delete everything on the device: uninstall the app (removes learning data and the Firebase installation ID).
+- Delete everything on the device: uninstall the app (removes all learning data on the device).
 
 ## 9. Security
 
@@ -66,6 +66,6 @@ When this policy changes we update this page and the effective date at the top; 
 
 ## 11. Contact
 
-Bé Vui Học developer — email: [EMAIL LIÊN HỆ]
+Bé Vui Học developer — email: beatgone2503@gmail.com
 
 Web version: https://bevuihoc-app.web.app/privacy/en

@@ -1,36 +1,22 @@
-// Firebase cho bản app: chỉ Remote Config (cờ tính năng) và Cloud Firestore (bản đồng bộ đã mã hoá, xem sync.dart).
-// KHÔNG Analytics, KHÔNG Crashlytics, KHÔNG App Check, KHÔNG quảng cáo (app thuộc nhóm Kids/Families của App Store &
-// Google Play). Lưu ý: Remote Config dùng Firebase Installations (một mã cài đặt ngẫu nhiên, không gắn với người dùng)
-// để tải cấu hình — đã khai trong chính sách quyền riêng tư và docs/STORE_PRIVACY.md.
+// Firebase cho bản app: chỉ Cloud Firestore (bản đồng bộ đã mã hoá đầu-cuối, xem sync.dart).
+// KHÔNG Analytics, KHÔNG Crashlytics, KHÔNG App Check, KHÔNG Remote Config, KHÔNG quảng cáo (app thuộc nhóm
+// Kids/Families của App Store & Google Play) — app không gửi mã cài đặt hay định danh thiết bị nào.
 // Cấu hình: lib/firebase_options.dart (project bevuihoc-app, id com.iping.bevuihoc). An toàn: chạy test, nền tảng chưa
 // cấu hình hoặc khởi động lỗi thì initFirebase() chỉ ghi log rồi bỏ qua, app vẫn chạy bình thường (không chặn khi mất mạng).
-// CHỦ: agent I.
-//
-// Nối vào main.dart (coordinator):
-//   import 'features/sync/firebase_setup.dart';
-//   ... sau WidgetsFlutterBinding.ensureInitialized():
-//   await initFirebase();      // mặc định dùng DefaultFirebaseOptions.currentPlatform
-import 'dart:async';
 import 'dart:io' show Platform;
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:be_vui_hoc/firebase_options.dart';
 
-/// Giá trị mặc định của Remote Config (dùng luôn khi chưa có Firebase / mất mạng).
+/// Cờ tính năng cố định trong app (trước đây lấy từ Remote Config; đã gỡ để không gửi mã cài đặt Firebase).
 const Map<String, Object> kRemoteDefaults = {
-  // Bật/tắt đồng bộ mã gia đình từ xa (vd. khi máy chủ bảo trì).
   'sync_enabled': true,
-  // Khu vui chơi / RPG có hiện không (bố mẹ vẫn tắt được trong Góc bố mẹ).
   'fun_zone_enabled': true,
-  // Ôn tập thông minh.
   'review_enabled': true,
-  // Thông báo ngắn cho bố mẹ trong Góc bố mẹ (rỗng = không hiện).
   'parent_notice_vi': '',
   'parent_notice_en': '',
-  // Phiên bản tối thiểu (build number); thấp hơn thì Góc bố mẹ nhắc cập nhật. 0 = không nhắc.
   'min_build': 0,
 };
 
@@ -41,35 +27,21 @@ class FirebaseState {
   static String? skippedReason;
 }
 
-/// Cờ tính năng: đọc Remote Config nếu Firebase đã sẵn sàng, không thì giá trị mặc định.
+/// Cờ tính năng: giá trị cố định ở kRemoteDefaults (giữ API cũ cho các màn đang dùng).
 class RemoteFlags {
   RemoteFlags._();
 
-  static FirebaseRemoteConfig? get _rc => FirebaseState.ready ? FirebaseRemoteConfig.instance : null;
-
   static bool getBool(String key) {
-    try {
-      final rc = _rc;
-      if (rc != null) return rc.getBool(key);
-    } catch (_) {/* bỏ qua */}
     final v = kRemoteDefaults[key];
     return v is bool ? v : false;
   }
 
   static String getString(String key) {
-    try {
-      final rc = _rc;
-      if (rc != null) return rc.getString(key);
-    } catch (_) {/* bỏ qua */}
     final v = kRemoteDefaults[key];
     return v is String ? v : '';
   }
 
   static int getInt(String key) {
-    try {
-      final rc = _rc;
-      if (rc != null) return rc.getInt(key);
-    } catch (_) {/* bỏ qua */}
     final v = kRemoteDefaults[key];
     return v is int ? v : 0;
   }
@@ -101,18 +73,6 @@ Future<bool> initFirebase({FirebaseOptions? options}) async {
   }
   FirebaseState.ready = true;
 
-  // ----- Remote Config: mặc định trước, tải bản mới ở nền (không chặn khởi động). -----
-  try {
-    final rc = FirebaseRemoteConfig.instance;
-    await rc.setDefaults(kRemoteDefaults);
-    await rc.setConfigSettings(RemoteConfigSettings(
-      fetchTimeout: const Duration(seconds: 10),
-      minimumFetchInterval: kDebugMode ? const Duration(minutes: 5) : const Duration(hours: 6),
-    ));
-    unawaited(rc.fetchAndActivate().then((_) {}, onError: (Object e) => debugPrint('[firebase] remote config fetch: $e')));
-  } catch (e) {
-    debugPrint('[firebase] remote config: $e');
-  }
   return true;
 }
 

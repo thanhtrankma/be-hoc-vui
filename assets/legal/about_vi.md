@@ -13,4 +13,4 @@ Bé Vui Học là ứng dụng học mà chơi miễn phí cho bé 3–6 tuổi:
 
 ## Liên hệ
 
-Email: [EMAIL LIÊN HỆ]
+Email: beatgone2503@gmail.com

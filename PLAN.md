@@ -100,6 +100,6 @@ chính sách quyền riêng tư cho trẻ em, ảnh chụp cửa hàng.
 - [ ] Phát hành — cần chủ app:
   - iOS: tài khoản Apple Developer (Team ID) để ký app, tạo app trên App Store Connect.
   - Android: tạo khoá ký upload (keystore) và lưu giữ cẩn thận, tạo app trên Google Play Console.
-  - Điền email liên hệ vào chỗ `[EMAIL LIÊN HỆ]` (assets/legal/*.md, chạy lại `python3 hosting/build_pages.py`), deploy
+  - Điền email liên hệ vào chỗ `beatgone2503@gmail.com` (assets/legal/*.md, chạy lại `python3 hosting/build_pages.py`), deploy
     `firebase deploy --only firestore:rules,hosting`, khai báo theo `docs/STORE_PRIVACY.md`, ảnh chụp cửa hàng, mô tả.
   - Chạy thử trên máy thật (iPhone + Android) bản release.

@@ -38,16 +38,16 @@ void main() {
     });
   }
 
-  test('chính sách: ngày hiệu lực, chỗ điền email, vùng máy chủ, link bản web', () {
+  test('chính sách: ngày hiệu lực, email liên hệ, vùng máy chủ, link bản web', () {
     for (final src in ['assets/legal/privacy_vi.md', 'assets/legal/privacy_en.md']) {
       final md = File(src).readAsStringSync();
-      expect(md, contains('[EMAIL LIÊN HỆ]'));
+      expect(md, contains('beatgone2503@gmail.com'));
       expect(md, contains('asia-southeast1'));
-      expect(md, contains('Firebase installation ID'));
+      expect(md, contains('Remote Config')); // nói rõ là không dùng
       expect(md, contains('https://bevuihoc-app.web.app/privacy'));
     }
-    expect(File('assets/legal/privacy_vi.md').readAsStringSync(), contains('18/10/2026'));
-    expect(File('assets/legal/privacy_en.md').readAsStringSync(), contains('18 October 2026'));
+    expect(File('assets/legal/privacy_vi.md').readAsStringSync(), contains('19/10/2026'));
+    expect(File('assets/legal/privacy_en.md').readAsStringSync(), contains('19 October 2026'));
   });
 
   test('ghi công: mọi ảnh trong photos.json và mọi file CREDITS của sprites có trên trang', () {

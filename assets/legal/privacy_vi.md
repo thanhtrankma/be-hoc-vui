@@ -1,6 +1,6 @@
 # Chính sách quyền riêng tư — Bé Vui Học
 
-Ngày hiệu lực: 18/10/2026
+Ngày hiệu lực: 19/10/2026
 
 Bé Vui Học là ứng dụng học mà chơi cho bé 3–6 tuổi. Chính sách này giải thích ứng dụng xử lý những dữ liệu nào, ở đâu và bố mẹ xoá chúng ra sao. Tóm tắt: **không tài khoản, không email, không quảng cáo, không phân tích hành vi, không mua trong ứng dụng, không theo dõi, không bán hay chia sẻ dữ liệu**. Tiến độ học nằm trên máy của gia đình.
 
@@ -22,9 +22,9 @@ Bố mẹ có thể bật đồng bộ trong Góc bố mẹ (sau khoá bố mẹ
 - Không ai đọc được khối dữ liệu này nếu không có mã gia đình — kể cả nhà phát triển và Google. Chúng tôi không có mã của gia đình bạn và không thể liên kết ngăn lưu trữ với một người cụ thể.
 - Bản trên máy chủ được giữ đến khi bố mẹ xoá. Bấm **"Xoá bản trên máy chủ"** trong Góc bố mẹ để xoá ngay. Quên mã thì không ai khôi phục được dữ liệu trên máy chủ.
 
-## 3. Cấu hình từ xa (Firebase Remote Config)
+## 3. Không có công cụ phân tích hay định danh thiết bị
 
-Khi mở, ứng dụng tải một số cài đặt chung từ Firebase Remote Config của Google (ví dụ bật/tắt tính năng đồng bộ, thông báo ngắn cho bố mẹ). Để làm việc này, thư viện Firebase tạo một **mã cài đặt Firebase (Firebase installation ID)**: một chuỗi ngẫu nhiên gắn với lần cài ứng dụng trên máy, không chứa và không gắn với tên, email hay tài khoản nào. Cùng với mã này, Google nhận các thông tin kỹ thuật cần cho việc tải cấu hình (phiên bản ứng dụng và hệ điều hành, phiên bản thư viện Firebase, ngôn ngữ/vùng của máy) và địa chỉ IP khi kết nối. Chúng tôi chỉ dùng Remote Config để gửi cấu hình giống nhau cho mọi máy, **không dùng để phân tích, quảng cáo hay nhận diện người dùng**. Ứng dụng không dùng Google Analytics, Crashlytics hay bất kỳ công cụ báo lỗi, đo lường nào. Mã cài đặt bị xoá khi gỡ ứng dụng.
+Ứng dụng chỉ dùng thư viện Firebase của Google cho việc đồng bộ ở mục 2. Ứng dụng **không dùng** Google Analytics, Crashlytics, Remote Config, App Check hay bất kỳ công cụ báo lỗi, đo lường, quảng cáo nào, và **không tạo hay gửi mã cài đặt, mã quảng cáo hay định danh thiết bị**. Nếu bố mẹ không bật đồng bộ, ứng dụng không gửi dữ liệu nào lên máy chủ.
 
 ## 4. Đọc to và micro
 
@@ -43,7 +43,7 @@ Khi mở, ứng dụng tải một số cài đặt chung từ Firebase Remote C
 - Không quảng cáo, không mua trong ứng dụng, không đăng nhập mạng xã hội.
 - Không thu thập vị trí, danh bạ, ảnh, mã quảng cáo hay định danh thiết bị để theo dõi.
 - Không phân tích hành vi, không theo dõi qua ứng dụng/trang web khác.
-- Không bán, cho thuê hay chia sẻ dữ liệu với bên thứ ba. Bên duy nhất xử lý dữ liệu cho chúng tôi là Google (Firebase) như mô tả ở mục 2 và 3; nhận dạng giọng nói (mục 4) chạy ngay trên máy, do hệ điều hành cung cấp.
+- Không bán, cho thuê hay chia sẻ dữ liệu với bên thứ ba. Bên duy nhất xử lý dữ liệu cho chúng tôi là Google (Firebase) như mô tả ở mục 2; nhận dạng giọng nói (mục 4) chạy ngay trên máy, do hệ điều hành cung cấp.
 
 ## 7. Trẻ em
 
@@ -54,7 +54,7 @@ Khi mở, ứng dụng tải một số cài đặt chung từ Firebase Remote C
 - Xem tiến độ: Góc bố mẹ → Báo cáo của con.
 - Xoá một bé: Góc bố mẹ → Các bé → Xoá.
 - Xoá bản đồng bộ: Góc bố mẹ → Dùng trên nhiều máy → Xoá bản trên máy chủ.
-- Xoá tất cả trên máy: gỡ ứng dụng (xoá cả dữ liệu học và mã cài đặt Firebase).
+- Xoá tất cả trên máy: gỡ ứng dụng (xoá toàn bộ dữ liệu học trên máy).
 
 ## 9. Bảo mật
 
@@ -66,6 +66,6 @@ Khi chính sách thay đổi, chúng tôi cập nhật trang này và ngày hi�
 
 ## 11. Liên hệ
 
-Nhà phát triển Bé Vui Học — email: [EMAIL LIÊN HỆ]
+Nhà phát triển Bé Vui Học — email: beatgone2503@gmail.com
 
 Bản trên web: https://bevuihoc-app.web.app/privacy
