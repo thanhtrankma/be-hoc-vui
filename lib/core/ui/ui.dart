@@ -7,6 +7,7 @@ export 'parent_gate.dart';
 export 'say_on_open.dart';
 export 'sky_background.dart';
 export 'sprite_sheet.dart';
+export 'text_menu.dart';
 export 'theme.dart';
 export 'utils.dart';
 export 'widgets.dart';

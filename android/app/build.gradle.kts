@@ -55,7 +55,10 @@ android {
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.findByName("release") ?: signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.findByName("release") ?: signingConfigs.getByName("debug").also {
+                // Google Play từ chối bản ký bằng khoá debug: nhắc ngay lúc build để không tải nhầm lên Play Console.
+                logger.warn("⚠ android/key.properties không có: bản release đang ký bằng KHOÁ DEBUG — KHÔNG tải lên Google Play.")
+            }
         }
     }
 }

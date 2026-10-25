@@ -1,0 +1,5 @@
+/* Bé Vui Học — chuỗi hệ thống (tiếng Việt). Khớp Info.plist + chính sách quyền riêng tư. */
+"CFBundleDisplayName" = "Bé Vui Học";
+"CFBundleName" = "Bé Vui Học";
+"NSMicrophoneUsageDescription" = "Bé đọc to trong bài Đọc để app nghe và khen (chỉ khi bố mẹ đồng ý). Giọng bé được nhận dạng ngay trên máy, không gửi đi đâu; Bé Vui Học không ghi âm hay lưu âm thanh.";
+"NSSpeechRecognitionUsageDescription" = "Nhận ra từ bé đọc trong bài Đọc to (chỉ khi bố mẹ đồng ý). Việc nhận dạng chạy ngay trên máy, không gửi giọng nói lên mạng.";

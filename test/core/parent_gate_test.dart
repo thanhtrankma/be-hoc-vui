@@ -83,8 +83,8 @@ void main() {
     await tester.pump(const Duration(seconds: 3));
   });
 
-  testWidgets('sai → xoá ô, vẫn mở; đúng (3 chữ số) → true', (tester) async {
-    debugGateRandom = _Fixed([49 - 12, 9 - 3]); // 49 × 9 = 441
+  testWidgets('sai → xoá ô, hỏi phép MỚI, vẫn mở; đúng (3 chữ số) → true', (tester) async {
+    debugGateRandom = _Fixed([49 - 12, 9 - 3, 22 - 12, 5 - 3]); // 49 × 9 = 441, rồi 22 × 5 = 110
     final results = await pumpGate(tester);
     await tester.tap(find.byKey(const Key('open')));
     await tester.pumpAndSettle();
@@ -98,12 +98,32 @@ void main() {
     expect(shown(tester), '?');
     expect(find.text('Dành cho bố mẹ'), findsOneWidget);
     expect(results, isEmpty);
+    expect(question(tester), (22, 5)); // phép tính đổi sau khi sai
+    await type(tester, '441OK'); // đáp số của phép cũ không còn đúng
+    await tester.pumpAndSettle();
+    expect(results, isEmpty);
+    expect(question(tester), (49, 9));
     await type(tester, '4419'); // tối đa 3 chữ số
     expect(shown(tester), '441');
     await type(tester, 'OK');
     await tester.pumpAndSettle();
     expect(results, [true]);
     expect(find.text('Dành cho bố mẹ'), findsNothing);
+    await tester.pump(const Duration(seconds: 3));
+  });
+
+  testWidgets('sai → phép mới luôn khác phép vừa hỏi (kể cả khi nguồn ngẫu nhiên lặp lại)', (tester) async {
+    debugGateRandom = _Fixed([49 - 12, 9 - 3]); // luôn ra 49 × 9
+    await pumpGate(tester);
+    await tester.tap(find.byKey(const Key('open')));
+    await tester.pumpAndSettle();
+    expect(question(tester), (49, 9));
+    await type(tester, '1OK');
+    await tester.pumpAndSettle();
+    final (a, b) = question(tester);
+    expect((a, b), isNot((49, 9)));
+    expect(a, inInclusiveRange(12, 49));
+    expect(b, inInclusiveRange(3, 9));
     await tester.pump(const Duration(seconds: 3));
   });
 }

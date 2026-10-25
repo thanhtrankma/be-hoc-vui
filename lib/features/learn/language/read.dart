@@ -641,6 +641,8 @@ class SpeechRecognizer implements Recognizer {
     }
     try {
       _ok = await _stt.initialize(
+        // Không xin BLUETOOTH_CONNECT (manifest đã gỡ quyền này; bé chỉ đọc vào micro của máy).
+        options: [SpeechToText.androidNoBluetooth],
         onError: (SpeechRecognitionError e) => _onError?.call(),
         onStatus: (s) {
           if (s == SpeechToText.doneStatus || s == SpeechToText.notListeningStatus) _onEnd?.call();
@@ -809,6 +811,9 @@ class _AloudViewState extends State<AloudView> {
       recReady = await rec.init();
       if (dead || my != i) return;
       if (!recReady) {
+        // Máy không nghe được hoặc bố mẹ/bé đã từ chối quyền hệ thống: xoá đồng ý cũ để lần bấm 🎤 sau lại phải qua bảng
+        // "Bật micro?" + khoá bố mẹ rồi mới hỏi quyền hệ thống (bé không tự bấm "Cho phép" được) — Google Families.
+        g.store.setKv(kMicKey, '0');
         setState(() => status = g.i18n.t('micNA'));
         return;
       }

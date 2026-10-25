@@ -1,8 +1,8 @@
 # Privacy Policy — Bé Vui Học
 
-Effective date: 19 October 2026
+Effective date: 25 October 2026
 
-Bé Vui Học is a learn-through-play app for children aged 3–6. This policy explains what data the app handles, where it is kept and how parents can delete it. In short: **no accounts, no email, no ads, no analytics, no in-app purchases, no tracking, and no selling or sharing of data**. Learning progress stays on the family's device.
+Bé Vui Học is a learn-through-play app for children aged 6–8. This policy explains what data the app handles, where it is kept and how parents can delete it. In short: **no accounts, no email, no ads, no analytics, no in-app purchases, no tracking, and no selling or sharing of data**. Learning progress stays on the family's device.
 
 ## 1. Data stored on the device
 
@@ -14,17 +14,19 @@ This data is kept in the app's private storage on the device (shared_preferences
 
 ## 2. Multi-device sync with a family code (optional, off by default)
 
-Parents can turn on sync in the Parents area (behind the parental gate) or enter a family code when creating a profile on a new device.
+Parents can turn on sync in the Parents area or enter a family code when creating a profile on a new device — both are behind the parental gate.
 
 - The app creates a random 16-character **family code** on the device. No email, password or account is needed.
 - From this code the device derives an encryption key (PBKDF2-SHA-256) and a storage slot name (a SHA-256 hash of the code). The family code itself is **never sent**.
 - The data in section 1 is **end-to-end encrypted on the device** (AES-256-GCM) before it is sent to **Google Cloud Firestore** (Google's Firebase service, servers in Singapore, region asia-southeast1). The server only holds: the slot name (a hash), a version number, the encrypted data block and the time of the last update.
 - Nobody can read that data block without the family code — not the developer and not Google. We do not have your family code and cannot link a storage slot to any person.
+- When sync connects, Google (Firebase) sees and processes the IP address of the connection, as with any network service (to deliver the data and prevent abuse). We do not store, view or use this address, and the app sends no device identifier with it.
+- Store disclosures: because this encrypted copy is stored on a server, on the App Store and Google Play we declare that the app **collects** one data type — "other user-generated content" (the encrypted learning-data block) — **only when parents turn sync on**, only for app functionality (syncing between devices), not linked to identity, not used for tracking, not shared with third parties, encrypted in transit, and deletable by parents at any time.
 - The server copy is kept until a parent deletes it. Tap **"Delete the server copy"** ("Xoá bản trên máy chủ") in the Parents area to delete it immediately. If the code is lost, nobody can recover the server copy.
 
 ## 3. No analytics or device identifiers
 
-The app only uses Google's Firebase library for the sync described in section 2. It **does not use** Google Analytics, Crashlytics, Remote Config, App Check or any crash-reporting, measurement or advertising tool, and it **does not create or send any installation ID, advertising ID or device identifier**. If parents do not turn sync on, the app sends no data to any server.
+The app only uses Google's Firebase library for the sync described in section 2. It **does not use** Google Analytics, Crashlytics, Remote Config, App Check or any crash-reporting, measurement or advertising tool, and it **does not create or send any installation ID, advertising ID or device identifier**. If parents do not turn sync on, the app makes no connection and sends no data to any server.
 
 ## 4. Read-aloud and the microphone
 

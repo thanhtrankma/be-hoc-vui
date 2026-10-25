@@ -189,4 +189,17 @@ class PhotoInfo {
   final String? lic;
   final String? src;
   String get assetPath => 'assets/$f';
+
+  /// Trang giấy phép (creativecommons.org) cho dòng ghi công; null nếu là phạm vi công cộng.
+  String? get licUrl => photoLicenseUrl(lic);
+}
+
+/// 'CC BY-SA 4.0' → https://creativecommons.org/licenses/by-sa/4.0/ ; 'CC BY-SA 2.0 de' → …/by-sa/2.0/de/ ; 'CC0' → …/zero/1.0/.
+/// Giữ khớp với license_url() trong hosting/build_pages.py.
+String? photoLicenseUrl(String? lic) {
+  if (lic == null) return null;
+  if (lic.trim() == 'CC0') return 'https://creativecommons.org/publicdomain/zero/1.0/';
+  final m = RegExp(r'^CC (BY(?:-SA)?) (\d\.\d)(?: ([a-z]{2}))?$').firstMatch(lic.trim());
+  if (m == null) return null;
+  return 'https://creativecommons.org/licenses/${m[1]!.toLowerCase()}/${m[2]}/${m[3] == null ? '' : '${m[3]}/'}';
 }

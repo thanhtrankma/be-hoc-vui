@@ -282,6 +282,52 @@ void main() {
     expect(io.opened.last, 'https://bevuihoc-app.web.app/privacy/en');
   });
 
+  test('góp ý theo nền tảng: bản iOS chỉ nhắc App Store, bản Android chỉ nhắc Google Play (App Store 2.3.10)', () {
+    for (final en in [false, true]) {
+      final ios = feedbackNote(en: en, platform: TargetPlatform.iOS);
+      expect(ios, contains('App Store'));
+      expect(ios, contains('beatgone2503@gmail.com'));
+      for (final other in ['Google', 'Android']) {
+        expect(ios, isNot(contains(other)), reason: 'iOS en=$en');
+      }
+      final android = feedbackNote(en: en, platform: TargetPlatform.android);
+      expect(android, contains('Google Play'));
+      for (final other in ['App Store', 'iPhone', 'iPad', 'Apple']) {
+        expect(android, isNot(contains(other)), reason: 'Android en=$en');
+      }
+    }
+  });
+
+  testWidgets('Góp ý, Giới thiệu cho bạn bè: bản tiếng Anh; chia sẻ lời giới thiệu tiếng Anh', (tester) async {
+    final store = await newStore();
+    store.addProfile('Na', mascotId());
+    store.setSetting('lang', 'en');
+    final (_, io, _, _, _) = await pump(tester, store);
+    for (final t in ['💬 Feedback & bug reports', '📣 Tell your friends', '📊 Child report', '🎤 Ask about the microphone again', '📋 Copy link']) {
+      await tester.scrollUntilVisible(find.text(t), 200, scrollable: find.byType(Scrollable).first);
+      expect(find.text(t), findsOneWidget, reason: t);
+    }
+    expect(find.textContaining('Góp ý'), findsNothing);
+    await tapKey(tester, 'share-app');
+    expect(io.shared.single, startsWith(kAppPitchEn));
+    expect(io.shared.single, endsWith('https://bevuihoc-app.web.app/'));
+  });
+
+  testWidgets('Ghi công: giấy phép mở trang creativecommons.org; ghi chú ảnh đã thu nhỏ/cắt', (tester) async {
+    final store = await newStore();
+    store.addProfile('Na', mascotId());
+    final (_, io, _, _, _) = await pump(tester, store);
+    await tapKey(tester, 'link-credits');
+    expect(find.byKey(const Key('credits-modified')), findsOneWidget);
+    expect(find.textContaining('thu nhỏ/cắt'), findsOneWidget);
+    final lic = find.text('CC BY-SA 4.0').first;
+    await tester.ensureVisible(lic);
+    await tester.pumpAndSettle();
+    await tester.tap(lic);
+    await tester.pumpAndSettle();
+    expect(io.opened.single, 'https://creativecommons.org/licenses/by-sa/4.0/');
+  });
+
   group('Báo cáo', () {
     Future<(AppStore, Profile)> seeded() async {
       final store = await newStore();
@@ -374,6 +420,8 @@ void main() {
     expect(bd.getUint32(20), 1350);
     expect(certShareText(d), 'Bé Nguyễn Thị Na vừa được bằng khen: Con đã đọc đúng 10 tiếng! Học miễn phí ở Bé Vui Học: https://bevuihoc-app.web.app/');
     expect(certShareText(d.withName(false)), startsWith('Bé nhà mình vừa được bằng khen'));
+    expect(certShareText(d, en: true), startsWith('Nguyễn Thị Na just earned a certificate'));
+    expect(certShareText(d.withName(false), en: true), isNot(contains('Na')));
     expect(wrapWords('a bb ccc dddd', 6, (s) => s.length.toDouble()), ['a bb', 'ccc', 'dddd']);
   });
 }

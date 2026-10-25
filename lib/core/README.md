@@ -149,7 +149,10 @@ Sprite sheets: `loadSheet('play/kidboy')`, `frameAt`, `drawFrame`, `drawAnim` (`
 background), `TopBar`, `ScreenTitle`, `IconBtn(icon: AppIcon.back|close|gear|kids)`, `AppButton(variant: primary|blue|green|ghost|ghostPanel, big:)`,
 `Chunky` (any pressable card with solid shadow), `Pill`, `CardBox`, `Seg`, `ProgressDots`, `StarRow`, `ToneMark`,
 `Dressed` (mascot with outfit), `showPanel` + `Panel/PanelTitle/PanelRow/NoteText/Prize/BigStars`,
-`toast()`, `confetti()`, `confirmPanel()`, `promptPanel()`, `parentGate()`, `ParentButton`,
+`toast()`, `confetti()`, `confirmPanel()`, `promptPanel()`, `parentGate()` (a wrong answer shows a new question), `ParentButton`,
+**Text inputs (kids' app rule):** every `TextField` / `SelectableText` must pass `contextMenuBuilder: safeContextMenuBuilder`
+(`core/ui/text_menu.dart`: only cut/copy/paste/select all — no iOS Look Up / Search Web / Share, no Android "process text" apps,
+never the iOS `SystemContextMenu`); `test/core/text_menu_test.dart` scans `lib/` for this. `promptPanel()` already does it.
 `Bob`/`Hop`/`LoopAnim`/`RiseIn` (respect `Motion.enabled`; tests set it false), `SayOnOpen` mixin,
 `shuffle/sample/pick/sequence/wait/rand/ramp/approach/ease*`. Navigation: `context.go('/map')` (go_router).
 
@@ -158,3 +161,5 @@ background), `TopBar`, `ScreenTitle`, `IconBtn(icon: AppIcon.back|close|gear|kid
 `flutter analyze` clean, `flutter test` green. For widget tests override `contentBundleProvider`
 (`await loadContentBundle(rootBundle)`), `storeProvider` (`AppStore(prefs)` with `SharedPreferences.setMockInitialValues`)
 and `audioProvider` (`SilentAudio`), and set `Motion.enabled = false`. See `test/widget/app_flow_test.dart`.
+Fake games for frame tests (`PlaceholderGame`, `PlaceholderFunGame`, "Đang xây dựng" screen) live in `test/widget/placeholder.dart`
+(moved out of `lib/` so they are not in release builds); use them via `debugGameOverrides` / `debugFunOverrides`.

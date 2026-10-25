@@ -1,8 +1,8 @@
 # Chính sách quyền riêng tư — Bé Vui Học
 
-Ngày hiệu lực: 19/10/2026
+Ngày hiệu lực: 25/10/2026
 
-Bé Vui Học là ứng dụng học mà chơi cho bé 3–6 tuổi. Chính sách này giải thích ứng dụng xử lý những dữ liệu nào, ở đâu và bố mẹ xoá chúng ra sao. Tóm tắt: **không tài khoản, không email, không quảng cáo, không phân tích hành vi, không mua trong ứng dụng, không theo dõi, không bán hay chia sẻ dữ liệu**. Tiến độ học nằm trên máy của gia đình.
+Bé Vui Học là ứng dụng học mà chơi cho bé 6–8 tuổi. Chính sách này giải thích ứng dụng xử lý những dữ liệu nào, ở đâu và bố mẹ xoá chúng ra sao. Tóm tắt: **không tài khoản, không email, không quảng cáo, không phân tích hành vi, không mua trong ứng dụng, không theo dõi, không bán hay chia sẻ dữ liệu**. Tiến độ học nằm trên máy của gia đình.
 
 ## 1. Dữ liệu lưu trên máy
 
@@ -14,17 +14,19 @@ Những dữ liệu này lưu trong bộ nhớ riêng của ứng dụng trên m
 
 ## 2. Đồng bộ nhiều máy bằng mã gia đình (tuỳ chọn, mặc định tắt)
 
-Bố mẹ có thể bật đồng bộ trong Góc bố mẹ (sau khoá bố mẹ) hoặc nhập mã gia đình khi tạo hồ sơ trên máy mới.
+Bố mẹ có thể bật đồng bộ trong Góc bố mẹ hoặc nhập mã gia đình khi tạo hồ sơ trên máy mới — cả hai đều sau khoá bố mẹ.
 
 - Ứng dụng tạo ngay trên máy một **mã gia đình** 16 ký tự ngẫu nhiên. Không cần email, mật khẩu hay tài khoản.
 - Từ mã này, máy tính ra một khoá mã hoá (PBKDF2-SHA-256) và một tên ngăn lưu trữ (giá trị băm SHA-256 của mã). Mã gia đình **không bao giờ được gửi đi**.
 - Dữ liệu ở mục 1 được **mã hoá đầu-cuối trên máy** (AES-256-GCM) rồi mới gửi lên **Google Cloud Firestore** (dịch vụ Firebase của Google, máy chủ đặt tại Singapore, vùng asia-southeast1). Trên máy chủ chỉ có: tên ngăn (giá trị băm), số phiên bản, khối dữ liệu đã mã hoá và thời điểm cập nhật cuối.
 - Không ai đọc được khối dữ liệu này nếu không có mã gia đình — kể cả nhà phát triển và Google. Chúng tôi không có mã của gia đình bạn và không thể liên kết ngăn lưu trữ với một người cụ thể.
+- Khi đồng bộ kết nối, Google (Firebase) thấy và xử lý địa chỉ IP của kết nối như mọi dịch vụ mạng (để chuyển dữ liệu và chống lạm dụng). Chúng tôi không lưu, không xem và không dùng địa chỉ này; ứng dụng không gửi kèm định danh thiết bị nào.
+- Khai báo trên cửa hàng: vì bản sao đã mã hoá này được lưu trên máy chủ, trên App Store và Google Play chúng tôi khai ứng dụng **có thu thập** một loại dữ liệu — "nội dung khác do người dùng tạo" (khối dữ liệu học đã mã hoá) — **chỉ khi bố mẹ bật đồng bộ**, chỉ để ứng dụng hoạt động (đồng bộ giữa các máy), không liên kết với danh tính, không dùng để theo dõi, không chia sẻ với bên thứ ba, được mã hoá khi truyền và bố mẹ xoá được bất cứ lúc nào.
 - Bản trên máy chủ được giữ đến khi bố mẹ xoá. Bấm **"Xoá bản trên máy chủ"** trong Góc bố mẹ để xoá ngay. Quên mã thì không ai khôi phục được dữ liệu trên máy chủ.
 
 ## 3. Không có công cụ phân tích hay định danh thiết bị
 
-Ứng dụng chỉ dùng thư viện Firebase của Google cho việc đồng bộ ở mục 2. Ứng dụng **không dùng** Google Analytics, Crashlytics, Remote Config, App Check hay bất kỳ công cụ báo lỗi, đo lường, quảng cáo nào, và **không tạo hay gửi mã cài đặt, mã quảng cáo hay định danh thiết bị**. Nếu bố mẹ không bật đồng bộ, ứng dụng không gửi dữ liệu nào lên máy chủ.
+Ứng dụng chỉ dùng thư viện Firebase của Google cho việc đồng bộ ở mục 2. Ứng dụng **không dùng** Google Analytics, Crashlytics, Remote Config, App Check hay bất kỳ công cụ báo lỗi, đo lường, quảng cáo nào, và **không tạo hay gửi mã cài đặt, mã quảng cáo hay định danh thiết bị**. Nếu bố mẹ không bật đồng bộ, ứng dụng không kết nối và không gửi dữ liệu nào lên máy chủ.
 
 ## 4. Đọc to và micro
 

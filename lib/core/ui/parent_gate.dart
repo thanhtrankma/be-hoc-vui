@@ -1,4 +1,4 @@
-// Khoá bố mẹ: phép nhân số có hai chữ số với số có một chữ số (vd. 23 × 4) — bé 3–6 tuổi chưa làm được. Mọi chỗ dành cho bố mẹ (Góc bố mẹ, chơi miễn phí,
+// Khoá bố mẹ: phép nhân số có hai chữ số với số có một chữ số (vd. 23 × 4) — bé 6–8 tuổi chưa làm được. Mọi chỗ dành cho bố mẹ (Góc bố mẹ, chơi miễn phí,
 // mua hàng/link ngoài, chia sẻ) phải qua đây — yêu cầu của App Store/Google Play cho app trẻ em.
 import 'dart:math';
 
@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../audio/audio_service.dart';
 import '../i18n/i18n.dart';
 import 'overlay.dart';
+import 'text_menu.dart';
 import 'theme.dart';
 import 'widgets.dart';
 
@@ -32,8 +33,21 @@ class _Gate extends ConsumerStatefulWidget {
 
 class _GateState extends ConsumerState<_Gate> {
   final _r = debugGateRandom ?? Random();
-  late final int a = kGateAMin + _r.nextInt(kGateAMax - kGateAMin + 1), b = kGateBMin + _r.nextInt(kGateBMax - kGateBMin + 1);
+  late int a, b;
   String typed = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _newQuestion();
+  }
+
+  /// Phép tính mới; sau một lần trả lời sai luôn khác phép vừa hỏi (không đoán mò nhiều lần cùng một phép — Apple 1.3).
+  void _newQuestion({(int, int)? not}) {
+    a = kGateAMin + _r.nextInt(kGateAMax - kGateAMin + 1);
+    b = kGateBMin + _r.nextInt(kGateBMax - kGateBMin + 1);
+    if (not != null && (a, b) == not) a = a == kGateAMax ? kGateAMin : a + 1;
+  }
 
   void press(String k) {
     ref.read(audioProvider).sfx('tap');
@@ -46,6 +60,7 @@ class _GateState extends ConsumerState<_Gate> {
           return;
         }
         typed = '';
+        _newQuestion(not: (a, b));
         toast('✖');
       } else if (typed.length < 3) {
         typed += k;
@@ -142,6 +157,7 @@ Future<String?> promptPanel(BuildContext context, {required String title, String
         controller: c,
         autofocus: true,
         maxLength: maxLength,
+        contextMenuBuilder: safeContextMenuBuilder,
         textAlign: TextAlign.center,
         decoration: InputDecoration(hintText: hint, filled: true, fillColor: AppColors.segBg, border: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide.none)),
         onSubmitted: (v) => Navigator.pop(ctx, v),

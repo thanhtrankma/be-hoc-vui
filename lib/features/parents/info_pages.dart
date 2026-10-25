@@ -255,24 +255,34 @@ class _CreditsListState extends ConsumerState<CreditsList> {
     final io = ref.read(parentsIoProvider);
     const small = TextStyle(fontSize: 13, color: AppColors.inkSoft);
     const head = TextStyle(fontWeight: FontWeight.w800);
+    final linkStyle = small.copyWith(color: AppColors.blueDark, decoration: TextDecoration.underline);
+    WidgetSpan link(String label, String url) => WidgetSpan(
+          alignment: PlaceholderAlignment.baseline,
+          baseline: TextBaseline.alphabetic,
+          child: GestureDetector(onTap: () => io.openUrl(url), child: Text(label, style: linkStyle)),
+        );
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Padding(
+        key: const Key('credits-modified'),
+        padding: const EdgeInsets.only(bottom: 6),
+        child: Text(
+            i.isEn
+                ? 'Photos were resized/cropped and converted to WebP for use in the app. Each line: photo — author — license — original file.'
+                : 'Ảnh đã thu nhỏ/cắt và đổi sang định dạng WebP để dùng trong ứng dụng. Mỗi dòng: ảnh — tác giả — giấy phép — tệp gốc.',
+            style: small),
+      ),
       for (final e in photos.entries)
         Padding(
           padding: const EdgeInsets.only(bottom: 4),
           child: Text.rich(
             TextSpan(children: [
               TextSpan(text: e.key, style: const TextStyle(fontWeight: FontWeight.w800, color: AppColors.ink)),
-              TextSpan(text: ' — ${e.value.by ?? '?'} — ${e.value.lic ?? ''} — '),
-              // Mỗi ảnh dẫn tới trang tệp gốc trên Wikimedia (ghi công CC BY / BY-SA). Đã qua khoá bố mẹ.
+              TextSpan(text: ' — ${(e.value.by ?? '').isEmpty ? '?' : e.value.by} — '),
+              // Giấy phép dẫn tới creativecommons.org, ảnh dẫn tới trang tệp gốc trên Wikimedia (ghi công CC BY / BY-SA). Đã qua khoá bố mẹ.
+              if (e.value.licUrl != null) link(e.value.lic!, e.value.licUrl!) else TextSpan(text: e.value.lic ?? ''),
+              const TextSpan(text: ' — '),
               if (e.value.src != null)
-                WidgetSpan(
-                  alignment: PlaceholderAlignment.baseline,
-                  baseline: TextBaseline.alphabetic,
-                  child: GestureDetector(
-                    onTap: () => io.openUrl(e.value.src!),
-                    child: Text('Wikimedia Commons', style: small.copyWith(color: AppColors.blueDark, decoration: TextDecoration.underline)),
-                  ),
-                )
+                link('Wikimedia Commons', e.value.src!)
               else
                 const TextSpan(text: 'Wikimedia Commons'),
             ]),
@@ -281,17 +291,18 @@ class _CreditsListState extends ConsumerState<CreditsList> {
         ),
       const SizedBox(height: 8),
       Text(i.t('creditsSfx'), style: head),
-      if (_sfx != null) SelectableText(_sfx!, style: small),
+      if (_sfx != null) SelectableText(_sfx!, style: small, contextMenuBuilder: safeContextMenuBuilder),
       if (widget.sprites) ...[
         const SizedBox(height: 8),
         Text(i.isEn ? 'Game pictures:' : 'Hình trong game:', style: head),
-        if (_sprites != null) SelectableText(_sprites!, style: small),
+        if (_sprites != null) SelectableText(_sprites!, style: small, contextMenuBuilder: safeContextMenuBuilder),
         const SizedBox(height: 8),
         Text(i.isEn ? 'Cartoons and font:' : 'Hình hoạt hình và phông chữ:', style: head),
         const SelectableText(
             'Fluent Emoji — Microsoft — MIT License — https://github.com/microsoft/fluentui-emoji\n'
             'Baloo 2 — Ek Type — SIL Open Font License 1.1 — https://github.com/EkType/Baloo2',
-            style: small),
+            style: small,
+            contextMenuBuilder: safeContextMenuBuilder),
       ],
     ]);
   }

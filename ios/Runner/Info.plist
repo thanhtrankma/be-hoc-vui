@@ -3,9 +3,18 @@
 <plist version="1.0">
 	<dict>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Bé đọc to để app nghe và khen (chỉ khi bố mẹ đồng ý). Tiếng đọc được nhận dạng ngay trên máy, không gửi đi đâu; Bé Vui Học không ghi âm hay lưu âm thanh.</string>
+	<string>Bé đọc to trong bài Đọc để app nghe và khen (chỉ khi bố mẹ đồng ý). Giọng bé được nhận dạng ngay trên máy, không gửi đi đâu; Bé Vui Học không ghi âm hay lưu âm thanh.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Nhận ra tiếng bé đọc trong bài Đọc truyện (chỉ khi bố mẹ đồng ý).</string>
+	<string>Nhận ra từ bé đọc trong bài Đọc to (chỉ khi bố mẹ đồng ý). Việc nhận dạng chạy ngay trên máy, không gửi giọng nói lên mạng.</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>FirebaseDataCollectionDefaultEnabled</key>
+	<false/>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>vi</string>
+		<string>en</string>
+	</array>
 		<key>CADisableMinimumFrameDurationOnPhone</key>
 		<true/>
 		<key>CFBundleDevelopmentRegion</key>
@@ -19,7 +28,7 @@
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
 		<key>CFBundleName</key>
-		<string>be_vui_hoc</string>
+		<string>Bé Vui Học</string>
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
 		<key>CFBundleShortVersionString</key>

@@ -1,12 +1,13 @@
-// Chỗ giữ tạm cho phần chưa port: màn "Đang xây dựng". Agent sau thay bằng bản thật trong thư mục của mình.
+// Chỉ dùng trong test: game giả có nút "Xong bài" / "Thắng (thử)" và màn "Đang xây dựng" (chuyển khỏi lib/ để không nằm trong
+// bản phát hành — App Store 2.1).
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../audio/audio_service.dart';
-import '../ui/ui.dart';
-import 'fun_games.dart';
-import 'game_module.dart';
+import 'package:be_vui_hoc/core/audio/audio_service.dart';
+import 'package:be_vui_hoc/core/game/fun_games.dart';
+import 'package:be_vui_hoc/core/game/game_module.dart';
+import 'package:be_vui_hoc/core/ui/ui.dart';
 
 /// Màn "Đang xây dựng" có nút quay lại (về bản đồ nếu không có trang trước).
 class UnderConstruction extends ConsumerWidget {

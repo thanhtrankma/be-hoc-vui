@@ -10,7 +10,6 @@ import 'package:be_vui_hoc/core/audio/audio_service.dart';
 import 'package:be_vui_hoc/core/content/content.dart';
 import 'package:be_vui_hoc/core/content/levels.dart';
 import 'package:be_vui_hoc/core/game/fun_games.dart';
-import 'package:be_vui_hoc/core/game/placeholder.dart';
 import 'package:be_vui_hoc/core/game/registry.dart';
 import 'package:be_vui_hoc/core/store/store.dart';
 import 'package:be_vui_hoc/core/ui/ui.dart';
@@ -27,6 +26,8 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../features/fun_action/helpers.dart';
+
+import 'placeholder.dart';
 
 const kSizes = [Size(320, 640), Size(360, 780), Size(780, 360)];
 

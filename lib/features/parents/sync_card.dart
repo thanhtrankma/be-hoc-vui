@@ -68,6 +68,7 @@ class _SyncCardState extends ConsumerState<SyncCard> {
                     SelectableText(
                       _show ? c : '••••-••••-••••-${c.substring(c.length - 4)}',
                       key: const Key('sync-code'),
+                      contextMenuBuilder: safeContextMenuBuilder,
                       style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 20, letterSpacing: 1.5, fontFamily: kFontFamily),
                     ),
                     SmallBtn(key: const Key('sync-show'), label: '👁 Hiện mã', onTap: () => setState(() => _show = true)),

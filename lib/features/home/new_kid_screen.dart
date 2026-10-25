@@ -55,9 +55,17 @@ class _NewKidScreenState extends ConsumerState<NewKidScreen> {
     context.go('/map');
   }
 
+  /// Nhập mã gia đình (kết nối máy chủ đồng bộ) là việc của bố mẹ → qua khoá bố mẹ trước (App Store 1.3, Google Families).
   Future<void> _join() async {
     ref.read(audioProvider).sfx('tap');
-    final v = await promptPanel(context, title: 'Nhà mình đã dùng Bé Vui Học trên máy khác? Nhập mã gia đình (ở Góc bố mẹ trên máy đó):', maxLength: 24);
+    if (!await parentGate(context, ref) || !mounted) return;
+    final en = ref.read(i18nProvider).isEn;
+    final v = await promptPanel(context,
+        title: en
+            ? 'Already using Bé Vui Học on another device? Enter the family code (from the Parents area on that device):'
+            : 'Nhà mình đã dùng Bé Vui Học trên máy khác? Nhập mã gia đình (ở Góc bố mẹ trên máy đó):',
+        maxLength: 24,
+        cancel: ref.read(i18nProvider).t('cancel'));
     if (v == null || v.trim().isEmpty || !mounted) return;
     final sync = ref.read(syncServiceProvider);
     final store = ref.read(storeProvider);
@@ -67,7 +75,11 @@ class _NewKidScreenState extends ConsumerState<NewKidScreen> {
       store.setActive(store.profiles.first.id);
       context.go('/kids');
     } else {
-      toast(r == 'notfound' ? 'Không tìm thấy mã này' : r == 'bad' ? 'Mã gồm 16 chữ và số' : 'Chưa kết nối được, thử lại sau');
+      toast(switch (r) {
+        'notfound' => en ? 'Code not found' : 'Không tìm thấy mã này',
+        'bad' => en ? 'The code has 16 letters and digits' : 'Mã gồm 16 chữ và số',
+        _ => en ? 'Could not connect, please try again later' : 'Chưa kết nối được, thử lại sau',
+      });
     }
   }
 
@@ -103,6 +115,7 @@ class _NewKidScreenState extends ConsumerState<NewKidScreen> {
                 controller: _name,
                 focusNode: _focus,
                 maxLength: 20,
+                contextMenuBuilder: safeContextMenuBuilder,
                 textAlign: TextAlign.center,
                 textInputAction: TextInputAction.next,
                 textCapitalization: TextCapitalization.words,
@@ -129,7 +142,8 @@ class _NewKidScreenState extends ConsumerState<NewKidScreen> {
               depth: 0,
               radius: 999,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: const Text('🔑 Đã có mã gia đình', style: TextStyle(fontWeight: FontWeight.w700)),
+              key: const Key('join-family'),
+              child: Text(i.isEn ? '🔑 I have a family code' : '🔑 Đã có mã gia đình', style: const TextStyle(fontWeight: FontWeight.w700)),
             ),
         ]),
       ]),

@@ -19,7 +19,9 @@ import 'package:be_vui_hoc/core/ui/ui.dart';
 /// Trang giới thiệu công khai của app (Firebase Hosting), dùng khi chia sẻ (không gắn tham số theo dõi).
 const String kShareUrl = 'https://bevuihoc-app.web.app/';
 const String kAppPitch =
-    'Bé Vui Học: ứng dụng học mà chơi miễn phí cho bé 3–6 tuổi. Ghép vần, đếm số, toán, tiếng Anh, có lộ trình theo thứ tự bài sách lớp 1. Không quảng cáo, không cần tài khoản.';
+    'Bé Vui Học: ứng dụng học mà chơi miễn phí cho bé 6–8 tuổi. Ghép vần, đếm số, toán, tiếng Anh, có lộ trình theo thứ tự bài sách lớp 1. Không quảng cáo, không cần tài khoản.';
+const String kAppPitchEn =
+    'Bé Vui Học: a free learn-through-play app for children aged 6–8. Vietnamese phonics, counting, maths and English, following the Grade 1 textbook. No ads, no account needed.';
 
 /// 'YYYY-MM-DD' → 'DD/MM/YYYY' (fmtDate của web).
 String fmtDate(String? d) => d == null || d.isEmpty ? '' : d.split('-').reversed.join('/');
@@ -117,7 +119,7 @@ void paintCertificate(Canvas c, CertData d, {ui.Image? medal, ui.Image? pic}) {
   _centerText(c, 'Ngày ${d.when} · ${d.stars} sao', y += 72, 40, FontWeight.w600, const Color(0xFF868E96));
   c.drawRRect(RRect.fromLTRBR(110, h - 230, w - 110, h - 90, const Radius.circular(70)), Paint()..color = const Color(0xFFF59F00));
   _centerText(c, 'Bé Vui Học', h - 165, 50, FontWeight.w800, Colors.white);
-  _centerText(c, 'Học mà chơi cho bé 3–6 tuổi', h - 118, 34, FontWeight.w600, Colors.white);
+  _centerText(c, 'Học mà chơi cho bé 6–8 tuổi', h - 118, 34, FontWeight.w600, Colors.white);
 }
 
 /// Vẽ bằng khen ra ui.Image 1080×1350.
@@ -141,16 +143,17 @@ Future<Uint8List?> certificatePng(CertData d) async {
   }
 }
 
-/// Lời giới thiệu kèm ảnh khi khoe.
-String certShareText(CertData d) =>
-    '${d.showName ? 'Bé ${d.name}' : 'Bé nhà mình'} vừa được bằng khen: ${d.text} Học miễn phí ở Bé Vui Học: $kShareUrl';
+/// Lời giới thiệu kèm ảnh khi khoe (theo ngôn ngữ của app; `d.text` đã theo ngôn ngữ đó).
+String certShareText(CertData d, {bool en = false}) => en
+    ? '${d.showName ? d.name : 'Our little one'} just earned a certificate: ${d.text} Learn for free with Bé Vui Học: $kShareUrl'
+    : '${d.showName ? 'Bé ${d.name}' : 'Bé nhà mình'} vừa được bằng khen: ${d.text} Học miễn phí ở Bé Vui Học: $kShareUrl';
 
 /// Mở bảng chia sẻ của máy với ảnh PNG; không tạo được ảnh thì chia sẻ chữ.
-Future<void> shareCertificate(CertData d, {Rect? origin}) async {
+Future<void> shareCertificate(CertData d, {Rect? origin, bool en = false}) async {
   final png = await certificatePng(d);
-  final text = certShareText(d);
+  final text = certShareText(d, en: en);
   if (png == null) {
-    toast('Chưa tạo được ảnh, bố mẹ chụp màn hình nhé');
+    toast(en ? 'Could not create the picture — please take a screenshot' : 'Chưa tạo được ảnh, bố mẹ chụp màn hình nhé');
     await SharePlus.instance.share(ShareParams(text: text, sharePositionOrigin: origin));
     return;
   }
@@ -194,7 +197,7 @@ class _CertificatePanelState extends ConsumerState<CertificatePanel> {
         onTap: () => setState(() => showName = !showName),
         child: Row(mainAxisSize: MainAxisSize.min, children: [
           Checkbox(value: showName, onChanged: (v) => setState(() => showName = v ?? true)),
-          const Flexible(child: Text('Hiện tên bé trên ảnh', style: TextStyle(color: AppColors.inkSoft))),
+          Flexible(child: Text(i.isEn ? 'Show the name on the picture' : 'Hiện tên bé trên ảnh', style: const TextStyle(color: AppColors.inkSoft))),
         ]),
       ),
       PanelRow(children: [
@@ -203,7 +206,7 @@ class _CertificatePanelState extends ConsumerState<CertificatePanel> {
           builder: (bc) => AppButton(
             key: const Key('cert-share'),
             icon: '📤',
-            label: 'Khoe với người thân',
+            label: i.isEn ? 'Share with family' : 'Khoe với người thân',
             variant: BtnVariant.green,
             onTap: () async {
               ref.read(audioProvider).sfx('tap');
@@ -211,7 +214,7 @@ class _CertificatePanelState extends ConsumerState<CertificatePanel> {
               if (!bc.mounted) return;
               final box = bc.findRenderObject() as RenderBox?;
               final origin = box == null ? null : box.localToGlobal(Offset.zero) & box.size;
-              await shareCertificate(d, origin: origin);
+              await shareCertificate(d, origin: origin, en: i.isEn);
             },
           ),
         ),

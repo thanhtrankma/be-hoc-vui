@@ -19,5 +19,9 @@ class MainActivity : FlutterActivity() {
                 else -> result.notImplemented()
             }
         }
+        // main.dart: chỉ đặt thanh trạng thái trong suốt trên Android 14 trở xuống (15+ đã tràn viền sẵn).
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "bvh/system").setMethodCallHandler { call, result ->
+            if (call.method == "sdkInt") result.success(Build.VERSION.SDK_INT) else result.notImplemented()
+        }
     }
 }

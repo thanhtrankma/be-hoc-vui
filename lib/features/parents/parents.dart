@@ -7,6 +7,7 @@
 import 'dart:convert';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -140,7 +141,7 @@ class KidsCard extends ConsumerWidget {
             Wrap(spacing: 8, runSpacing: 8, children: [
               SmallBtn(
                 key: Key('report-${p.id}'),
-                label: '📊 Báo cáo của con',
+                label: i.isEn ? '📊 Child report' : '📊 Báo cáo của con',
                 onTap: () {
                   ref.read(audioProvider).sfx('tap');
                   context.go('/report/${p.id}');
@@ -237,7 +238,7 @@ class BackupCard extends ConsumerWidget {
             try {
               await io.saveBackup('be-vui-hoc-${store.today()}.json', store.exportData());
             } catch (_) {
-              toast('Chưa lưu được file');
+              toast(i.isEn ? 'Could not save the file' : 'Chưa lưu được file');
             }
           },
         ),
@@ -266,22 +267,39 @@ class BackupCard extends ConsumerWidget {
 }
 
 // ---------------------------------------------------------------- Góp ý, giới thiệu
+/// Email liên hệ nhà phát triển (khớp assets/legal/*.md).
+const String kContactEmail = 'beatgone2503@gmail.com';
+
+/// Lời mời góp ý theo nền tảng đang chạy: bản iOS chỉ nhắc App Store, bản Android chỉ nhắc Google Play
+/// (App Store Guideline 2.3.10: không nhắc nền tảng khác trong app).
+String feedbackNote({required bool en, TargetPlatform? platform}) {
+  final ios = (platform ?? defaultTargetPlatform) == TargetPlatform.iOS;
+  if (en) {
+    return ios
+        ? 'Found a wrong answer, a broken game or want a new lesson? Leave feedback on the Bé Vui Học page in the App Store (ratings & reviews / developer contact) or email $kContactEmail, and mention your device, e.g. iPhone or iPad. The app never sends error reports or your child\'s learning data anywhere.'
+        : 'Found a wrong answer, a broken game or want a new lesson? Leave feedback on the Bé Vui Học page on Google Play (ratings & reviews / developer contact) or email $kContactEmail, and mention your device, e.g. phone or tablet model. The app never sends error reports or your child\'s learning data anywhere.';
+  }
+  return ios
+      ? 'Bố mẹ thấy bài sai, game lỗi hay muốn thêm bài gì thì gửi góp ý ở trang của Bé Vui Học trên App Store (mục đánh giá / liên hệ nhà phát triển) hoặc email $kContactEmail, nhớ ghi máy đang dùng, ví dụ iPhone, iPad. App không tự gửi báo lỗi hay dữ liệu học của bé đi đâu.'
+      : 'Bố mẹ thấy bài sai, game lỗi hay muốn thêm bài gì thì gửi góp ý ở trang của Bé Vui Học trên Google Play (mục đánh giá / liên hệ nhà phát triển) hoặc email $kContactEmail, nhớ ghi máy đang dùng, ví dụ tên điện thoại hay máy tính bảng. App không tự gửi báo lỗi hay dữ liệu học của bé đi đâu.';
+}
+
 class FeedbackCard extends ConsumerWidget {
   const FeedbackCard({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ParentsSection(title: '💬 Góp ý, báo lỗi', children: [
-      const LeftNote(
-          'Bố mẹ thấy bài sai, game lỗi hay muốn thêm bài gì thì gửi góp ý ở trang của Bé Vui Học trên App Store hoặc Google Play (mục đánh giá / liên hệ nhà phát triển), nhớ ghi máy đang dùng, ví dụ iPad, Android. App không tự gửi báo lỗi hay dữ liệu học của bé đi đâu.'),
+    final en = ref.watch(i18nProvider).isEn;
+    return ParentsSection(title: en ? '💬 Feedback & bug reports' : '💬 Góp ý, báo lỗi', children: [
+      LeftNote(feedbackNote(en: en)),
       const SizedBox(height: 10),
       Wrap(spacing: 8, runSpacing: 8, children: [
-        SmallBtn(key: const Key('link-about'), label: 'ℹ️ Giới thiệu', onTap: () => openInfoPage(context, const AboutScreen())),
+        SmallBtn(key: const Key('link-about'), label: en ? 'ℹ️ About' : 'ℹ️ Giới thiệu', onTap: () => openInfoPage(context, const AboutScreen())),
         SmallBtn(
           key: const Key('mic-reset'),
-          label: '🎤 Hỏi lại về micro',
+          label: en ? '🎤 Ask about the microphone again' : '🎤 Hỏi lại về micro',
           onTap: () {
             ref.read(storeProvider).setKv('bvh.micOK', null);
-            toast('Lần sau bé bấm 🎤 app sẽ hỏi lại bố mẹ');
+            toast(en ? 'Next time your child taps 🎤 the app will ask you again' : 'Lần sau bé bấm 🎤 app sẽ hỏi lại bố mẹ');
           },
         ),
       ]),
@@ -295,17 +313,21 @@ class ShareCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final io = ref.read(parentsIoProvider);
-    return ParentsSection(title: '📣 Giới thiệu cho bạn bè', children: [
-      const LeftNote('Bé Vui Học miễn phí. Bố mẹ thấy có ích thì gửi giúp vào nhóm Zalo của lớp hoặc bạn bè có con nhỏ nhé.'),
+    final en = ref.watch(i18nProvider).isEn;
+    final pitch = '${en ? kAppPitchEn : kAppPitch} $kShareUrl';
+    return ParentsSection(title: en ? '📣 Tell your friends' : '📣 Giới thiệu cho bạn bè', children: [
+      LeftNote(en
+          ? 'Bé Vui Học is free. If you find it useful, please share it with your class group or friends with young children.'
+          : 'Bé Vui Học miễn phí. Bố mẹ thấy có ích thì gửi giúp vào nhóm Zalo của lớp hoặc bạn bè có con nhỏ nhé.'),
       const SizedBox(height: 10),
       Wrap(spacing: 8, runSpacing: 8, children: [
-        SmallBtn(key: const Key('share-app'), label: '📤 Chia sẻ Zalo, Facebook, Messenger…', onTap: () => io.shareText('$kAppPitch $kShareUrl', subject: 'Bé Vui Học')),
+        SmallBtn(key: const Key('share-app'), label: en ? '📤 Share (Zalo, Facebook, Messenger…)' : '📤 Chia sẻ Zalo, Facebook, Messenger…', onTap: () => io.shareText(pitch, subject: 'Bé Vui Học')),
         SmallBtn(
           key: const Key('copy-link'),
-          label: '📋 Chép link',
+          label: en ? '📋 Copy link' : '📋 Chép link',
           onTap: () async {
-            await Clipboard.setData(ClipboardData(text: '$kAppPitch $kShareUrl'));
-            toast('Đã chép link, dán vào Zalo hoặc Facebook nhé');
+            await Clipboard.setData(ClipboardData(text: pitch));
+            toast(en ? 'Link copied — paste it into Zalo or Facebook' : 'Đã chép link, dán vào Zalo hoặc Facebook nhé');
           },
         ),
       ]),

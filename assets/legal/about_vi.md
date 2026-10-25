@@ -1,6 +1,6 @@
 # Giới thiệu Bé Vui Học
 
-Bé Vui Học là ứng dụng học mà chơi miễn phí cho bé 3–6 tuổi: làm quen chữ cái, ghép vần, tập đọc, tập tô, đếm số, toán, tiếng Anh, âm nhạc, vẽ, tư duy lô-gic và lập trình đầu đời — có lộ trình theo thứ tự bài sách lớp 1.
+Bé Vui Học là ứng dụng học mà chơi miễn phí cho bé 6–8 tuổi: làm quen chữ cái, ghép vần, tập đọc, tập tô, đếm số, toán, tiếng Anh, âm nhạc, vẽ, tư duy lô-gic và lập trình đầu đời — có lộ trình theo thứ tự bài sách lớp 1.
 
 - Không quảng cáo, không mua trong ứng dụng, không cần tài khoản.
 - Tiến độ học lưu trên máy; đồng bộ nhiều máy là tuỳ chọn và được mã hoá đầu-cuối.

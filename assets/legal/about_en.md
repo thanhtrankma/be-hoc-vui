@@ -1,6 +1,6 @@
 # About Bé Vui Học
 
-Bé Vui Học is a free learn-through-play app for children aged 3–6: letters, Vietnamese phonics and reading, tracing, counting, maths, English, music, drawing, logic and first steps in coding — following the order of the Grade 1 textbook.
+Bé Vui Học is a free learn-through-play app for children aged 6–8: letters, Vietnamese phonics and reading, tracing, counting, maths, English, music, drawing, logic and first steps in coding — following the order of the Grade 1 textbook.
 
 - No ads, no in-app purchases, no account needed.
 - Progress stays on the device; multi-device sync is optional and end-to-end encrypted.

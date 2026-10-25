@@ -1,6 +1,6 @@
 # be_vui_hoc
 
-Bé Vui Học - học mà chơi cho bé 3-6 tuổi
+Bé Vui Học - học mà chơi cho bé 6-8 tuổi
 
 ## Getting Started
 

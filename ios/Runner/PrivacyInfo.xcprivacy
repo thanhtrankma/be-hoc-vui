@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Privacy manifest của chính app (target Runner). Flutter engine, Firebase và các plugin tự kèm manifest riêng.
+     App không theo dõi, không có miền theo dõi (Firebase data collection tắt trong Info.plist:
+     FirebaseDataCollectionDefaultEnabled = NO). Dữ liệu thu: chỉ "Other User Content" = bản đồng bộ đã mã hoá đầu-cuối,
+     khi bố mẹ bật "Dùng trên nhiều máy" — khớp nhãn App Privacy (docs/STORE_PRIVACY.md mục 3).
+     API "required reason" do mã Dart của app gọi:
+     - UserDefaults (shared_preferences: hồ sơ, tiến độ, cài đặt của app)        → CA92.1
+     - File timestamp (dart:io / path_provider: tranh vẽ của bé trong thư mục app) → C617.1 -->
+<plist version="1.0">
+<dict>
+	<key>NSPrivacyTracking</key>
+	<false/>
+	<key>NSPrivacyTrackingDomains</key>
+	<array/>
+	<key>NSPrivacyCollectedDataTypes</key>
+	<array>
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeOtherUserContent</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+			</array>
+		</dict>
+	</array>
+	<key>NSPrivacyAccessedAPITypes</key>
+	<array>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
+				<string>CA92.1</string>
+			</array>
+		</dict>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
+				<string>C617.1</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

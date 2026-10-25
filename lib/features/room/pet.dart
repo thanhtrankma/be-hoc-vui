@@ -255,6 +255,7 @@ class _NamePetState extends ConsumerState<_NamePet> {
             key: const Key('pet-name-input'),
             controller: _c,
             maxLength: 14,
+            contextMenuBuilder: safeContextMenuBuilder,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: fs * 1.4, fontWeight: FontWeight.w800, color: AppColors.ink),
             decoration: InputDecoration(

@@ -5,13 +5,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'harness.dart';
 
 class FakeRecognizer implements Recognizer {
-  FakeRecognizer(this.heard);
+  FakeRecognizer(this.heard, {this.ok = true});
   final String Function() heard;
+  final bool ok;
   int inits = 0, listens = 0;
   @override
   Future<bool> init() async {
     inits++;
-    return true;
+    return ok;
   }
 
   @override
@@ -141,6 +142,37 @@ void main() {
       await settle(tester, 300);
     }
     expect(run.stars, 3);
+    await unmount(tester);
+  });
+
+  testWidgets('Bé đọc to: quyền micro bị từ chối → xoá đồng ý, lần bấm sau phải qua bảng hỏi + khoá bố mẹ lại', (tester) async {
+    final fake = FakeRecognizer(() => '', ok: false);
+    AloudView.debugRecognizer = () => fake;
+    addTearDown(() => AloudView.debugRecognizer = null);
+    var gates = 0;
+    final run = await pumpGame(tester, readModule, 'read', await levelOf(tester, 'aloud'), gate: () {
+      gates++;
+      return true;
+    });
+    await settle(tester, 500);
+    await tester.tap(find.byKey(const Key('aloud-mic')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('mic-yes')));
+    await settle(tester, 1000);
+    expect(gates, 1);
+    expect(fake.inits, 1);
+    expect(fake.listens, 0);
+    expect(run.store.getKv('bvh.micOK'), '0');
+    // Bấm 🎤 lần nữa: không được hỏi quyền hệ thống thẳng — phải qua bảng "Bật micro?" và khoá bố mẹ trước.
+    await tester.tap(find.byKey(const Key('aloud-mic')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('mic-yes')), findsOneWidget);
+    expect(fake.inits, 1);
+    await tester.tap(find.byKey(const Key('mic-yes')));
+    await settle(tester, 1000);
+    expect(gates, 2);
+    expect(fake.inits, 2);
+    expect(run.store.getKv('bvh.micOK'), '0');
     await unmount(tester);
   });
 }

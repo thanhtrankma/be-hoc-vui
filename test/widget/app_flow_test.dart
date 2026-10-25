@@ -3,7 +3,6 @@ import 'package:be_vui_hoc/app.dart';
 import 'package:be_vui_hoc/app_router.dart';
 import 'package:be_vui_hoc/core/audio/audio_service.dart';
 import 'package:be_vui_hoc/core/content/content.dart';
-import 'package:be_vui_hoc/core/game/placeholder.dart';
 import 'package:be_vui_hoc/core/game/registry.dart';
 import 'package:be_vui_hoc/core/store/store.dart';
 import 'package:be_vui_hoc/core/ui/ui.dart';
@@ -13,6 +12,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'placeholder.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

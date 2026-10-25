@@ -1,0 +1,5 @@
+/* Bé Vui Học — system strings (English). Must match Info.plist and the privacy policy. */
+"CFBundleDisplayName" = "Bé Vui Học";
+"CFBundleName" = "Bé Vui Học";
+"NSMicrophoneUsageDescription" = "Your child reads words aloud in the Reading activity so the app can listen and cheer (only after a parent agrees). The voice is recognized on this device and never sent anywhere; Bé Vui Học does not record or store audio.";
+"NSSpeechRecognitionUsageDescription" = "Recognizes the words your child reads aloud in the Read-aloud activity (only after a parent agrees). Recognition runs on this device; the voice is not sent over the network.";

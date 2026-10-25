@@ -27,7 +27,7 @@ fixture trong `test/parity/fixtures/` (`web_sources.json`, `web_store_trace.json
 | Vẽ / tập viết / tô màu | `CustomPainter` | Không cần thư viện ngoài |
 | Font | Baloo 2 (TTF, OFL) | Giống web |
 | Đồng bộ | Cloud Firestore `syncs/{sid}` (asia-southeast1) + mã hoá đầu-cuối PBKDF2/AES-GCM (`cryptography`), luật ở `firestore.rules` | Không tài khoản; máy chủ chỉ giữ khối byte đã mã hoá |
-| Firebase | `firebase_core`, Remote Config, Cloud Firestore; Hosting cho trang giới thiệu / chính sách (`hosting/`) | **Không** Analytics, Crashlytics, App Check, quảng cáo: app thuộc nhóm Kids/Families của App Store & Google Play |
+| Firebase | `firebase_core`, Cloud Firestore (Remote Config đã gỡ 19/10/2026); Hosting cho trang giới thiệu / chính sách (`hosting/`) | **Không** Analytics, Crashlytics, App Check, quảng cáo: app thuộc nhóm Kids/Families của App Store & Google Play |
 | CI/Test | `flutter analyze`, `flutter test` (unit + widget), chạy thử trên iOS Simulator | |
 
 ## 3. Kiến trúc thư mục
@@ -97,9 +97,16 @@ chính sách quyền riêng tư cho trẻ em, ảnh chụp cửa hàng.
       https://bevuihoc-app.web.app/ ; câu trả lời khai báo cửa hàng ở `docs/STORE_PRIVACY.md`; gỡ `reference/web/`.
 - [x] Kiểm thử: 366 test tự động (gồm quét tràn bố cục ở 320/360dp và màn ngang), chạy thử trên iPhone simulator,
       iPad (ngang) và Android emulator; mã hoá đồng bộ kiểm bằng vector WebCrypto cố định.
+- [x] 25/10/2026 — chốt phát hành: **giữ mọi game Khu vui chơi**; độ tuổi **6–8** (Apple: age rating **9+** với Infrequent cartoon/
+      fantasy violence + Infrequent guns/weapons, Kids Category age band **6–8**; Google Play: Target audience **chỉ 6–8**). Không chọn
+      hướng "5 & Under / 4+". Khai quyền riêng tư **thận trọng**: Apple "User Content → Other User Content" (App Functionality, không
+      liên kết, không tracking); Google Data safety "App activity → Other user-generated content" (Collected, Optional, App
+      functionality, không chia sẻ, mã hoá khi truyền, xoá được). Chính sách hiệu lực 25/10/2026. Câu trả lời đầy đủ:
+      `docs/STORE_PRIVACY.md`, `docs/REVIEW_APPLE.md`, `docs/REVIEW_GOOGLE.md`. Đã sửa theo rà soát: khoá bố mẹ cho nhập mã gia đình,
+      xin lại quyền micro luôn qua khoá, menu chọn chữ an toàn, góp ý theo nền tảng, song ngữ Góc bố mẹ/bằng khen, đủ tác giả ảnh.
 - [ ] Phát hành — cần chủ app:
   - iOS: tài khoản Apple Developer (Team ID) để ký app, tạo app trên App Store Connect.
   - Android: tạo khoá ký upload (keystore) và lưu giữ cẩn thận, tạo app trên Google Play Console.
-  - Điền email liên hệ vào chỗ `beatgone2503@gmail.com` (assets/legal/*.md, chạy lại `python3 hosting/build_pages.py`), deploy
-    `firebase deploy --only firestore:rules,hosting`, khai báo theo `docs/STORE_PRIVACY.md`, ảnh chụp cửa hàng, mô tả.
+  - Deploy `firebase deploy --only firestore:rules,hosting` (trang đã build lại 25/10/2026), khai báo theo `docs/STORE_PRIVACY.md`,
+    ảnh chụp cửa hàng, mô tả (ghi "6–8 tuổi", không nhắm bé dưới 6).
   - Chạy thử trên máy thật (iPhone + Android) bản release.

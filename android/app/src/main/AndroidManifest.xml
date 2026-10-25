@@ -1,11 +1,21 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <!-- Đồng bộ mã gia đình (Firebase / Cloud Firestore, chỉ bản đã mã hoá) và đọc to (speech_to_text, chỉ khi bố mẹ đồng ý) -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!-- App trẻ em (Google Play Families): không bao giờ dùng mã quảng cáo. Gỡ chắc chắn nếu thư viện nào đó gộp vào. -->
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
+    <!-- speech_to_text mặc định xin kèm BLUETOOTH_CONNECT (tai nghe Bluetooth); app không cần. -->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" tools:node="remove"/>
     <application
         android:label="Bé Vui Học"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:usesCleartextTraffic="false"
+        tools:replace="android:allowBackup">
         <activity
             android:name=".MainActivity"
             android:exported="true"

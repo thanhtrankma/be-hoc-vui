@@ -116,10 +116,26 @@ def page(title, body, lang='vi', current='/', desc=''):
 <main>
 {body}
 </main>
-<footer>Bé Vui Học · {'học mà chơi cho bé 3–6 tuổi' if lang == 'vi' else 'learn through play for ages 3–6'} · {'Không quảng cáo, không theo dõi' if lang == 'vi' else 'No ads, no tracking'}</footer>
+<footer>Bé Vui Học · {'học mà chơi cho bé 6–8 tuổi' if lang == 'vi' else 'learn through play for ages 6–8'} · {'Không quảng cáo, không theo dõi' if lang == 'vi' else 'No ads, no tracking'}</footer>
 </body>
 </html>
 """
+
+
+def license_url(lic):
+    """'CC BY-SA 4.0' → https://creativecommons.org/licenses/by-sa/4.0/ (khớp photoLicenseUrl() trong lib/core/content/models.dart)."""
+    lic = (lic or '').strip()
+    if lic == 'CC0':
+        return 'https://creativecommons.org/publicdomain/zero/1.0/'
+    m = re.match(r'^CC (BY(?:-SA)?) (\d\.\d)(?: ([a-z]{2}))?$', lic)
+    if not m:
+        return None
+    return f'https://creativecommons.org/licenses/{m[1].lower()}/{m[2]}/' + (f'{m[3]}/' if m[3] else '')
+
+
+def lic_cell(lic):
+    url = license_url(lic)
+    return f'<a href="{html.escape(url)}">{html.escape(lic)}</a>' if url else html.escape(lic or '')
 
 
 def read(p):
@@ -138,7 +154,7 @@ def build():
     about = ('<div class="card">' + md_to_html(read('assets/legal/about_vi.md')).replace('Danh sách đầy đủ có ở mục Ghi công.', 'Danh sách đầy đủ: <a href="/credits">Ghi công</a>.') + '</div>'
              + '<div class="card" lang="en">' + md_to_html(read('assets/legal/about_en.md')).replace('The full list is under Credits.', 'Full list: <a href="/credits">Credits</a>.') + '</div>'
              + '<div class="card"><p><strong>Chính sách quyền riêng tư / Privacy policy:</strong> <a href="/privacy">Tiếng Việt</a> · <a href="/privacy/en">English</a></p></div>')
-    write('index.html', page('Bé Vui Học', about, current='/', desc='Bé Vui Học — ứng dụng học mà chơi miễn phí cho bé 3–6 tuổi. Không quảng cáo, không tài khoản.'))
+    write('index.html', page('Bé Vui Học', about, current='/', desc='Bé Vui Học — ứng dụng học mà chơi miễn phí cho bé 6–8 tuổi. Không quảng cáo, không tài khoản.'))
 
     vi = '<div class="card"><a class="lang" href="/privacy/en" hreflang="en">English</a>' + md_to_html(read('assets/legal/privacy_vi.md')) + '</div>'
     write('privacy/index.html', page('Chính sách quyền riêng tư — Bé Vui Học', vi, current='/privacy', desc='Chính sách quyền riêng tư của ứng dụng Bé Vui Học.'))
@@ -148,7 +164,7 @@ def build():
     photos = json.loads(read('assets/data/photos.json'))
     rows = ''.join(
         '<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>'.format(
-            html.escape(name), html.escape(p.get('by') or '?'), html.escape(p.get('lic') or ''),
+            html.escape(name), html.escape(p.get('by') or '?'), lic_cell(p.get('lic')),
             f'<a href="{html.escape(p["src"])}">Wikimedia Commons</a>' if p.get('src') else 'Wikimedia Commons')
         for name, p in photos.items())
     sprite_files = []
@@ -162,7 +178,7 @@ def build():
 <h1>Ghi công <span class="muted">/ Credits</span></h1>
 <p>Bé Vui Học dùng ảnh, âm thanh và hình vẽ có giấy phép tự do. Cảm ơn các tác giả! <span class="muted">Bé Vui Học uses freely licensed photos, sounds and artwork. Thank you to all authors!</span></p>
 <h2>Ảnh chụp trong bài học <span class="muted">/ Lesson photos ({len(photos)})</span></h2>
-<p class="muted">Wikimedia Commons — CC0, CC BY, CC BY-SA. Mỗi dòng dẫn tới trang tệp gốc (tác giả, giấy phép). Ảnh đã được thu nhỏ và chuyển định dạng để dùng trong ứng dụng.</p>
+<p class="muted">Wikimedia Commons — CC0, CC BY, CC BY-SA. Mỗi dòng ghi tác giả, giấy phép (dẫn tới trang giấy phép) và dẫn tới trang tệp gốc. Ảnh đã thu nhỏ/cắt và đổi sang định dạng WebP để dùng trong ứng dụng. <span lang="en">Each row gives the author, the license (linked) and the original file. Photos were resized/cropped and converted to WebP for use in the app.</span></p>
 <table><thead><tr><th>Ảnh / Photo</th><th>Tác giả / Author</th><th>Giấy phép / License</th><th>Nguồn / Source</th></tr></thead><tbody>{rows}</tbody></table>
 <h2>Tiếng thú cưng <span class="muted">/ Pet sounds</span></h2>
 <pre>{inline(read('assets/sfx/CREDITS.txt').strip())}</pre>
